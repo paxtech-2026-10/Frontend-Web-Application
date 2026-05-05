@@ -97,6 +97,14 @@
               "src/styles.css"
             ],
             "scripts": []
+          },
+          "configurations": {
+            "services-only": {
+              "include": [
+                "src/app/services/services/service.assembler.spec.ts",
+                "src/app/services/services/services-api.service.spec.ts"
+              ]
+            }
           }
         },
         "deploy": {

@@ -37,6 +37,8 @@ export class CreateServiceDialogComponent {
     providerId: 0
   };
 
+  submitted = false;
+
   constructor(
     public dialogRef: MatDialogRef<CreateServiceDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ServiceResponse | null
@@ -53,9 +55,30 @@ export class CreateServiceDialogComponent {
     }
   }
 
+  get nameError(): string | null {
+    if (!this.submitted) return null;
+    return !this.service.name?.trim() ? 'El nombre es requerido' : null;
+  }
+
+  get durationError(): string | null {
+    if (!this.submitted) return null;
+    if (this.service.duration === null || this.service.duration === undefined) {
+      return 'La duración es requerida';
+    }
+    return this.service.duration <= 0 ? 'La duración debe ser mayor a 0 minutos' : null;
+  }
+
+  get priceError(): string | null {
+    if (!this.submitted) return null;
+    if (this.service.price === null || this.service.price === undefined) {
+      return 'El precio es requerido';
+    }
+    return this.service.price < 0 ? 'El precio no puede ser negativo' : null;
+  }
+
   submit() {
-    if (!this.service.name || this.service.duration <= 0 || this.service.price < 0) {
-      console.error('❌ Datos inválidos del servicio:', this.service);
+    this.submitted = true;
+    if (this.nameError || this.durationError || this.priceError) {
       return;
     }
     this.dialogRef.close(this.service);

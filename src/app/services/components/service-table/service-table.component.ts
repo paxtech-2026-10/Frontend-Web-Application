@@ -1,4 +1,4 @@
-import {Component, inject, Input, OnChanges, SimpleChanges, ViewChild} from '@angular/core';
+import {Component, EventEmitter, inject, Input, OnChanges, Output, SimpleChanges, ViewChild} from '@angular/core';
 import {
   MatCell, MatCellDef,
   MatColumnDef,
@@ -46,6 +46,7 @@ export class ServiceTableComponent implements OnChanges {
   displayedColumns: string[] = ['name', 'duration', 'price', 'status', 'actions'];
   @Input() services: Service[] = [];
   @Input() newService: ServiceResponse | null = null;
+  @Output() servicesChanged = new EventEmitter<void>();
 
 
   private servicesService: ServiceApiService = inject(ServiceApiService);
@@ -85,15 +86,23 @@ export class ServiceTableComponent implements OnChanges {
   }
 
   public deleteService(id: number): void {
-    console.log('Deleting from endpoint:', this.servicesService.resourcePath());
-    console.log('🔧 Service API Instance:', this.servicesService);
-    console.log('DELETE URL:', `${this.servicesService.resourcePath()}/${id}`);
+    const target = this.services.find(s => s.id === id);
+    const label = target ? `"${target.name}"` : 'este servicio';
+    const confirmed = window.confirm(
+      `¿Eliminar ${label}? Esta acción no se puede deshacer.`
+    );
+    if (!confirmed) return;
 
-
-    this.servicesService.delete(id).subscribe(() => {
-      this.services = this.services.filter(s => s.id !== id);
-      this.dataSource.data = this.dataSource.data.filter(s => s.id !== id);  // ④
-      this.snackBar.open('🗑️ Servicio eliminado.', 'Cerrar', { duration: 2000 });
+    this.servicesService.delete(id).subscribe({
+      next: () => {
+        this.services = this.services.filter(s => s.id !== id);
+        this.dataSource.data = this.dataSource.data.filter(s => s.id !== id);
+        this.snackBar.open('🗑️ Servicio eliminado.', 'Cerrar', { duration: 2000 });
+        this.servicesChanged.emit();
+      },
+      error: () => {
+        this.snackBar.open('❌ Error al eliminar el servicio.', 'Cerrar', { duration: 2000 });
+      }
     });
   }
 
@@ -148,6 +157,7 @@ export class ServiceTableComponent implements OnChanges {
               this.services[index] = { ...updated };
             }
             this.snackBar.open('✏️ Servicio actualizado con éxito.', 'Cerrar', { duration: 2000 });
+            this.servicesChanged.emit();
           },
           error: (err) => {
             console.error('❌ Error al actualizar el servicio:', err);

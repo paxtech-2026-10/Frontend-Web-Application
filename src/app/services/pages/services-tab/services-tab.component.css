@@ -62,3 +62,39 @@ h1{
 .new-service{
   text-align: right;
 }
+
+.state-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 4rem 2rem;
+  gap: 1rem;
+  min-height: 320px;
+}
+
+.state-icon {
+  font-size: 64px;
+  width: 64px;
+  height: 64px;
+  color: #927EA8;
+}
+
+.state-icon.error-icon {
+  color: #b00020;
+}
+
+.state-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+.state-text {
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+  max-width: 360px;
+}

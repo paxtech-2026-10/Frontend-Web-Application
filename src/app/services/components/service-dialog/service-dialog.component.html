@@ -5,6 +5,7 @@
     <mat-label>Nombre</mat-label>
     <input matInput [(ngModel)]="service.name" required aria-label="Service name" />
   </mat-form-field>
+  <div class="dialog-error" role="alert" *ngIf="nameError">{{ nameError }}</div>
 
 
   <!-- Duración -->
@@ -12,12 +13,14 @@
     <mat-label>Duración (minutos)</mat-label>
     <input matInput type="number" min="1" [(ngModel)]="service.duration" required aria-label="Duration in minutes" />
   </mat-form-field>
+  <div class="dialog-error" role="alert" *ngIf="durationError">{{ durationError }}</div>
 
   <!-- Precio -->
   <mat-form-field appearance="fill" aria-label="Service price input">
     <mat-label>Precio</mat-label>
     <input matInput type="number" min="0" [(ngModel)]="service.price" required aria-label="Price" />
   </mat-form-field>
+  <div class="dialog-error" role="alert" *ngIf="priceError">{{ priceError }}</div>
 
 
 </mat-dialog-content>
