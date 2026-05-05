@@ -1,0 +1,30 @@
+.dashboard-grid {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.main-row {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.sidebar {
+  flex: 1;
+}
+
+.appointments {
+  flex: 2;
+}
+
+.blank-space {
+  flex: 1;
+}
+
+
+h1 {
+  text-align: center;
+  margin-top: 3rem;
+}

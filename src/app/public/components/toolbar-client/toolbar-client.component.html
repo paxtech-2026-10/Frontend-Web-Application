@@ -1,0 +1,38 @@
+<header class="toolbar" aria-label="Toolbar">
+  <div class="left-section">
+    <button class="icon-button" aria-label="Home" [routerLink]="'/client/homeClient'">
+      <span class="material-icons">home</span>
+    </button>
+
+    <div class="search-bar" aria-label="Search bar">
+      <span class="material-icons">search</span>
+      <input type="text"
+             placeholder="{{'client.toolbar.search' | translate}}"
+             aria-label="Search"
+             matInput
+             [formControl]="myControl"
+             [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSalonSelected($event.option.value)">
+        @for (salon of filteredOptions; track salon) {
+          <mat-option [value]="salon">{{salon.companyName}}</mat-option>
+        }
+      </mat-autocomplete>
+    </div>
+  </div>
+
+  <div class="center-section">
+    <img src="https://raw.githubusercontent.com/UPC-PaxTech/uTime/refs/heads/develop/img/logoutime.png"
+         alt="uTime Logo"
+         class="logo-img">
+  </div>
+
+  <div class="right-section">
+    <app-language-switcher></app-language-switcher>
+    <button class="icon-button" aria-label="Profile" [routerLink]="'/client/profile'">
+      <span class="material-icons">person</span>
+    </button>
+    <button class="icon-button logout" aria-label="Logout" [routerLink]="'/iam/logout'">
+      <span class="material-icons">logout</span>
+    </button>
+  </div>
+</header>

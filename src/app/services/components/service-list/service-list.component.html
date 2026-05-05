@@ -1,0 +1,22 @@
+<div *ngFor="let service of services" class="service-card" aria-label="Service card">
+  <div class="card-left" aria-label="Service details">
+    <h3 aria-label="Service name">{{ service.name }}</h3>
+    <!--<p class="description" aria-label="Service description">{{ service.description }}</p>-->
+  </div>
+
+  <div class="card-right" aria-label="Service duration and price">
+    <div class="duration-price">
+      <div class="duration" aria-label="Duration">⏱ {{ service.duration }} minutes</div>
+      <div class="price" aria-label="Price">${{ service.price }}</div>
+    </div>
+  </div>
+
+  <div class="card-right" aria-label="Reservation button container">
+    <button
+      mat-raised-button
+      color="accent"
+      (click)="navigateWithService(service)">
+      Reservar ahora
+    </button>
+  </div>
+</div>

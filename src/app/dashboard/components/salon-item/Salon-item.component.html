@@ -1,0 +1,15 @@
+<mat-card class="salon-card" aria-label="salon-card">
+  <img mat-card-image class="card-image" [src]="salon.profileImageURL" alt="Photo of a salon" />
+
+  <mat-card-content class = layout-title>
+    <mat-card-title class="salon-title">{{ salon.companyName }}</mat-card-title>
+  </mat-card-content>
+
+  <mat-card-content class="review-section">
+    <app-review-list [reviews]="reviews" [average]="reviewAverage"></app-review-list>
+  </mat-card-content>
+
+  <mat-card-actions class="action-button" aria-label="salon-button">
+    <button mat-button [routerLink]="['/client/homeClient/salon', salon.id ]">{{'client.favorites.book' | translate}}</button>
+  </mat-card-actions>
+</mat-card>

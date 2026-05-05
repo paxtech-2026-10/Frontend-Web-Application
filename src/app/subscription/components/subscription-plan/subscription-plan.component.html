@@ -1,0 +1,54 @@
+<h2 aria-label="Current plan">{{'subscription.currentPlan' | translate}}
+  <div class="plan-container" aria-label="Selected plan">{{selectedPlan || "ProStyle"}}</div>
+</h2>
+
+<h3 aria-label="Upgrade subscription plan">{{'subscription.upgrade' | translate }}</h3>
+<div class="plans" aria-label="Available subscription plans">
+  <mat-card class="essential" (click)="changePlan('Essential')" aria-label="Essential plan">
+    <mat-card-title aria-label="Plan name">Essential</mat-card-title>
+    <mat-card-subtitle aria-label="Plan price">Free</mat-card-subtitle>
+    <div class="features" aria-label="Essential plan features">
+      <li><mat-icon class="check" aria-hidden="true">check</mat-icon> Basic smart calendar</li>
+      <li><mat-icon class="check" aria-hidden="true">check</mat-icon> Client booking page</li>
+      <li><mat-icon class="check" aria-hidden="true">check</mat-icon> Reviews & ratings</li>
+      <li><mat-icon class="ex" aria-hidden="true">clear</mat-icon> Client database</li>
+      <li><mat-icon class="ex" aria-hidden="true">clear</mat-icon> Custom booking link</li>
+      <li><mat-icon class="ex" aria-hidden="true">clear</mat-icon> Advanced analytics</li>
+    </div>
+    <div class="boton">
+      <button class="choose-btn" aria-label="Choose Essential plan">Choose</button>
+    </div>
+  </mat-card>
+
+  <mat-card class="prostyle" (click)="changePlan('ProStyle')" aria-label="ProStyle plan">
+    <mat-card-title aria-label="Plan name">ProStyle</mat-card-title>
+    <mat-card-subtitle aria-label="Plan price">s/69.9 x month</mat-card-subtitle>
+    <div class="features" aria-label="ProStyle plan features">
+      <li><mat-icon class="check" aria-hidden="true">check</mat-icon> Basic smart calendar</li>
+      <li><mat-icon class="check" aria-hidden="true">check</mat-icon> Client booking page</li>
+      <li><mat-icon class="check" aria-hidden="true">check</mat-icon> Reviews & ratings</li>
+      <li><mat-icon class="check" aria-hidden="true">check</mat-icon> Client database</li>
+      <li><mat-icon class="ex" aria-hidden="true">clear</mat-icon> Custom booking link</li>
+      <li><mat-icon class="ex" aria-hidden="true">clear</mat-icon> Advanced analytics</li>
+    </div>
+    <div class="boton">
+      <button class="choose-btn" aria-label="Choose ProStyle plan">Choose</button>
+    </div>
+  </mat-card>
+
+  <mat-card class="deluxe-studio" (click)="changePlan('Deluxe Studio')" aria-label="Deluxe Studio plan">
+    <mat-card-title aria-label="Plan name">Deluxe Studio</mat-card-title>
+    <mat-card-subtitle aria-label="Plan price">s/129.90 x month</mat-card-subtitle>
+    <div class="features" aria-label="Deluxe Studio plan features">
+      <li><mat-icon class="check" aria-hidden="true">check</mat-icon> Basic smart calendar</li>
+      <li><mat-icon class="check" aria-hidden="true">check</mat-icon> Client booking page</li>
+      <li><mat-icon class="check" aria-hidden="true">check</mat-icon> Reviews & ratings</li>
+      <li><mat-icon class="check" aria-hidden="true">check</mat-icon> Client database</li>
+      <li><mat-icon class="check" aria-hidden="true">check</mat-icon> Custom booking link</li>
+      <li><mat-icon class="check" aria-hidden="true">check</mat-icon> Advanced analytics</li>
+    </div>
+    <div class="boton">
+      <button class="choose-btn" aria-label="Choose Deluxe Studio plan">Choose</button>
+    </div>
+  </mat-card>
+</div>

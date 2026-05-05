@@ -1,0 +1,27 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<nav class="sidebar" aria-label="Sidebar navigation">
+  <a routerLink="/provider/homeProvider" routerLinkActive="active" aria-label="Home">
+    <span class="material-icons">home</span> {{ 'dashboard.home' | translate }}
+  </a>
+  <a routerLink="/provider/schedule" routerLinkActive="active" aria-label="Schedule">
+    <span class="material-icons">calendar_month</span> {{ 'dashboard.schedule' | translate }}
+  </a>
+  <a routerLink="/provider/reviews" routerLinkActive="active" aria-label="Reviews">
+    <span class="material-icons">star</span> {{ 'dashboard.reviews' | translate }}
+  </a>
+  <a routerLink="/provider/services" routerLinkActive="active" aria-label="Services">
+    <span class="material-icons">spa</span> {{ 'dashboard.services' | translate }}
+  </a>
+  <a routerLink="/provider/subscription" routerLinkActive="active" aria-label="Subscription">
+    <span class="material-icons">wallet</span> {{ 'dashboard.subscription' | translate }}
+  </a>
+  <a routerLink="/provider/settings" routerLinkActive="active" aria-label="Settings">
+    <span class="material-icons">settings</span> Settings
+  </a>
+  <span class="divider"></span>
+  <!--
+  <a routerLink="/provider/notification" routerLinkActive="active" aria-label="Notifications">
+    <span class="material-icons">notifications</span> Notifications
+  </a>-->
+</nav>

@@ -1,0 +1,22 @@
+<div class="dashboard-grid">
+  <div class="main-row">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <app-sidebar-client></app-sidebar-client>
+    </div>
+
+    <!-- Appointments -->
+    <div class="appointments" aria-label="appointment-dashboard">
+      <app-upcoming-appointments class="appointment-dashboard" [isClient]="true"></app-upcoming-appointments>
+    </div>
+    <div class="blank-space"></div>
+  </div>
+
+  <div class="second-row" aria-label="salon-list">
+    <div class="blank-space"></div>
+      <app-salon-list></app-salon-list>
+    <div class="blank-space"></div>
+
+  </div>
+
+</div>

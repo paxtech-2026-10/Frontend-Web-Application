@@ -1,0 +1,21 @@
+.review-card {
+  background: #e0e0e0;
+  border-radius: 10px;
+  padding: 1rem;
+  min-width: 200px;
+  text-align: left;
+}
+
+.stars span {
+  color: #ccc;
+}
+
+.stars span.filled {
+  color: #f5b301; /* Star filled color */
+}
+
+.comment {
+  font-style: italic;
+  color: #333;
+  margin-top: 0.5rem;
+}

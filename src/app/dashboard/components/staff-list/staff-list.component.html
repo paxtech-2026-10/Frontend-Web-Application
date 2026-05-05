@@ -1,0 +1,6 @@
+<section>
+  <h3>{{ 'dashboard.ourStaff' | translate }}</h3>
+  @for (worker of WorkerList; track worker.name) {
+    <app-staff-item [worker]="worker" aria-label="worker"></app-staff-item>
+  }
+</section>

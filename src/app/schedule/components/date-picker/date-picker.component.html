@@ -1,0 +1,15 @@
+<mat-card class="inline-calendar-card" aria-label="Calendar card">
+  <mat-calendar [(selected)]="selected" aria-label="Calendar"></mat-calendar>
+</mat-card>
+
+<div aria-label="Time slot selection">
+  <p>Seleccione rango horario:</p>
+  <button *ngFor="let slot of timeSlots" mat-button (click)="selectTimeSlot(slot)">
+    {{slot.start | date:'shortTime'}} - {{slot.end | date:'shortTime'}}
+  </button>
+</div>
+
+<p aria-label="Selected date">Selected date: {{selected | date: 'fullDate'}}</p>
+<p *ngIf="selectedTimeSlot" aria-label="Selected time slot">
+  Rango seleccionado: {{selectedTimeSlot.start | date:'shortTime'}} - {{selectedTimeSlot.end | date:'shortTime'}}
+</p>

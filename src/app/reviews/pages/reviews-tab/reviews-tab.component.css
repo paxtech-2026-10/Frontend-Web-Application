@@ -1,0 +1,14 @@
+.main-column {
+  flex: 1;
+  min-width: 300px;
+  max-height: 100%;
+  position: sticky;
+  top: 24px;
+  margin: 3rem;
+}
+
+h1 {
+  text-align: left;
+  margin-top: 3rem;
+  margin-left: 3rem;
+}

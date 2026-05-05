@@ -1,0 +1,52 @@
+/* 1. Elimina scroll del body */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+app-toolbar-provider {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100px; /* o lo que mida tu toolbar exacto */
+  z-index: 1000;
+  background-color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* 3. Sidebar fijo */
+app-sidebar {
+  position: fixed;
+  top: 64px; /* Debajo del toolbar */
+  left: 0;
+  width: 250px;
+  height: calc(100vh - 64px);
+  background-color: #f9f9f9;
+  z-index: 900;
+  overflow-y: auto;
+}
+
+/* 4. Layout general */
+.main-layout {
+  display: flex;
+  height: 100vh;
+  margin-top: 64px; /* espacio para el toolbar */
+}
+/* 5. Contenido a la derecha del sidebar */
+.content {
+  margin-left: 250px; /* Empuja hacia la derecha del sidebar */
+  height: calc(100vh - 64px); /* Espacio restante bajo el toolbar */
+  padding: 2rem;
+  background-color: #f9f9f9;
+  width: calc(100vw - 250px); /* Evita que se meta debajo del sidebar */
+}
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden; /* 👈 ESTO es clave */
+}
+

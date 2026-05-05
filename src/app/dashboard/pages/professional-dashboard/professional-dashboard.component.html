@@ -1,0 +1,27 @@
+<h1>{{ 'dashboard.hey' | translate }} Vibrance Salon, {{ 'dashboard.letsWork' | translate }}</h1>
+
+<div class="dashboard-grid">
+  <!-- COLUMNA IZQUIERDA: Appointments + Staff -->
+  <div class="main-column" aria-label="salon-grid">
+    <mat-card class="mat-elevation-z2" >
+      <mat-card-content>
+        <app-upcoming-appointments></app-upcoming-appointments>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="mat-elevation-z2 staff-section">
+      <mat-card-content>
+        <app-staff-list [WorkerList]="worker"></app-staff-list>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- COLUMNA DERECHA: Reviews -->
+  <div class="sidebar-column" aria-label="review-list">
+    <mat-card class="mat-elevation-z2">
+      <mat-card-content>
+        <app-review-list [reviews]="reviews"></app-review-list>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

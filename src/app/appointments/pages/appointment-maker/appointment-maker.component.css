@@ -1,0 +1,40 @@
+.grid {
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+    flex-wrap: nowrap;
+}
+
+.left-column{
+    flex: 1;
+    min-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin: 2rem;
+}
+
+.right-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* <-- opcional, alinea arriba */
+    padding: 2rem; /* opcional, para que no esté tan pegado */
+}
+
+
+.back-button {
+
+    button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+        display: flex;
+        align-items: center;
+    }
+}
+
+.date-picker{
+    min-width: 90%;
+}

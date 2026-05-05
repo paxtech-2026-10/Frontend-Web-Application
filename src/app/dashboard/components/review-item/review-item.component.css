@@ -1,0 +1,35 @@
+.review {
+  border-bottom: 1px solid #eee;
+  padding: 10px 0;
+  font-size: 0.95rem;
+  color: #444;
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.review-author {
+  font-weight: 600;
+  font-size: 1rem;
+  margin: 0;
+}
+
+.review-stars {
+  display: flex;
+  gap: 2px;
+}
+
+.star {
+  color: #f5a623;
+  font-size: 1.1rem;
+}
+
+.review-text {
+  margin: 6px 0 0 0;
+  line-height: 1.4;
+  font-size: 0.9rem;
+  color: #555;
+}

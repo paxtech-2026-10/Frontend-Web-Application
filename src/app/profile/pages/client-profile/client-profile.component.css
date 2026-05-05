@@ -1,0 +1,20 @@
+.main-container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding-left: 24px;
+  width: 100%;
+  box-sizing: border-box;
+  gap: 24px; /* <--- ESTA ES LA CLAVE */
+}
+
+.sidebar-item {
+
+}
+
+.favorites-items {
+  flex: 1;
+  min-width: 0; /* clave para evitar que los hijos expandan más allá del contenedor */
+  box-sizing: border-box;
+  overflow-x: auto; /* añade scroll si se necesita horizontal */
+}

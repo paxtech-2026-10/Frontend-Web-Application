@@ -1,0 +1,53 @@
+<mat-card class="appointment-card" appearance="outlined">
+  <div class="appointment-header">
+    <div class="appointment-type">
+      <mat-icon>event_note</mat-icon>
+      <span>{{ appointment.provider.name }}</span>
+    </div>
+    <div class="appointment-date" aria-label="appointment-date">
+      <mat-icon>calendar_today</mat-icon>
+      <span>{{'client.appointments.date' | translate}} {{ formatDay(appointment.timeSlot.startTime) }}</span>
+    </div>
+  </div>
+
+  <div class="appointment-body" >
+    <div class="appointment-section" aria-label="salon-name">
+      <mat-icon>location_on</mat-icon>
+      <div class="info-content">
+        <div class="label">{{'client.appointments.salon' | translate}}</div>
+        <div class="value">{{ appointment.provider.name  }}</div>
+      </div>
+    </div>
+
+    <div class="appointment-section" aria-label="timeslots">
+      <mat-icon>schedule</mat-icon>
+      <div class="info-content">
+        <div class="label">{{'client.appointments.hour' | translate}}</div>
+        <div class="value">{{ formatTime(appointment.timeSlot.startTime) }} – {{ formatTime(appointment.timeSlot.endTime) }}</div>
+      </div>
+    </div>
+
+    <div class="appointment-section" aria-label="client-name">
+      <mat-icon>person</mat-icon>
+      <div class="info-content">
+        <div class="label">{{'client.appointments.client' | translate}}</div>
+        <div class="value">{{ appointment.clientId }}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="appointment-footer">
+    <button mat-stroked-button color="primary">
+      <mat-icon aria-label="payment button">payment</mat-icon>
+      {{'client.appointments.payment' | translate}}
+    </button>
+    <button mat-stroked-button>
+      <mat-icon aria-label="reschedule button">event</mat-icon>
+      {{'client.appointments.reschedule' | translate}}
+    </button>
+    <button mat-stroked-button color="warn">
+      <mat-icon aria-label="cancel button">cancel</mat-icon>
+      {{'client.appointments.cancel' | translate}}
+    </button>
+  </div>
+</mat-card>

@@ -1,0 +1,46 @@
+<div class="login-wrapper">
+  <!-- Sección izquierda con slideshow -->
+
+  <div class="left-section">
+
+    <div class="slideshow">
+      <img
+        *ngFor="let image of slideImages; let i = index"
+        [src]="image"
+        class="slide"
+        [class.active]="i === activeIndex"
+        alt=""
+      />
+    </div>
+    <div class="overlay-content">
+      <button class="back-button" aria-label="landing page button" onclick="window.location.href='https://upc-paxtech.github.io/uTime-Landing-Page/'">
+        ← {{ 'login.back' | translate}}
+      </button>
+    </div>
+
+    <!-- Indicadores -->
+    <div class="indicators">
+    <span
+      *ngFor="let img of slideImages; let i = index"
+      class="indicator"
+      [class.active]="i === activeIndex"
+      (click)="setSlide(i)"
+    ></span>
+    </div>
+
+
+  </div>
+
+  <!-- Sección derecha con formulario -->
+  <div class="right-section">
+    <div id="particles-js" style="position: fixed; top: 0; left: 0; width: 100%; height: 100vh; z-index: 0;"></div>
+    <div class="login-container" aria-label="login form">
+      <app-login-form>
+      </app-login-form>
+
+    </div>
+    <div class="language-content">
+      <app-language-switcher></app-language-switcher>
+    </div>
+  </div>
+</div>

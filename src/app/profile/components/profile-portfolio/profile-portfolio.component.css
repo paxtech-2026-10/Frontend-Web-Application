@@ -1,0 +1,44 @@
+.portfolio-gallery {
+  display: flex; /* Coloca las imágenes en fila */
+  flex-wrap: wrap; /* Permite que bajen a la siguiente línea si no caben */
+  gap: 16px; /* Espacio entre imágenes */
+  justify-content: center; /* Centra las imágenes horizontalmente */
+}
+
+.portfolio-gallery img {
+  width: 180px; /* Ancho fijo */
+  height: 120px; /* Alto fijo */
+  object-fit: cover; /* Corta la imagen sin distorsionarla */
+  border-radius: 8px; /* Esquinas redondeadas */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+  cursor: pointer; /* Cambia el cursor al pasar sobre la imagen */
+  transition: transform 0.3s ease; /* Animación suave al pasar el mouse */
+}
+
+.portfolio-gallery img:hover {
+  transform: scale(1.05); /* Efecto de zoom al pasar el mouse */
+}
+
+.add-photo-btn {
+  width: 180px;
+  height: 120px;
+  border: 2px dashed #aaa;
+  border-radius: 8px;
+  background-color: transparent;
+  color: #666;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.add-photo-btn:hover {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+h3 {
+  margin-left: 16px;
+}

@@ -1,0 +1,30 @@
+<form class="register-form" [formGroup]="registerForm" (ngSubmit)="onRegister()">
+  <div class="register-container">
+    <img src="https://github.com/UPC-PaxTech/uTime/blob/main/img/logoutime.png?raw=true" alt="" class="logo">
+
+    <h1 class="title">{{ 'register.title' | translate }}</h1>
+    <p class="subtitle">
+      {{ 'register.subtitle' | translate }}
+      <a routerLink="/iam/login" class="login-link">Log in</a>
+    </p>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>{{ 'register.company' | translate }}</mat-label>
+      <input matInput formControlName="companyName" type="text" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>{{ 'register.email' | translate }}</mat-label>
+      <input matInput formControlName="email" type="email" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>{{ 'register.password' | translate }}</mat-label>
+      <input matInput formControlName="password" type="password" />
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" class="register-button" type="submit">
+      Create account
+    </button>
+  </div>
+</form>

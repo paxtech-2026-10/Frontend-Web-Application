@@ -1,0 +1,8 @@
+<div class="reviews-container" aria-label="review list">
+  <h3>{{ 'profile.recentReviews' | translate }}</h3>
+  <div class="reviews-list">
+    @for (review of profileReviews; track review.id) {
+      <app-review-item [review]="review"></app-review-item>
+    }
+  </div>
+</div>

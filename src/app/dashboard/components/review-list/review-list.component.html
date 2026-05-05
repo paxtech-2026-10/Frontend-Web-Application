@@ -1,0 +1,10 @@
+<section class="reviews">
+  <h3>{{ 'dashboard.overallScore' | translate }} <span class="score">⭐ {{average}}</span></h3>
+  <p>{{ reviews.length }} {{ 'dashboard.reviews' | translate }}</p>
+
+  <div class="review-container" aria-label="review-list">
+    @for (review of reviews; track review.id) {
+      <app-review-item [review]="review" />
+    }
+  </div>
+</section>

@@ -1,0 +1,9 @@
+.salon-list-horizontal {
+  display: grid;
+  flex-direction: row;
+  flex: 1;
+  gap: 20px;
+  overflow-x: auto;
+  padding: 1rem;
+  grid-template-columns: repeat(3, 1fr);
+}

@@ -1,0 +1,207 @@
+@startuml
+skinparam packageStyle rectangle
+
+package "App" {
+  class AppComponent <<Component>>{
+  }
+}
+
+package "Appointments" {
+  package "Components" {
+    class AppointmentsItemComponent {
+      - appointment: ClientAppointment
+      + formatDay(dateString: string): string
+      + formatTime(dateString: string): string
+    }
+
+    class AppointmentsListComponent {
+      - appointments: ClientAppointment[]
+      - reviews: Review[]
+      - appointmentService: AppointmentApiService
+      - reviewService: ReviewApiService
+      + ngOnInit(): void
+      + loadAppointments(): void
+      + trackById(index: number, item: ClientAppointment): string
+    }
+
+    class UpcomingAppointmentsComponent {
+      - upcomingAppointments: ClientAppointment[]
+      - appointmentService: AppointmentApiService
+      + ngOnInit(): void
+      + formatTime(dateStr: string): string
+      + formatDay(dateStr: string): string
+      + isToday(dateStr: string): boolean
+    }
+
+    class ReviewItemComponent {
+      - review: Review
+      + getStars(): number[]
+    }
+
+    class ReviewListComponent {
+      - reviews: Review[]
+    }
+  }
+
+  package "Models" {
+    entity ClientAppointment {
+      - reservationId: string
+      - tipo: string
+      - clientName: string
+      - salonName: string
+      - paymentStatus: boolean
+      - timeSlotStart: string
+      - timeSlotEnd: string
+    }
+    entity Review {
+      - id: number
+      - author: string
+      - rating: number
+      - text: string
+      - read: boolean
+    }
+  }
+
+  package "Pages" {
+    class AppointmentMakerComponent {
+      - worker: Worker[]
+      - selectedReservation: { date: Date, timeSlot: any } | null
+      + ngOnInit(): void
+      + onReservationConfirmed(event: { date: Date, timeSlot: any }): void
+      + bookAppointment(): void
+    }
+    class ClientAppointmentPagesComponent {
+    }
+  }
+
+  package "Services" {
+    class AppointmentApiService {
+      - resourceEndpoint: string = "/reservationDetails"
+      + getAppointments(): Observable<ClientAppointment[]>
+    }
+    class ReviewApiService {
+      - resourceEndpoint: string = "/reviews"
+      + getReviews(): Observable<Review[]>
+    }
+    class AppointmentAssembler {
+      + toEntityFromResource(resource: AppointmentResponse): ClientAppointment
+      + toEntitiesFromResponse(resources: AppointmentResponse[]): ClientAppointment[]
+    }
+    class ReviewAssembler {
+      + toEntityFromResource(resource: ReviewResponse): Review
+      + toEntitiesFromResponse(resources: ReviewResponse[]): Review[]
+    }
+    class AppointmentResponse {
+      - reservationId: string
+      - tipo: string
+      - client: Client
+      - salon: Salon
+      - payment: Payment
+      - timeSlot: TimeSlot
+    }
+    class ReviewResponse {
+      - id: number
+      - author: string
+      - rating: number
+      - text: string
+      - read: boolean
+    }
+  }
+}
+
+package "Schedule" {
+
+  package "Components" {
+    class CalendarComponent {
+      - days: string[]
+      - hours: string[]
+      - workers: string[]
+      - currentWorkerIndex: number
+      - calendars: Appointments.Models.ClientAppointment[]
+      + get currentWorker(): string
+      + swapWorker(): void
+      + ngOnInit(): void
+      + formatTime(dateStr: string): string
+      + formatDay(dateStr: string): string
+      + isToday(dateStr: string): boolean
+    }
+
+    class DatePickerComponent {
+      - selected: Date | null
+      - timeSlots: array
+      - selectedTimeSlot: any
+      + selectTimeSlot(slot: any): void
+      + reservationConfirmed: EventEmitter<{date: Date, timeSlot: any}>
+    }
+
+    class ReservationComponent {
+      - service: string
+      - startTime: string
+      - endTime: string
+      - clientName: string
+    }
+  }
+
+  package "Pages" {
+    class SchedulePageComponent {
+    }
+  }
+}
+
+package "Shared" {
+
+  package "Services" {
+    abstract class BaseService<R> {
+      - httpOptions: object
+      - serverBaseUrl: string
+      - resourceEndpoint: string
+      - http: HttpClient
+      - handleError(error: HttpErrorResponse): Observable<never>
+      - resourcePath(): string
+      + getAll(): Observable<R[]>
+      + create(id: any, resource: R): Observable<R>
+      + post(resource: R): Observable<R>
+      + getById(id: any): Observable<R>
+      + delete(id: any): Observable<any>
+      + update(id: any, resource: R): Observable<R>
+      + partialUpdate(id: any, partialResource: Partial<R>): Observable<R>
+    }
+  }
+}
+
+' Relaciones entre bounded contexts
+
+Appointments.Components.AppointmentsListComponent --> Appointments.Components.AppointmentsItemComponent : composes
+ReviewItemComponent <-- Appointments.Components.ReviewListComponent : composes
+ReviewItemComponent --> ReviewApiService
+Appointments.Components.AppointmentsListComponent --> Appointments.Components.UpcomingAppointmentsComponent : composes
+
+Appointments.Components.UpcomingAppointmentsComponent --> Appointments.Services.AppointmentApiService : uses
+Appointments.Components.AppointmentsListComponent --> Appointments.Services.AppointmentApiService : uses
+Appointments.Components.AppointmentsListComponent --> Appointments.Services.ReviewApiService : uses
+Appointments.Pages.AppointmentMakerComponent --> Appointments.Services.AppointmentApiService
+
+Schedule.Components.CalendarComponent --> Appointments.Models.ClientAppointment : uses
+Schedule.Components.CalendarComponent --> Appointments.Services.AppointmentApiService : uses
+
+Appointments.Pages.AppointmentMakerComponent --> Schedule.Components.DatePickerComponent : composes
+
+Shared.Services.BaseService <|-- Appointments.Services.AppointmentApiService
+Shared.Services.BaseService <|-- Appointments.Services.ReviewApiService
+
+ClientAppointmentPagesComponent --> Appointments.Components.UpcomingAppointmentsComponent
+
+Appointments.Services.AppointmentApiService --> AppointmentAssembler
+AppointmentAssembler --> AppointmentResponse
+
+ReviewApiService --> ReviewAssembler
+ReviewAssembler --> ReviewResponse
+
+Schedule.Components.CalendarComponent --> ReservationComponent
+
+' Relaciones de dependencia desde App hacia los otros bounded contexts
+
+App --> Appointments.Pages : uses
+App --> Schedule.Pages : uses
+
+@enduml

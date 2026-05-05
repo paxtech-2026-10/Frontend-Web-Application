@@ -1,0 +1,30 @@
+table {
+  width: 100%;
+  padding-left: 3rem;
+  padding-right: 3rem;
+}
+.service-desc {
+  font-size: 13px;
+}
+.mat-mdc-row .mat-mdc-cell {
+  border-bottom: 1px solid transparent;
+  border-top: 1px solid transparent;
+}
+.new-service{
+  text-align: right;
+}
+.new-service-btn {
+  margin-top: 3rem;
+  margin-right: 5rem;
+  background-color: #927EA8;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.new-service-btn:hover {
+  background-color: #aa8ec6;
+}

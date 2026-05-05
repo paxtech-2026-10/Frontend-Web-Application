@@ -1,0 +1,11 @@
+.reviews-container {
+  padding: 1rem;
+}
+
+.reviews-list {
+  display: flex; /* Distribuye horizontalmente */
+  gap: 1rem; /* Espacio entre las tarjetas */
+  overflow-x: auto; /* Scroll horizontal si no caben */
+  padding-bottom: 1rem;
+}
+

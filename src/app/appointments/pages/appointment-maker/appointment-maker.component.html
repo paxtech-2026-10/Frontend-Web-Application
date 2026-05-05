@@ -1,0 +1,15 @@
+<div class="grid">
+  <div class="left-column">
+    <div class="back-button">
+      <button mat-button routerLink="/client">
+        <<mat-icon>arrow_back</mat-icon> Back>
+      </button>
+    </div>
+    <app-staff-list aria-label="staff-list" [WorkerList]="worker"></app-staff-list>
+  </div>
+
+  <div class="right-column" aria-label="appointment-maker">
+    <app-week-calendar [service]="selectedService" [worker]="selectedWorker"></app-week-calendar>
+  </div>
+</div>
+

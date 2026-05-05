@@ -1,0 +1,125 @@
+.salon-grid {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  flex-wrap: wrap;
+  padding: 2rem;
+  box-sizing: border-box;
+  background-color: #f8f9fa;
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+}
+
+/* LEFT COLUMN */
+.left-column {
+  flex: 1;
+  min-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 2rem;
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+}
+
+.salon-info {
+  text-align: center;
+}
+
+.salon-info h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.salon-info h2 {
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: #666;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+}
+
+/* BACK BUTTON */
+.back-button button {
+  background: #ffffff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: background 0.2s ease;
+}
+
+.back-button button:hover {
+  background: #7a22a6 !important;
+}
+
+/* SOCIALS */
+.socials {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.socials a {
+  color: #333;
+  text-decoration: none;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #ffffff;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s ease;
+}
+
+.socials a:hover {
+  background-color: #e3f2fd;
+  transform: translateY(-2px);
+}
+
+/* RIGHT COLUMN */
+.right-column {
+  flex: 1;
+  min-width: 400px;
+  padding: 2rem;
+}
+
+.salon-card {
+  border-radius: 16px !important;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  background-color: white;
+}
+
+/* IMAGE WRAPPER */
+.salon-image-wrapper {
+  width: 100%;
+  max-height: 250px;
+  overflow: hidden;
+}
+
+.salon-image-wrapper img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+}
+
+.button-back{
+  color: #f1f1f1 !important;
+  background: #6a1b9a !important;
+}

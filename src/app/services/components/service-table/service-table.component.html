@@ -1,0 +1,52 @@
+<table mat-table [dataSource]="services" class="mat-elevation-z1" aria-label="Services table">
+
+  <!-- Name & Description Column -->
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef aria-label="Service name header">{{ 'services.service' | translate }}</th>
+    <td mat-cell *matCellDef="let service" aria-label="Service name and description">
+      <div class="service-name" aria-label="Service name">{{ service.name }}</div>
+      <!--<div class="service-desc" aria-label="Service description">{{ service.description }}</div>-->
+    </td>
+  </ng-container>
+
+  <!-- Duration -->
+  <ng-container matColumnDef="duration">
+    <th mat-header-cell *matHeaderCellDef aria-label="Duration header">{{ 'services.duration' | translate }}</th>
+    <td mat-cell *matCellDef="let service" aria-label="Service duration">{{ service.duration }}</td>
+  </ng-container>
+
+  <!-- Price -->
+  <ng-container matColumnDef="price">
+    <th mat-header-cell *matHeaderCellDef aria-label="Price header">{{ 'services.price' | translate }}</th>
+    <td mat-cell *matCellDef="let service" aria-label="Service price">s/{{ service.price }}</td>
+  </ng-container>
+
+  <!-- Status -->
+  <ng-container matColumnDef="status">
+    <th mat-header-cell *matHeaderCellDef aria-label="Status header">{{ 'services.status' | translate }}</th>
+    <td mat-cell *matCellDef="let service" aria-label="Service status">
+      {{ service.status }}
+    </td>
+  </ng-container>
+
+  <!-- Actions -->
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef aria-label="Actions header">{{ 'services.actions' | translate }}</th>
+    <td mat-cell *matCellDef="let service" aria-label="Actions for service">
+      <button mat-icon-button color="accent" (click)="editService(service)">
+        <mat-icon>edit</mat-icon>
+      </button>
+
+
+      <button mat-icon-button (click)="deleteService(service.id)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <!-- Header and Row Definitions -->
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+  <button mat-button (click)="newService && createService(newService)" aria-label="Create new service">+ New Service</button>
+</table>

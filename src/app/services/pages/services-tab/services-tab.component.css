@@ -1,0 +1,64 @@
+h1{
+  text-align: left;
+  margin-top: 3rem;
+  margin-left: 3rem;
+}
+
+.services-page {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  gap: 2rem;
+  background-color: #f5f7fb;
+  min-height: 100vh;
+}
+
+.services-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.services-header h1 {
+  font-size: 28px;
+  font-weight: bold;
+  color: #333;
+}
+
+.services-header button {
+  background-color: #28a745;
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.services-header button:hover {
+  background-color: #218838;
+}
+
+.new-service{
+  text-align: right;
+}
+.new-service-btn {
+  margin-top: 3rem;
+  margin-right: 5rem;
+  background-color: #927EA8;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.new-service-btn:hover {
+  background-color: #aa8ec6;
+}
+
+.new-service{
+  text-align: right;
+}

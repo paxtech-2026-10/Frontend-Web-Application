@@ -1,0 +1,9 @@
+<h1 aria-label="Reviews">{{ 'dashboard.reviews' | translate }}</h1>
+
+<div class="main-column" aria-label="Main content column">
+  <mat-card class="mat-elevation-z2" aria-label="Reviews card">
+    <mat-card-content aria-label="Reviews content">
+      <app-review-list [reviews]="reviews" [average]="average"></app-review-list>
+    </mat-card-content>
+  </mat-card>
+</div>

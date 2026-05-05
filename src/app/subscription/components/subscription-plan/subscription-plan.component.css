@@ -1,0 +1,99 @@
+mat-card {
+  width: 400px;
+  margin: 20px auto;
+}
+
+mat-button-toggle-group {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+mat-button-toggle {
+  font-size: 16px;
+}
+
+h2 {
+  text-align: left;
+  margin-top: 2rem;
+  margin-left: 3rem;
+  font-weight: normal;
+}
+h3{
+  text-align: left;
+  margin-top: 3rem;
+  margin-left: 3rem;
+  font-weight: normal;
+}
+
+.plan-container {
+  font-size: medium;
+  color: #FFFFFF;
+  background-color: #7D6498; /* Color de fondo */
+  border-radius: 10px; /* Radio para las esquinas redondeadas */
+  padding: 10px; /* Espacio entre el texto y el borde */
+  display: inline-block; /* Permite que el fondo rodee el texto */
+}
+
+.plans{
+  text-align: center;
+}
+
+mat-card-title {
+  text-align: center;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+mat-card-subtitle {
+  text-align: center;
+  font-size: 1rem;
+  margin-top: 4px;
+  color: #2A2C53;
+}
+.mat-mdc-card{
+  padding: 1.5rem;
+  width: 260px;
+  display: inline-block;
+  margin: 15px;
+}
+
+.mat-mdc-card:hover{
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  .choose-btn {
+    background-color: #927EA8;
+  }
+}
+
+li{
+  list-style-type: none;
+  padding-left: 1rem;
+}
+
+.boton{
+  text-align: center;
+}
+.choose-btn {
+  margin-top: 2rem;
+  padding: 0.6rem 1.2rem;
+  background-color: #B6AFB9;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  color: white;
+  font-weight: bold;
+}
+.choose-btn:hover {
+  background-color: #927EA8;
+}
+.features {
+  text-align: left;
+}
+.check{
+  color: #61A679;
+}
+.ex{
+  color: #858786;
+}

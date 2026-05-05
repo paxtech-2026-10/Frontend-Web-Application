@@ -1,0 +1,20 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<nav class="sidebar" aria-label="Client sidebar navigation">
+  <a routerLink="/client/homeClient" routerLinkActive="active" aria-label="Home">
+    <span class="material-icons" aria-hidden="true">home</span>
+    <span>{{'client.sidebar.home' | translate}}</span>
+  </a>
+  <a routerLink="/client/appointment" routerLinkActive="active" aria-label="Appointments">
+    <span class="material-icons" aria-hidden="true">calendar_month</span>
+    <span>{{'client.sidebar.appointments' | translate}}</span>
+  </a>
+  <a routerLink="/client/favorites" routerLinkActive="active" aria-label="Favorites">
+    <span class="material-icons" aria-hidden="true">favorite_border</span>
+    <span>{{'client.sidebar.favorites' | translate}}</span>
+  </a>
+  <a routerLink="/client/profile" routerLinkActive="active" aria-label="Profile">
+    <span class="material-icons" aria-hidden="true">person</span>
+    <span>{{'client.sidebar.profile' | translate}}</span>
+  </a>
+</nav>

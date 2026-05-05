@@ -1,0 +1,35 @@
+<div class="header">
+  <!-- portada -->
+  <img class="cover"
+       [src]="profile.coverImageUrl || 'assets/placeholder-cover.jpg'"
+       alt="Cover">
+
+  <div class="header-content">
+    <!-- avatar -->
+    <img class="avatar"
+         [src]="profile.profileImageUrl || 'assets/placeholder-avatar.png'"
+         alt="Avatar">
+
+    <div class="text-info">
+      <h2>{{ profile.companyName }}</h2>
+
+      <button mat-icon-button color="primary" (click)="openEditSocials()">
+        <mat-icon>edit</mat-icon>
+      </button>
+
+      <div class="socials">
+        <!-- Instagram -->
+        <a *ngIf="profile.socials['instagram']"
+           [href]="profile.socials['instagram']" target="_blank">
+          <i class="fab fa-instagram"></i> Instagram
+        </a>
+
+        <!-- TikTok -->
+        <a *ngIf="profile.socials['tiktok']"
+           [href]="profile.socials['tiktok']" target="_blank">
+          <i class="fab fa-tiktok"></i> TikTok
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

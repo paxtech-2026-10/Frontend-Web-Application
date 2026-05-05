@@ -1,0 +1,8 @@
+.container{
+  padding-left: 1rem;
+}
+
+.value {
+  display: flex;
+  gap: 1rem;
+}

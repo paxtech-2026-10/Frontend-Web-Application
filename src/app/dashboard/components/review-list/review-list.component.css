@@ -1,0 +1,14 @@
+.review-scroll-container {
+  max-height: 360px; /* Ajusta según diseño */
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+.review-scroll-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.review-scroll-container::-webkit-scrollbar-thumb {
+  background-color: #bdbdbd;
+  border-radius: 4px;
+}

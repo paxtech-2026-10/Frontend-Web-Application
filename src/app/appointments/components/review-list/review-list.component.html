@@ -1,0 +1,49 @@
+<section class="reviews-section">
+  <!-- Formulario para dejar reseña -->
+  <div class="review-form mat-elevation-z4">
+    <h3 class="form-title">
+      <mat-icon>rate_review</mat-icon>
+      {{'client.appointments.review' | translate}}
+    </h3>
+
+    <!-- Estrellas interactivas -->
+    <div class="rating-stars">
+      <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
+        <mat-icon
+          (click)="setRating(star)"
+          [class.filled]="star <= reviewrating"
+        >{{ star <= reviewrating ? 'star' : 'star_border' }}</mat-icon
+        >
+      </ng-container>
+    </div>
+
+    <!-- Etiquetas rápidas -->
+    <div class="quick-tags">
+      <span (click)="reviewInput = 'Excelente servicio 🎉'">⭐ {{'client.appointments.excelent' | translate}}</span>
+      <span (click)="reviewInput = 'Podría mejorar...'">⚠️ {{'client.appointments.regular' | translate}}</span>
+      <span (click)="reviewInput = 'Mala experiencia 😔'">👎 {{'client.appointments.bad' | translate}}</span>
+    </div>
+
+    <!-- Comentario -->
+    <mat-form-field appearance="outline" class="review-input">
+      <mat-label>{{'client.appointments.comment' | translate}}</mat-label>
+      <textarea matInput rows="3" [(ngModel)]="reviewInput"></textarea>
+    </mat-form-field>
+
+    <!-- Botón -->
+    <button mat-flat-button color="primary" (click)="postReview()">{{'client.appointments.button' | translate}}</button>
+  </div>
+
+  <!-- Separador -->
+  <div class="review-divider">
+    <h4>{{'client.appointments.last' | translate}}</h4>
+    <p>{{ reviews.length }} {{'client.appointments.total' | translate}}</p>
+  </div>
+
+  <!-- Lista de reseñas -->
+  <div class="review-list" aria-label="review-list">
+    @for (review of reviews; track review.id) {
+      <app-review-item [review]="review"></app-review-item>
+    }
+  </div>
+</section>

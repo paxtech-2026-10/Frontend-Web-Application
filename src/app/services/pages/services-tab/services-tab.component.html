@@ -1,0 +1,6 @@
+<h1 aria-label="Services">{{ 'dashboard.services' | translate }}</h1>
+
+<div class="services" aria-label="Services section">
+  <app-service-table [services]="service" [newService]="newService"></app-service-table>
+  <button mat-raised-button color="primary" class="new-service-btn" (click)="openCreateServiceDialog()" aria-label="Add new service">Nuevo servicio</button>
+</div>

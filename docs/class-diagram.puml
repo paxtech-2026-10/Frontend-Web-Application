@@ -1,0 +1,643 @@
+@startuml
+skinparam packageStyle rectangle
+
+package "App" {
+  class AppComponent <<Component>>{
+     +title: string
+   }
+}
+
+package "Appointments" {
+
+  package "Components" {
+    class AppointmentsItemComponent {
+      - appointment: ClientAppointment
+      + formatDay(dateString: string): string
+      + formatTime(dateString: string): string
+    }
+
+    class AppointmentsListComponent {
+      - appointments: ClientAppointment[]
+      - reviews: Review[]
+      - appointmentService: AppointmentApiService
+      - reviewService: ReviewApiService
+      + ngOnInit(): void
+      + loadAppointments(): void
+      + trackById(index: number, item: ClientAppointment): string
+    }
+
+    class UpcomingAppointmentsComponent {
+      - upcomingAppointments: Appointment[]
+      - appointmentService: AppointmentApiService
+      - translate: TranslateService
+      + ngOnInit(): void
+      + formatTime(dateStr: string): string
+      + formatDay(dateStr: string): string
+      + isToday(dateStr: string): boolean
+    }
+  }
+    ' Declaramos ReviewItemComponent y ReviewListComponent solo aquí en appointments.components
+
+  package "Models" {
+    entity ClientAppointment {
+      - reservationId: string
+      - tipo: string
+      - clientName: string
+      - salonName: string
+      - paymentStatus: boolean
+      - timeSlotStart: string
+      - timeSlotEnd: string
+    }
+  }
+
+  package "Pages" {
+    class AppointmentMakerComponent {
+      - worker: Worker[]
+      - selectedReservation: { date: Date, timeSlot: any } | null
+      + ngOnInit(): void
+      + onReservationConfirmed(event: { date: Date, timeSlot: any }): void
+      + bookAppointment(): void
+    }
+    class ClientAppointmentPagesComponent {
+    }
+
+    'favorite bounded context borrado y puesto el page aqui
+    class ClientFavoriteComponent {
+    }
+  }
+
+  package "Services" {
+    class AppointmentApiService {
+      - resourceEndpoint: string = "/reservationDetails"
+      + getAppointments(): Observable<ClientAppointment[]>
+    }
+
+    class AppointmentAssembler {
+      + toEntityFromResource(resource: AppointmentResponse): ClientAppointment
+      + toEntitiesFromResponse(resources: AppointmentResponse[]): ClientAppointment[]
+    }
+    class AppointmentResponse {
+      - reservationId: string
+      - tipo: string
+      - client: Client
+      - salon: Salon
+      - payment: Payment
+      - timeSlot: TimeSlot
+    }
+  }
+}
+
+package "Dashboard" {
+
+  package "Components" {
+    ' Declaramos ReviewItemComponent y ReviewListComponent **solo como referencia** (no redeclarar)
+    ' Para evitar duplicados referenciamos las del paquete appointments.components en relaciones
+
+    class SalonItemComponent {
+      - salon: Salon
+      + salonSelected: EventEmitter<Salon>
+    }
+
+    class SalonListComponent {
+      - salons: Salon[]
+      + ngOnInit(): void
+    }
+
+    class StaffItemComponent {
+      - worker: Worker
+    }
+
+    class StaffListComponent {
+      - WorkerList: Worker[]
+    }
+
+    'refactor movido de el favorite bounded context borrado a aqui
+    class SalonGridComponent {
+      - salons: Dashboard.Models.Salon[]
+      + ngOnInit(): void
+    }
+  }
+
+  package "Models" {
+
+    entity Salon {
+      - salonId: string
+      - location: string
+      - imageURL: string
+      - phone: number
+      - name: string
+    }
+
+    entity Worker {
+      - id: number
+      - nombre: string
+      - especializacion: string
+      - foto: string
+    }
+
+
+  }
+
+  package "Pages" {
+    class ClientDashboardComponent {
+    }
+
+    class ProfessionalDashboardComponent {
+      - worker: Worker[]
+      - reviews: Review[]
+      + ngOnInit(): void
+    }
+
+    class SalonComponent {
+      - salon: Salon
+      - profile: SalonProfile
+      - reviews: Review[]
+      - services: Service[]
+      + ngOnInit(): void
+      + salonSelected: EventEmitter<Salon>
+    }
+  }
+
+  package "Services" {
+    class SalonApiService {
+      - baseUrl: string
+      - detailsEndpoint: string = "/salons"
+      + getSalons(): Observable<Salon[]>
+    }
+
+    class WorkerApiService {
+      - resourceEndpoint: string = "/workers"
+      + getWorkers(): Observable<Worker[]>
+    }
+
+    class SalonAssembler {
+      + toEntityFromResource(resource: SalonsResource): Salon
+      + toEntitiesfromResponse(response: SalonsResponse): Salon[]
+    }
+
+    class WorkerAssembler {
+      + toEntityFromResource(resource: WorkerResource): Worker
+      + toEntitiesFromResponse(resources: WorkerResource[]): Worker[]
+    }
+
+    class SalonsResource {
+      - name: string
+      - salonId: string
+      - location: string
+      - imageURL: string
+      - phone: number
+    }
+
+    class WorkerResource {
+      - workerId: number
+      - nombre: string
+      - especializacion: string
+      - fotoUrl: string
+    }
+  }
+}
+
+package "Iam" {
+  package "Pages" {
+    class RegisterPageComponent {
+      - isProvider: boolean
+      - showPlanSelector: boolean
+      + toggleForm(isProvider: boolean): void
+      + completeRegistration(): void
+    }
+
+    class LoginPage
+  }
+
+  package "Components" {
+    class RegisterFormClientComponent
+    class RegisterFormProviderComponent
+    class PlanSelectorComponent {
+      - selectedPlan: string
+      + onPlanSelect(plan: string): void
+    }
+    class LoginFormComponent
+  }
+
+  ' Relaciones internas
+  RegisterPageComponent --> Iam.Components.RegisterFormClientComponent : composes
+  RegisterPageComponent --> Iam.Components.RegisterFormProviderComponent : composes
+  RegisterPageComponent --> Iam.Components.PlanSelectorComponent : composes
+  RegisterPageComponent --> Iam.Components.LoginFormComponent : composes
+}
+
+' combined profile and profileClient into a single Bounded Context
+package "Profiles" {
+
+  package "Components" {
+    class ProfileSalonHeaderComponent {
+      - profile: Profile.Models.SalonProfile
+    }
+
+    class ProfileSalonPortfolioComponent {
+      - profile: Profile.Models.SalonProfile
+      + onAddPhoto(): void
+      + onImageClick(imageUrl: string): void
+    }
+
+    ' refactor nombre de ProfileComponent-> ProfileClientComponent
+    class ProfileClientComponent {
+      - profileForm: FormGroup
+      - passwordForm: FormGroup
+      - profile: ProfileClient.Models.Profile
+      - isLoading: boolean
+      - passwordsMatch: boolean
+      - showCurrentPasswordField: boolean
+      + ngOnInit(): void
+      + loadProfile(): void
+      + updateForm(profile: ProfileClient.Models.Profile): void
+      + saveProfile(): void
+      + changePassword(): void
+      + logout(): void
+      + deleteAccount(): void
+    }
+  }
+
+  package "Models" {
+    entity ProfileSalon {
+      - profileId: number
+      - userId: string
+      - salonName: string
+      - rating: number
+      - profileImage: string
+      - coverImage: string
+      - socials: socials
+      - portfolioImages: string[]
+      - address: string
+      - email: string
+      - accounts: accounts
+    }
+
+    entity ProfileClient {
+      - accountId: string
+      - name: string
+      - email: string
+      - phoneNumber: string
+      - identityDocument: string
+      - notifications: boolean
+      - location: boolean
+    }
+  }
+
+  package "Pages" {
+    ' refactor nombre de ProfilePageComponent -> ProfileSalonPageComponent
+    class ProfileSalonPageComponent {
+      - profile: Profile.Models.SalonProfile
+      + ngOnInit(): void
+    }
+
+    class ProfileClientPageComponent {
+    }
+  }
+
+  package "Services" {
+    class ProfileSalonApiService {
+      - resourceEndpoint: string = "/salonProfiles"
+      + getProfileById(id: number): Observable<Profile.Models.SalonProfile>
+    }
+
+    class ProfileSalonAssembler {
+      + toEntityFromResponse(resource: SalonProfileResponse): Profile.Models.SalonProfile
+      + toEntitiesFromResponse(resources: SalonProfileResponse[]): Profile.Models.SalonProfile[]
+      + toResponseFromEntity(entity: Profile.Models.SalonProfile): SalonProfileResponse
+    }
+
+    ' refactor SalonProfileResponse -> ProfileSalonResponse
+    class ProfileSalonResponse {
+      - id: number
+      - userId: string
+      - salonName: string
+      - rating: number
+      - profileImage: string
+      - coverImage: string
+      - socials: socials
+      - portfolioImages: string[]
+      - accounts: accounts
+      - Address: string
+      - salonemail: string
+    }
+
+
+  ' verificar si ProfileClientService nesesita un assembler y un response
+  ' refactor nombre ProfileService->ProfileClientService
+    class ProfileClientService {
+      - apiUrl: string
+      + getProfile(): Observable<ProfileClient.Models.Profile>
+      + updateProfile(profile: ProfileClient.Models.Profile): Observable<ProfileClient.Models.Profile>
+      + changePassword(currentPassword: string, newPassword: string): Observable<boolean>
+      + logout(): Observable<boolean>
+      + deleteAccount(): Observable<boolean>
+    }
+  }
+}
+
+package "ProviderSettings" {
+
+  package "Components" {
+    class SettingsComponent {
+      - profile: Profile.Models.SalonProfile
+    }
+
+    class SettingsPasswordComponent {
+      - profile: Profile.Models.SalonProfile
+      - value: string
+      - currentPassword: string
+      - passwordService: Profile.Services.SalonProfileApiService
+      + updatePassword(): void
+    }
+  }
+
+  package "Pages" {
+    class SettingsPageComponent {
+      - profile: Profile.Models.SalonProfile
+      + ngOnInit(): void
+    }
+  }
+}
+
+package "Public" {
+
+  package "Components" {
+    class ClientLayoutComponent {
+    }
+
+    class LanguageSwitcherComponent {
+      - currentLang: string
+      - languages: string[]
+      + useLanguage(language: string): void
+    }
+
+    class ProviderLayoutComponent {
+    }
+
+    class SidebarComponent {
+    }
+
+    class SidebarClientComponent {
+    }
+
+    class ToolbarClientComponent {
+    }
+
+    class ToolbarProviderComponent {
+    }
+  }
+}
+
+package "Reviews" {
+
+    ' Cobinar ReviewItem de dashboard y profile
+    ' fijarse en la diferencia de html
+  package "Components" {
+    class ReviewItemComponent {
+      - review: Review
+      + getStars(): number[]
+    }
+
+
+    'Fijarse en la diferencia entre el List de profile y el de dashboard
+    'probablemente no combinar y crear un tercer componente
+    'de recent reviews
+    class ReviewListComponent {
+      - reviews: Review[]
+    }
+
+    'Utilizar código de ReviewList de appointments, separar funcionalidad,
+    'cambiar código de client appointment pages para reflejar los cambios
+    class ReviewMakerComponent {
+    }
+  }
+
+  package "Models" {
+    entity Review {
+      - id: number
+      - author: string
+      - rating: number
+      - text: string
+      - read: boolean
+    }
+  }
+  package "Pages" {
+    class ReviewsTabComponent {
+      - reviews: Review[]
+      + ngOnInit(): void
+    }
+  }
+
+  package "Services" {
+
+    class ReviewAssembler {
+      + toEntityFromResource(resource: ReviewResponse): Review
+      + toEntitiesFromResponse(resources: ReviewResponse[]): Review[]
+    }
+    class ReviewResponse {
+      - id: number
+      - author: string
+      - rating: number
+      - text: string
+      - read: boolean
+    }
+    class ReviewApiService {
+      - resourceEndpoint: string = "/reviews"
+      + getReviews(): Observable<Review[]>
+    }
+  }
+}
+
+
+package "Schedule" {
+
+  package "Components" {
+    class CalendarComponent {
+      - days: string[]
+      - hours: string[]
+      - workers: string[]
+      - currentWorkerIndex: number
+      - calendars: Dashboard.Models.Appointment[]
+      + get currentWorker(): string
+      + swapWorker(): void
+      + ngOnInit(): void
+      + formatTime(dateStr: string): string
+      + formatDay(dateStr: string): string
+      + isToday(dateStr: string): boolean
+    }
+
+    class DatePickerComponent {
+      - selected: Date | null
+      - timeSlots: array
+      - selectedTimeSlot: any
+      + selectTimeSlot(slot: any): void
+      + reservationConfirmed: EventEmitter<{date: Date, timeSlot: any}>
+    }
+
+    class ReservationComponent {
+      - service: string
+      - startTime: string
+      - endTime: string
+      - clientName: string
+    }
+  }
+
+  package "Pages" {
+    class SchedulePageComponent {
+    }
+  }
+}
+
+' Relaciones Schedule
+Schedule.Components.CalendarComponent --> Dashboard.Models.Appointment : uses
+Schedule.Components.CalendarComponent --> Dashboard.Services.AppointmentApiService : uses
+
+Schedule.Pages.SchedulePageComponent --> Schedule.Components.CalendarComponent : composes
+
+package "Services" {
+
+  package "Components" {
+    class CreateServiceDialogComponent {
+      - service: Services.Models.ServiceResponse
+      + submit(): void
+      + cancel(): void
+    }
+
+    class ServiceListComponent {
+      - services: Services.Models.Service[]
+      + ngOnInit(): void
+    }
+
+    class ServiceTableComponent {
+      - displayedColumns: string[]
+      - services: Services.Models.Service[]
+      - servicesService: Services.Services.ServiceApiService
+      + createService(): void
+      + updateService(): void
+      + deleteService(id: number): void
+    }
+  }
+
+  package "Models" {
+    class Service {
+      - id: number
+      - name: string
+      - description: string
+      - duration: number
+      - price: number
+      - status: 'Active' | 'Paused'
+    }
+  }
+
+  package "Services" {
+    class ServiceApiService {
+      - resourceEndpoint: string
+      + getServices(): Observable<Services.Models.Service[]>
+    }
+
+    class ServiceAssembler {
+      + toEntityFromResource(resource: Services.Services.ServiceResponse): Services.Models.Service
+      + toEntitiesFromResponse(resources: Services.Services.ServiceResponse[]): Services.Models.Service[]
+      + toResponseFromEntity(entity: Services.Models.Service): Services.Services.ServiceResponse
+    }
+
+    interface ServiceResponse {
+      + id: number
+      + name: string
+      + description: string
+      + duration: number
+      + price: number
+      + status: 'Active' | 'Paused'
+    }
+  }
+
+  package "Pages" {
+    class ServicesTabComponent {
+      - service: Services.Models.Service[]
+      + ngOnInit(): void
+    }
+  }
+}
+
+package "Shared" {
+
+  package "Services" {
+    abstract class BaseService<R> {
+      - httpOptions: object
+      - serverBaseUrl: string
+      - resourceEndpoint: string
+      - http: HttpClient
+      - handleError(error: HttpErrorResponse): Observable<never>
+      - resourcePath(): string
+      + getAll(): Observable<R[]>
+      + create(id: any, resource: R): Observable<R>
+      + post(resource: R): Observable<R>
+      + getById(id: any): Observable<R>
+      + delete(id: any): Observable<any>
+      + update(id: any, resource: R): Observable<R>
+      + partialUpdate(id: any, partialResource: Partial<R>): Observable<R>
+    }
+  }
+}
+
+package "Subscription" {
+  package "Pages" {
+    class SubscriptionTabComponent {
+    }
+  }
+
+  package "Components" {
+    class SubscriptionPlanComponent {
+      - selectedPlan: string
+      + changePlan(plan: string): void
+    }
+  }
+}
+
+' Relaciones Subscription
+Subscription.Pages.SubscriptionTabComponent --> Subscription.Components.SubscriptionPlanComponent : composes
+AppComponent ..> Appointments.Pages: uses
+AppComponent ..> Services.Pages: uses
+AppComponent ..> Subscription.Pages.SubscriptionTabComponent: uses
+AppComponent ..> Dashboard.Pages: uses
+AppComponent ..> Profiles.Pages: uses
+AppComponent ..> "Reviews": uses
+AppComponent .> Iam.Pages: uses
+AppComponent .> ProviderSettings.Pages: uses
+AppComponent .> Schedule.Pages: uses
+AppComponent -> Public.Components: contains
+
+Appointments.Pages ..> Appointments.Services: injects
+Appointments.Pages --> Appointments.Models
+Appointments.Pages --> Appointments.Components
+Appointments.Models <- Appointments.Components
+Appointments.Services --|> BaseService
+
+Profiles.Pages ..> Profiles.Services : injects
+Profiles.Pages --> Profiles.Models
+Profiles.Pages --> Profiles.Components
+Profiles.Models <- Profiles.Components
+Profiles.Services --|> BaseService
+
+Reviews.Pages ..> Reviews.Services : injects
+Reviews.Pages --> Reviews.Models
+Reviews.Pages --> Reviews.Components
+Reviews.Models <- Reviews.Components
+Reviews.Services --|> BaseService
+
+Services.Pages ..> Services.Services : injects
+Services.Pages --> Services.Models
+Services.Pages --> Services.Components
+Services.Models <- Services.Components
+Services.Services --|> BaseService
+
+Dashboard.Pages ..> Dashboard.Services : injects
+Dashboard.Pages --> Dashboard.Models
+Dashboard.Pages --> Dashboard.Components
+Dashboard.Models <- Dashboard.Components
+Dashboard.Services --|> BaseService
+
+ProviderSettings.Pages --> ProviderSettings.Components
+
+@enduml

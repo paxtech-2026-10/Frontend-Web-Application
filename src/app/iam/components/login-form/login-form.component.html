@@ -1,0 +1,29 @@
+<form class="register-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <div class="register-container" aria-label="login section">
+    <img src="https://github.com/UPC-PaxTech/uTime/blob/main/img/logoutime.png?raw=true" alt="" class="logo">
+
+    <h1 class="title">{{ 'login.title' | translate }}</h1>
+    <p class="subtitle">
+      {{ 'login.subtitle' | translate }}
+      <a routerLink="/iam/register" class="login-link">{{ 'login.register' | translate }}</a>
+    </p>
+
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>{{ 'login.email' | translate }}</mat-label>
+      <input matInput type="email" formControlName="email" placeholder="" aria-label="email input field">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>{{ 'login.password' | translate }}</mat-label>
+      <input matInput type="password" formControlName="password" placeholder="" aria-label="password input field">
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" class="register-button" type="submit" aria-label="login button">
+      {{ 'login.logIn' | translate }}
+    </button>
+
+    <p *ngIf="loginError" class="error">Invalid email or password</p>
+
+  </div>
+</form>
