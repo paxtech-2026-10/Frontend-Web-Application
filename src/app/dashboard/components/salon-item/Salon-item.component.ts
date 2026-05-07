@@ -40,6 +40,31 @@ export class SalonItemComponent implements OnInit{
   reviewAverage = 0;
   constructor() { }
 
+  get displayAddress(): string {
+    return (this.salon.location ?? '')
+      .replace(/(-?\d+(?:\.\d+)?)\s*,\s*(-?\d+(?:\.\d+)?)/, '')
+      .replace('|', '')
+      .trim();
+  }
+
+  get displayDistance(): string {
+    const distanceKm = this.salon.distanceKm;
+
+    if (distanceKm === undefined || distanceKm === Number.MAX_VALUE) {
+      return 'Distance unavailable';
+    }
+
+    if (distanceKm < 0.1) {
+      return '< 100 m';
+    }
+
+    if (distanceKm < 1) {
+      return `${Math.round(distanceKm * 1000)} m`;
+    }
+
+    return `${distanceKm.toFixed(1)} km`;
+  }
+
   ngOnInit() {
     /*
     this.reviewService.getBySalonId(this.salon.id).subscribe(reviews => {

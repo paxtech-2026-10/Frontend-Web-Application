@@ -1,15 +1,32 @@
 <div class="grid">
   <div class="left-column">
     <div class="back-button">
-      <button mat-button routerLink="/client">
+      <!-- LEGACY (2026-05-06): los `<<` y `>` extra se renderizaban como texto literal -->
+      <!-- <button mat-button routerLink="/client">
         <<mat-icon>arrow_back</mat-icon> Back>
+      </button> -->
+      <button mat-button routerLink="/client">
+        <mat-icon>arrow_back</mat-icon> Back
       </button>
     </div>
-    <app-staff-list aria-label="staff-list" [WorkerList]="worker"></app-staff-list>
+    <app-staff-list
+      aria-label="staff-list"
+      [WorkerList]="worker"
+      [showAddButton]="false"
+      [selectable]="true"
+      [selectedWorkerId]="selectedWorker?.id ?? null"
+      (workerSelected)="selectWorker($event)"></app-staff-list>
   </div>
 
   <div class="right-column" aria-label="appointment-maker">
-    <app-week-calendar [service]="selectedService" [worker]="selectedWorker"></app-week-calendar>
+    @if (selectedService && selectedWorker && providerId) {
+      <app-week-calendar
+        [service]="selectedService"
+        [worker]="selectedWorker"
+        [providerId]="providerId"></app-week-calendar>
+    } @else {
+      <p aria-label="appointment prerequisites">Selecciona un servicio y un profesional para reservar.</p>
+    }
   </div>
 </div>
 

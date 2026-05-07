@@ -7,6 +7,9 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
+    "bdd": "cucumber-js e2e-bdd/features/**/*.feature",
+    "bdd:services": "cucumber-js e2e-bdd/features/services.feature --tags @services",
+    "bdd:services:dry-run": "cucumber-js e2e-bdd/features/services.feature --require-module ts-node/register --require e2e-bdd/support/**/*.ts --require e2e-bdd/steps/**/*.ts --dry-run",
     "build:gh-pages": "ng build --configuration production --base-href \"/Frontend-Web-Applications/\"",
     "deploy:gh-pages": "npx angular-cli-ghpages --dir=dist/frontend-web-applications/browser"
   },
@@ -42,7 +45,10 @@
     "@angular-devkit/build-angular": "^19.2.10",
     "@angular/cli": "^19.2.10",
     "@angular/compiler-cli": "^19.2.0",
+    "@cucumber/cucumber": "^12.8.2",
+    "@playwright/test": "^1.59.1",
     "@types/jasmine": "~5.1.0",
+    "@types/node": "^25.6.0",
     "angular-cli-ghpages": "^2.0.3",
     "jasmine-core": "~5.6.0",
     "karma": "~6.4.0",
@@ -50,6 +56,7 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "ts-node": "^10.9.2",
     "typescript": "~5.7.2"
   }
 }

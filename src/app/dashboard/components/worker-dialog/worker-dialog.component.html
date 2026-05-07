@@ -1,0 +1,26 @@
+<h2 mat-dialog-title aria-label="New Staff Member">New Staff Member</h2>
+
+<mat-dialog-content aria-label="Staff form content">
+  <mat-form-field appearance="fill" class="worker-field">
+    <mat-label>Name</mat-label>
+    <input matInput [(ngModel)]="worker.name" required aria-label="Worker name" />
+  </mat-form-field>
+  <div class="dialog-error" role="alert" *ngIf="nameError">{{ nameError }}</div>
+
+  <mat-form-field appearance="fill" class="worker-field">
+    <mat-label>Specialization</mat-label>
+    <input matInput [(ngModel)]="worker.specialization" required aria-label="Worker specialization" />
+  </mat-form-field>
+  <div class="dialog-error" role="alert" *ngIf="specializationError">{{ specializationError }}</div>
+
+  <mat-form-field appearance="fill" class="worker-field">
+    <mat-label>Photo URL</mat-label>
+    <input matInput [(ngModel)]="worker.photoUrl" required aria-label="Worker photo URL" />
+  </mat-form-field>
+  <div class="dialog-error" role="alert" *ngIf="photoUrlError">{{ photoUrlError }}</div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" aria-label="Staff dialog actions">
+  <button mat-button type="button" (click)="cancel()" aria-label="Cancel staff creation">Cancel</button>
+  <button mat-flat-button color="primary" type="button" (click)="submit()" aria-label="Create staff member">Create</button>
+</mat-dialog-actions>

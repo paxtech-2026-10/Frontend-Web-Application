@@ -5,6 +5,15 @@
     <mat-card-title class="salon-title">{{ salon.companyName }}</mat-card-title>
   </mat-card-content>
 
+  <mat-card-content class="location-section" aria-label="salon-location">
+    <span class="material-icons">location_on</span>
+    <span>{{ displayAddress }}</span>
+  </mat-card-content>
+
+  <mat-card-content class="distance-section" aria-label="salon-distance">
+    {{ displayDistance }}
+  </mat-card-content>
+
   <mat-card-content class="review-section">
     <app-review-list [reviews]="reviews" [average]="reviewAverage"></app-review-list>
   </mat-card-content>

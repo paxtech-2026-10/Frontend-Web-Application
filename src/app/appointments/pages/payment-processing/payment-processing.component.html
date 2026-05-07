@@ -1,0 +1,62 @@
+<div class="payment-processing-container" role="status" aria-live="polite">
+
+  <div *ngIf="status === 'ready'" class="state-card">
+    <mat-icon class="state-icon">open_in_new</mat-icon>
+    <h2>Continua con Stripe</h2>
+    <p>Abre la pagina de pago en una pestana nueva. Cuando termines, vuelve aqui para confirmar automaticamente.</p>
+    <a
+      mat-raised-button
+      color="primary"
+      [href]="paymentLinkUrl"
+      target="_blank"
+      rel="noopener"
+      aria-label="Open Stripe payment"
+      (click)="startPaymentPolling()">
+      Ir a pagar con Stripe
+    </a>
+  </div>
+
+  <div *ngIf="status === 'polling'" class="state-card">
+    <mat-progress-spinner mode="indeterminate" diameter="56"></mat-progress-spinner>
+    <h2>Esperando confirmacion del pago...</h2>
+    <p>Completa el pago en la pestana de Stripe y luego vuelve a uTime.</p>
+    <p class="hint">Confirmaremos automaticamente cuando el backend reciba la actualizacion.</p>
+    <mat-progress-bar
+      mode="determinate"
+      [value]="(attempt / maxAttempts) * 100"
+      aria-label="Payment polling progress">
+    </mat-progress-bar>
+  </div>
+
+  <div *ngIf="status === 'succeeded'" class="state-card">
+    <mat-icon class="state-icon success-icon">check_circle</mat-icon>
+    <h2>Pago exitoso</h2>
+    <p>Tu reserva esta confirmada. Te llegara un correo con los detalles.</p>
+    <button mat-raised-button color="primary" type="button" (click)="goHome()">Volver al inicio</button>
+  </div>
+
+  <div *ngIf="status === 'failed'" class="state-card" role="alert">
+    <mat-icon class="state-icon error-icon">error_outline</mat-icon>
+    <h2>El pago no se completo</h2>
+    <p *ngIf="errorMessage">{{ errorMessage }}</p>
+    <div class="actions">
+      <button mat-stroked-button type="button" (click)="retry()">Reintentar</button>
+      <button mat-raised-button color="primary" type="button" (click)="goHome()">Volver al inicio</button>
+    </div>
+  </div>
+
+  <div *ngIf="status === 'timeout'" class="state-card">
+    <mat-icon class="state-icon warning-icon">access_time</mat-icon>
+    <h2>Tiempo de espera agotado</h2>
+    <p *ngIf="errorMessage">{{ errorMessage }}</p>
+    <button mat-raised-button color="primary" type="button" (click)="goHome()">Volver al inicio</button>
+  </div>
+
+  <div *ngIf="status === 'error'" class="state-card" role="alert">
+    <mat-icon class="state-icon error-icon">error_outline</mat-icon>
+    <h2>Algo salio mal</h2>
+    <p *ngIf="errorMessage">{{ errorMessage }}</p>
+    <button mat-raised-button color="primary" type="button" (click)="goHome()">Volver al inicio</button>
+  </div>
+
+</div>

@@ -4,6 +4,13 @@
   border-radius: 12px;
   background: #ffffff;
   display: flex;
+  border: 2px solid transparent;
+  transition: border-color 120ms ease, background-color 120ms ease;
+}
+
+.staff-item.selected {
+  border-color: #6750a4;
+  background: #f7f2ff;
 }
 
 .staff-content {

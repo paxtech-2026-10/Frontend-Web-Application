@@ -35,6 +35,28 @@
   border-top: 1px solid #e0e0e0;
 }
 
+.location-section,
+.distance-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 0 16px 8px;
+  color: #555;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.location-section .material-icons {
+  font-size: 18px;
+  color: #4caf50;
+}
+
+.distance-section {
+  font-weight: 600;
+  color: #731c9f;
+}
+
 .action-button {
   display: flex;
   justify-content: center;

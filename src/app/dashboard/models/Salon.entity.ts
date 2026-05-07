@@ -6,6 +6,7 @@ export class ProviderProfile {
   email: number;
   profileImageURL: string;// Changed from number to string since your API returns strings
   coverImageURL: string;
+  distanceKm?: number;
   socials: [];
   portfolioImages:[]
   constructor() {

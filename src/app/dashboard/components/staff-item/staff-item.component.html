@@ -1,4 +1,4 @@
-<mat-card class="staff-item" aria-label="staff-item">
+<mat-card class="staff-item" [class.selected]="selected" aria-label="staff-item">
   <div class="staff-content">
     <img class="staff-image" [src]="worker.photoUrl" alt="Staff photo" />
 
@@ -8,8 +8,9 @@
     </div>
 
     <div class="staff-action" aria-label="staff-button">
-      <button mat-button color="primary">
-        {{ 'dashboard.viewSchedule' | translate }} <mat-icon>chevron_right</mat-icon>
+      <button mat-button color="primary" type="button">
+        {{ actionLabel || ('dashboard.viewSchedule' | translate) }}
+        <mat-icon>{{ selected ? 'check' : 'chevron_right' }}</mat-icon>
       </button>
     </div>
   </div>

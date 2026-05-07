@@ -26,7 +26,10 @@ export class ServiceListComponent {
 
   navigateWithService(service: Service) {
     this.router.navigate(['/client/appointment-maker', this.salon.id], {
-      state: { selectedService: service }
+      state: {
+        selectedService: service,
+        providerId: this.salon.providerId
+      }
     });
   }
 
