@@ -10,6 +10,10 @@
     "bdd": "cucumber-js e2e-bdd/features/**/*.feature",
     "bdd:services": "cucumber-js e2e-bdd/features/services.feature --tags @services",
     "bdd:services:dry-run": "cucumber-js e2e-bdd/features/services.feature --require-module ts-node/register --require e2e-bdd/support/**/*.ts --require e2e-bdd/steps/**/*.ts --dry-run",
+    "bdd:iam": "cucumber-js e2e-bdd/features/iam.feature --tags @iam",
+    "bdd:iam:dry-run": "cucumber-js e2e-bdd/features/iam.feature --require-module ts-node/register --require e2e-bdd/support/**/*.ts --require e2e-bdd/steps/**/*.ts --dry-run",
+    "bdd:profiles": "cucumber-js e2e-bdd/features/profiles.feature --tags @profiles",
+    "bdd:profiles:dry-run": "cucumber-js e2e-bdd/features/profiles.feature --require-module ts-node/register --require e2e-bdd/support/**/*.ts --require e2e-bdd/steps/**/*.ts --dry-run",
     "build:gh-pages": "ng build --configuration production --base-href \"/Frontend-Web-Applications/\"",
     "deploy:gh-pages": "npx angular-cli-ghpages --dir=dist/frontend-web-applications/browser"
   },
