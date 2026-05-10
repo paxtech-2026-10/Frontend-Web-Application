@@ -13,6 +13,14 @@ export class UTimeWorld extends World {
   serviceCreationStatus?: number;
   serviceDeletionStatus?: number;
   registeredServiceName?: string;
+  // IAM (US01 / US03)
+  pendingClient?: { firstName: string; lastName: string; email: string; password: string };
+  signedInProviderId?: string | null;
+  // Profiles (US06)
+  pendingProviderRegistration?: { companyName: string; address: string; email: string; password: string };
+  expectedProviderLocation?: string;
+  providerProfileUpdateStatus?: number;
+  providerProfileUpdateLocation?: string;
   readonly baseUrl = process.env['E2E_WEB_BASE_URL'] ?? 'http://localhost:4200';
 }
 
