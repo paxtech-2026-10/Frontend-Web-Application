@@ -59,7 +59,7 @@ describe('AppointmentMakerComponent workers integration', () => {
     const staffItems = fixture.nativeElement.querySelectorAll('app-staff-item');
 
     expect(component.worker.length).toBe(2);
-    expect(component.selectedWorker.name).toBe('Mia');
+    expect(component.selectedWorker?.name).toBe('Mia');
     expect(staffItems.length).toBe(2);
   });
 });

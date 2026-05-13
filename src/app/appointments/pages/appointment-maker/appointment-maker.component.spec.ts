@@ -72,6 +72,6 @@ describe('AppointmentMakerComponent', () => {
 
     expect(workerApiSpy.getWorkers).toHaveBeenCalledTimes(2);
     expect(component.worker.length).toBe(1);
-    expect(component.selectedWorker.name).toBe('Mia');
+    expect(component.selectedWorker?.name).toBe('Mia');
   });
 });
