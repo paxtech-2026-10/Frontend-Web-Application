@@ -15,7 +15,7 @@ import {SalonProfileAssembler} from '../../services/salon-profile.assembler';
   styleUrl: './profile-salon-page.component.css'
 })
 export class ProfileSalonPageComponent implements OnInit {
- profile!: SalonProfile;
+ profile: SalonProfile = new SalonProfile();
 
  constructor(private profileService: SalonProfileApiService) {}
 

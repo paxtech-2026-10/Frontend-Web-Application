@@ -17,7 +17,7 @@ import {CommonModule} from '@angular/common';
 })
 export class ProfileHeaderComponent {
 
-  @Input({ required: true }) profile!: SalonProfile;
+  @Input({ required: true }) profile: SalonProfile = new SalonProfile();
   /** redes completas, opcionalmente precargadas */
   @Input() socialsDetails: SocialSummary[] = [];
 

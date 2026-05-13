@@ -2,6 +2,8 @@ import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ActivatedRoute, convertToParamMap, provideRouter } from '@angular/router';
 import { TestBed } from '@angular/core/testing';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
@@ -25,12 +27,16 @@ TestBed.configureTestingModule = ((moduleDef: any = {}) => {
       TranslateModule.forRoot(),
       ...(moduleDef.imports ?? [])
     ],
-    providers: [
-      provideHttpClient(),
-      provideHttpClientTesting(),
-      provideRouter([]),
-      { provide: ActivatedRoute, useValue: defaultActivatedRoute },
-      ...(moduleDef.providers ?? [])
-    ]
-  });
+      providers: [
+        provideHttpClient(),
+        provideHttpClientTesting(),
+        provideRouter([]),
+        { provide: ActivatedRoute, useValue: defaultActivatedRoute },
+        { provide: MAT_DIALOG_DATA, useValue: null },
+        { provide: MatDialogRef, useValue: { close: () => undefined, afterClosed: () => of(null) } },
+        { provide: MatDialog, useValue: { open: () => ({ afterClosed: () => of(null) }) } },
+        { provide: MatSnackBar, useValue: { open: () => undefined } },
+        ...(moduleDef.providers ?? [])
+      ]
+    });
 }) as typeof TestBed.configureTestingModule;

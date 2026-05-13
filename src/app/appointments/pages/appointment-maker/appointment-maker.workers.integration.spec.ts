@@ -36,11 +36,11 @@ describe('AppointmentMakerComponent workers integration', () => {
           provide: Router,
           useValue: {
             getCurrentNavigation: () => ({
-              extras: { state: { selectedService: { id: 1, name: 'Cut', duration: 30, price: 20, providerId: 1 } } }
+              extras: { state: { selectedService: { id: 1, name: 'Cut', duration: 30, price: 20, providerId: 7 }, providerId: 7 } }
             })
           }
         },
-        { provide: ActivatedRoute, useValue: { snapshot: { paramMap: { get: () => '1' } } } }
+        { provide: ActivatedRoute, useValue: { snapshot: { paramMap: { get: () => '7' } } } }
       ]
     }).compileComponents();
 
@@ -50,7 +50,8 @@ describe('AppointmentMakerComponent workers integration', () => {
 
   it('should load workers and render them in staff list', () => {
     spyOnProperty(history, 'state', 'get').and.returnValue({
-      selectedService: { id: 1, name: 'Cut', duration: 30, price: 20, providerId: 1 }
+      selectedService: { id: 1, name: 'Cut', duration: 30, price: 20, providerId: 7 },
+      providerId: 7
     });
 
     component.ngOnInit();

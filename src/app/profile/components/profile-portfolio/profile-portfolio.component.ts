@@ -23,6 +23,7 @@ export class ProfilePortfolioComponent implements OnInit{
 
 
   ngOnInit() {
+    this.profile ??= new SalonProfile();
     console.log('Perfil cargado NUEVO:', this.profile.portfolioImages);
   }
 

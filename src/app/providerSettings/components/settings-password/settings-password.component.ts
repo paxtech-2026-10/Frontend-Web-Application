@@ -30,7 +30,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
   styleUrl: './settings-password.component.css'
 })
 export class SettingsPasswordComponent {
-@Input() profile!: SalonProfile;
+@Input() profile: SalonProfile = new SalonProfile();
 value ='';
 currentPassword = '';
 

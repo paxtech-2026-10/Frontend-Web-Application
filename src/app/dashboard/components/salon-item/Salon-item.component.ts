@@ -33,7 +33,7 @@ import {TranslatePipe} from '@ngx-translate/core';
   styleUrl: './Salon-item.component.css'
 })
 export class SalonItemComponent implements OnInit{
-  @Input() salon!: ProviderProfile;
+  @Input() salon: ProviderProfile = new ProviderProfile();
   @Output() salonSelected = new EventEmitter<ProviderProfile>();
   private reviewService = inject(ReviewApiService)
   reviews: Review[] = [];
@@ -75,7 +75,7 @@ export class SalonItemComponent implements OnInit{
     this.reviewService.getAll().subscribe(reviews => {
       this.reviews = ReviewAssembler.toEntitiesFromResponse(reviews).filter(review => review.salonId === this.salon.providerId);
       this.reviews.forEach(review=> this.reviewAverage+= review.rating);
-      this.reviewAverage = this.reviewAverage/this.reviews.length;
+      this.reviewAverage = this.reviews.length ? this.reviewAverage / this.reviews.length : 0;
     });
 
 

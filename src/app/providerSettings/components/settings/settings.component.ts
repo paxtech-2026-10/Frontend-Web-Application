@@ -8,5 +8,5 @@ import {SalonProfile} from '../../../profile/models/salon-profile.entity';
   styleUrl: './settings.component.css'
 })
 export class SettingsComponent {
-  @Input() profile!: SalonProfile;
+  @Input() profile: SalonProfile = new SalonProfile();
 }

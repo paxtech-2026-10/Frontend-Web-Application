@@ -46,11 +46,11 @@ describe('AppointmentMakerComponent', () => {
           provide: Router,
           useValue: {
             getCurrentNavigation: () => ({
-              extras: { state: { selectedService: { id: 1, name: 'Cut', duration: 30, price: 20, providerId: 1 } } }
+              extras: { state: { selectedService: { id: 1, name: 'Cut', duration: 30, price: 20, providerId: 4 }, providerId: 4 } }
             })
           }
         },
-        { provide: ActivatedRoute, useValue: { snapshot: { paramMap: { get: () => '1' } } } }
+        { provide: ActivatedRoute, useValue: { snapshot: { paramMap: { get: () => '4' } } } }
       ]
     })
     .compileComponents();
@@ -65,12 +65,13 @@ describe('AppointmentMakerComponent', () => {
 
   it('should load workers and set selectedWorker on init', () => {
     spyOnProperty(history, 'state', 'get').and.returnValue({
-      selectedService: { id: 1, name: 'Cut', duration: 30, price: 20, providerId: 1 }
+      selectedService: { id: 1, name: 'Cut', duration: 30, price: 20, providerId: 4 },
+      providerId: 4
     });
 
     component.ngOnInit();
 
-    expect(workerApiSpy.getWorkers).toHaveBeenCalledTimes(2);
+    expect(workerApiSpy.getWorkers).toHaveBeenCalledTimes(1);
     expect(component.worker.length).toBe(1);
     expect(component.selectedWorker?.name).toBe('Mia');
   });
