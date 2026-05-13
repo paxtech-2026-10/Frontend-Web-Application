@@ -33,12 +33,37 @@ import {TranslatePipe} from '@ngx-translate/core';
   styleUrl: './Salon-item.component.css'
 })
 export class SalonItemComponent implements OnInit{
-  @Input() salon!: ProviderProfile;
+  @Input() salon: ProviderProfile = new ProviderProfile();
   @Output() salonSelected = new EventEmitter<ProviderProfile>();
   private reviewService = inject(ReviewApiService)
   reviews: Review[] = [];
   reviewAverage = 0;
   constructor() { }
+
+  get displayAddress(): string {
+    return (this.salon.location ?? '')
+      .replace(/(-?\d+(?:\.\d+)?)\s*,\s*(-?\d+(?:\.\d+)?)/, '')
+      .replace('|', '')
+      .trim();
+  }
+
+  get displayDistance(): string {
+    const distanceKm = this.salon.distanceKm;
+
+    if (distanceKm === undefined || distanceKm === Number.MAX_VALUE) {
+      return 'Distance unavailable';
+    }
+
+    if (distanceKm < 0.1) {
+      return '< 100 m';
+    }
+
+    if (distanceKm < 1) {
+      return `${Math.round(distanceKm * 1000)} m`;
+    }
+
+    return `${distanceKm.toFixed(1)} km`;
+  }
 
   ngOnInit() {
     /*
@@ -50,7 +75,7 @@ export class SalonItemComponent implements OnInit{
     this.reviewService.getAll().subscribe(reviews => {
       this.reviews = ReviewAssembler.toEntitiesFromResponse(reviews).filter(review => review.salonId === this.salon.providerId);
       this.reviews.forEach(review=> this.reviewAverage+= review.rating);
-      this.reviewAverage = this.reviewAverage/this.reviews.length;
+      this.reviewAverage = this.reviews.length ? this.reviewAverage / this.reviews.length : 0;
     });
 
 

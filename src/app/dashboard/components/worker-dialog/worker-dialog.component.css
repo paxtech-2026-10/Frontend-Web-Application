@@ -1,0 +1,11 @@
+.worker-field {
+  display: block;
+  width: 100%;
+  min-width: 320px;
+}
+
+.dialog-error {
+  color: #b00020;
+  font-size: 13px;
+  margin: -8px 0 12px;
+}

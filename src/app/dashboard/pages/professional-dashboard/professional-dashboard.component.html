@@ -11,7 +11,9 @@
 
     <mat-card class="mat-elevation-z2 staff-section">
       <mat-card-content>
-        <app-staff-list [WorkerList]="worker"></app-staff-list>
+        <app-staff-list
+          [WorkerList]="worker"
+          (addStaffRequested)="openCreateWorkerDialog()"></app-staff-list>
       </mat-card-content>
     </mat-card>
   </div>

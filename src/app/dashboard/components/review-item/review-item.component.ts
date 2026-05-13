@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./review-item.component.css']
 })
 export class ReviewItemComponent {
-  @Input() review!: Review;
+  @Input() review: Review = new Review();
 
   getStars(): number[] {
     return Array(this.review.rating).fill(0);

@@ -17,6 +17,7 @@ export interface SignUpPayload {
   email: string;
   password: string;
   companyName: string;
+  location?: string;
   type: 'provider' | 'client';
 
 }
@@ -100,6 +101,14 @@ export class AccountApiService extends BaseService<AccountResponse> {
   public createProvider(companyName: string, userId: number): Observable<any> {
     const payload = { companyName, userId };
     return this.http.post(`${this.serverBaseUrl}/providers`, payload);
+  }
+
+  public getProviderProfileByProviderId(providerId: number): Observable<any> {
+    return this.http.get(`${this.serverBaseUrl}/provider-profiles/provider/${providerId}`, this.httpOptions);
+  }
+
+  public updateProviderProfile(profileId: number, payload: any): Observable<any> {
+    return this.http.put(`${this.serverBaseUrl}/provider-profiles/${profileId}`, payload, this.httpOptions);
   }
 
   public createClient(firstName: string, lastName: string, userId: number): Observable<any> {

@@ -32,8 +32,8 @@ import {ServiceAssembler} from '../../../services/services/service.assembler';
   styleUrl: './salon.component.css'
 })
 export class SalonComponent implements OnInit {
-  providerProfile!: ProviderProfile;
-  @Input() profile!: SalonProfile;
+  providerProfile: ProviderProfile = new ProviderProfile();
+  @Input() profile: SalonProfile = new SalonProfile();
   @Output() salonSelected = new EventEmitter<ProviderProfile>();
 
   reviews: Review[] = [];
@@ -66,12 +66,12 @@ export class SalonComponent implements OnInit {
         this.serviceService.getAll().subscribe(services => {
           this.services = ServiceAssembler
             .toEntitiesFromResponse(services)
-            .filter(service => service.providerId === this.providerProfile.id);
+            .filter(service => service.providerId === this.providerProfile.providerId);
           console.log('Servicios filtrados:', this.services);
         });
 
         // Puedes cargar también el perfil si lo necesitas después
-        this.profileService.getProfileById(1).subscribe(profile => this.profile = profile);
+        this.profileService.getProfileById(salonId).subscribe(profile => this.profile = profile);
       });
     })
 

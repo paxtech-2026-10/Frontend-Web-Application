@@ -15,7 +15,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
   imports: [CommonModule, TranslatePipe]
 })
 export class ProfilePortfolioComponent implements OnInit{
-  @Input() profile!: SalonProfile;
+  @Input() profile: SalonProfile = new SalonProfile();
   isLoading = false;
 
   private portfolioService = inject(PortfolioImageApiService);
@@ -23,6 +23,7 @@ export class ProfilePortfolioComponent implements OnInit{
 
 
   ngOnInit() {
+    this.profile ??= new SalonProfile();
     console.log('Perfil cargado NUEVO:', this.profile.portfolioImages);
   }
 

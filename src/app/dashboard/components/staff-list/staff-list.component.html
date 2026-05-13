@@ -1,6 +1,30 @@
-<section>
-  <h3>{{ 'dashboard.ourStaff' | translate }}</h3>
+<section aria-label="staff section">
+  <div class="staff-list-header">
+    <h3>{{ 'dashboard.ourStaff' | translate }}</h3>
+    @if (showAddButton) {
+      <button
+        mat-raised-button
+        color="primary"
+        type="button"
+        aria-label="Add staff member"
+        (click)="addStaffRequested.emit()">
+        Add staff
+      </button>
+    }
+  </div>
   @for (worker of WorkerList; track worker.name) {
-    <app-staff-item [worker]="worker" aria-label="worker"></app-staff-item>
+    <div
+      class="staff-list-item"
+      [class.selectable]="selectable"
+      [class.selected]="selectedWorkerId === worker.id"
+      [attr.role]="selectable ? 'option' : null"
+      [attr.aria-selected]="selectable ? selectedWorkerId === worker.id : null"
+      (click)="selectWorker(worker)">
+      <app-staff-item
+        [worker]="worker"
+        [selected]="selectedWorkerId === worker.id"
+        [actionLabel]="selectable ? (selectedWorkerId === worker.id ? 'Selected' : 'Select') : null"
+        aria-label="worker"></app-staff-item>
+    </div>
   }
 </section>

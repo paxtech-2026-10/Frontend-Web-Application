@@ -7,6 +7,7 @@ import { AccountApiService, SignUpPayload, UserResource } from '../../services/a
 import { TranslatePipe } from '@ngx-translate/core';
 import {MatFormField, MatInput, MatLabel} from '@angular/material/input';
 import {MatButton} from '@angular/material/button';
+import { GeocodingService } from '../../../shared/services/geocoding.service';
 
 @Component({
   selector: 'app-register-form-provider',
@@ -32,10 +33,12 @@ export class RegisterFormProviderComponent {
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
     private router: Router,
-    private accountService: AccountApiService
+    private accountService: AccountApiService,
+    private geocodingService: GeocodingService
   ) {
     this.registerForm = this.fb.group({
       companyName: ['', Validators.required],
+      location: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
     });
@@ -52,17 +55,43 @@ export class RegisterFormProviderComponent {
       type: 'provider'
     };
 
+    this.geocodingService.geocodeAddress(payload.location ?? '').subscribe({
+      next: geocodedLocation => this.registerProvider(payload, geocodedLocation),
+      error: () => {
+        this.snackBar.open('Address could not be located. Try a more specific address.', 'Close', { duration: 3000 });
+      }
+    });
+  }
+
+  private registerProvider(payload: SignUpPayload, geocodedLocation: string): void {
     this.accountService.signUp(payload).subscribe({
       next: (user: UserResource) => {
         this.accountService.createProvider(payload.companyName, user.id).subscribe({
-          next: () => {
-            this.snackBar.open('Account created successfully!', 'Close', {
-              duration: 3000,
-              horizontalPosition: 'center',
-              verticalPosition: 'top'
-            });
+          next: (provider: { id: number }) => {
+            this.accountService.getProviderProfileByProviderId(provider.id).subscribe({
+              next: (profile: { id: number }) => {
+                this.accountService.updateProviderProfile(profile.id, {
+                  companyName: payload.companyName,
+                  location: geocodedLocation
+                }).subscribe({
+                  next: () => {
+                    this.snackBar.open('Account created successfully!', 'Close', {
+                      duration: 3000,
+                      horizontalPosition: 'center',
+                      verticalPosition: 'top'
+                    });
 
-            setTimeout(() => this.router.navigate(['/iam/login']), 1500);
+                    setTimeout(() => this.router.navigate(['/iam/login']), 1500);
+                  },
+                  error: () => {
+                    this.snackBar.open('Provider created but failed to save address', 'Close', { duration: 3000 });
+                  }
+                });
+              },
+              error: () => {
+                this.snackBar.open('Provider created but profile could not be loaded', 'Close', { duration: 3000 });
+              }
+            });
           },
           error: () => {
             this.snackBar.open('User created but failed to link as provider', 'Close', { duration: 3000 });

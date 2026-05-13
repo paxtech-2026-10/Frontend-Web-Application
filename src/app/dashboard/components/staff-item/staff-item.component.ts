@@ -18,6 +18,8 @@ import {TranslatePipe} from '@ngx-translate/core';
 })
 export class StaffItemComponent {
 @Input() worker!: Worker;
+@Input() selected = false;
+@Input() actionLabel: string | null = null;
 
 constructor() {}
 }

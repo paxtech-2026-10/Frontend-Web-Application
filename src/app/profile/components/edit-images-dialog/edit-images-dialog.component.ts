@@ -8,7 +8,7 @@ import {
   MatDialogRef,
   MatDialogTitle
 } from '@angular/material/dialog';
-import {MatInput, MatInputModule} from '@angular/material/input';
+import {MatInput, MatInputModule, MatLabel} from '@angular/material/input';
 import {MatButton, MatButtonModule} from '@angular/material/button';
 import {UpdateImagesDto} from '../../models/profile.entity';
 import {SalonProfileApiService} from '../../services/salon-profile-api.service';
@@ -20,6 +20,7 @@ import {SalonProfileApiService} from '../../services/salon-profile-api.service';
     MatDialogContent,
     MatDialogModule,
     MatFormField,
+    MatLabel,
     MatInput,
     FormsModule,
     MatButton
@@ -53,8 +54,8 @@ export class EditImagesDialogComponent {
     private ref: MatDialogRef<EditImagesDialogComponent>
   ) {
     this.form = {
-      profileImageUrl: data.profileImageUrl,
-      coverImageUrl:   data.coverImageUrl
+      profileImageUrl: data?.profileImageUrl ?? '',
+      coverImageUrl:   data?.coverImageUrl ?? ''
     };
   }
 

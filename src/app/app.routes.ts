@@ -18,6 +18,7 @@ import {ServicesTabComponent} from './services/pages/services-tab/services-tab.c
 import {SettingsPageComponent} from './providerSettings/pages/settings-page/settings-page.component';
 import {SubscriptionTabComponent} from './subscription/pages/subscription-tab/subscription-tab.component';
 import {AppointmentMakerComponent} from './appointments/pages/appointment-maker/appointment-maker.component';
+import {PaymentProcessingComponent} from './appointments/pages/payment-processing/payment-processing.component';
 import {NotificationPageComponent} from './providerFeed/pages/notification-page/notification-page.component';
 import { authGuard } from './iam/guards/auth.guard';
 
@@ -58,6 +59,7 @@ export const routes: Routes = [
       { path: 'homeClient', component: ClientDashboardComponent },
       { path: 'appointment', component: ClientAppointmentPagesComponent },
       { path: 'appointment-maker/:id', component: AppointmentMakerComponent },
+      { path: 'payment-processing/:reservationId/:paymentId', component: PaymentProcessingComponent },
       { path: 'favorites', component: ClientFavoriteComponent },
       { path: 'profile', component: ClientProfileComponent },
     ]

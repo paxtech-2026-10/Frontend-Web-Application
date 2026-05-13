@@ -10,5 +10,5 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./review-item.component.css']
 })
 export class ReviewItemComponent {
-  @Input() review!: Review;  // Recibe una sola review
+  @Input() review: Review = new Review();  // Recibe una sola review
 }

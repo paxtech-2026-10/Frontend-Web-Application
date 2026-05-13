@@ -15,7 +15,7 @@ import {SettingsPasswordComponent} from '../../components/settings-password/sett
 })
 export class SettingsPageComponent implements OnInit {
 
-  profile!: SalonProfile;
+  profile: SalonProfile = new SalonProfile();
 
   constructor(private profileService: SalonProfileApiService) {}
 

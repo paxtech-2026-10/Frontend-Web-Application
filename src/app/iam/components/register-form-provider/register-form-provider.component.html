@@ -10,20 +10,25 @@
 
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>{{ 'register.company' | translate }}</mat-label>
-      <input matInput formControlName="companyName" type="text" />
+      <input matInput formControlName="companyName" type="text" aria-label="register provider company input" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Address</mat-label>
+      <input matInput formControlName="location" type="text" aria-label="register provider address input" />
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>{{ 'register.email' | translate }}</mat-label>
-      <input matInput formControlName="email" type="email" />
+      <input matInput formControlName="email" type="email" aria-label="register provider email input" />
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>{{ 'register.password' | translate }}</mat-label>
-      <input matInput formControlName="password" type="password" />
+      <input matInput formControlName="password" type="password" aria-label="register provider password input" />
     </mat-form-field>
 
-    <button mat-raised-button color="primary" class="register-button" type="submit">
+    <button mat-raised-button color="primary" class="register-button" type="submit" aria-label="register provider create button">
       Create account
     </button>
   </div>

@@ -1,0 +1,15 @@
+.staff-list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.staff-list-header h3 {
+  margin: 0;
+}
+
+.staff-list-item.selectable {
+  cursor: pointer;
+}
