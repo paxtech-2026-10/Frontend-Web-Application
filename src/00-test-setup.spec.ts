@@ -32,7 +32,7 @@ TestBed.configureTestingModule = ((moduleDef: any = {}) => {
         provideHttpClientTesting(),
         provideRouter([]),
         { provide: ActivatedRoute, useValue: defaultActivatedRoute },
-        { provide: MAT_DIALOG_DATA, useValue: null },
+        { provide: MAT_DIALOG_DATA, useValue: { profileId: 0, profileImageUrl: '', coverImageUrl: '' } },
         { provide: MatDialogRef, useValue: { close: () => undefined, afterClosed: () => of(null) } },
         { provide: MatDialog, useValue: { open: () => ({ afterClosed: () => of(null) }) } },
         { provide: MatSnackBar, useValue: { open: () => undefined } },

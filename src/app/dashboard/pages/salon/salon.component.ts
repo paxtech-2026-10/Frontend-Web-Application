@@ -32,7 +32,7 @@ import {ServiceAssembler} from '../../../services/services/service.assembler';
   styleUrl: './salon.component.css'
 })
 export class SalonComponent implements OnInit {
-  providerProfile!: ProviderProfile;
+  providerProfile: ProviderProfile = new ProviderProfile();
   @Input() profile: SalonProfile = new SalonProfile();
   @Output() salonSelected = new EventEmitter<ProviderProfile>();
 

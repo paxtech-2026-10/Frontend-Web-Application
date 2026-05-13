@@ -53,8 +53,8 @@ export class EditImagesDialogComponent {
     private ref: MatDialogRef<EditImagesDialogComponent>
   ) {
     this.form = {
-      profileImageUrl: data.profileImageUrl,
-      coverImageUrl:   data.coverImageUrl
+      profileImageUrl: data?.profileImageUrl ?? '',
+      coverImageUrl:   data?.coverImageUrl ?? ''
     };
   }
 
