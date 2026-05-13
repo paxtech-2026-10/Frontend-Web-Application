@@ -30,8 +30,7 @@
               "@angular/material/prebuilt-themes/azure-blue.css",
               "src/styles.css"
             ],
-            "scripts": [],
-            "karmaConfig": "karma.conf.js"
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -97,7 +96,8 @@
               "@angular/material/prebuilt-themes/azure-blue.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [],
+            "karmaConfig": "karma.conf.js"
           },
           "configurations": {
             "services-only": {
