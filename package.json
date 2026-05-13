@@ -8,7 +8,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "test:ci": "ng test --watch=false --browsers=ChromeHeadless",
+    "test:ci": "ng test --watch=false --browsers=ChromeHeadlessNoSandbox",
     "bdd": "cucumber-js e2e-bdd/features/**/*.feature",
     "bdd:services": "cucumber-js e2e-bdd/features/services.feature --tags @services",
     "bdd:services:dry-run": "cucumber-js e2e-bdd/features/services.feature --require-module ts-node/register --require e2e-bdd/support/**/*.ts --require e2e-bdd/steps/**/*.ts --dry-run",
