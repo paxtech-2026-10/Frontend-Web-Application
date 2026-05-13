@@ -1,5 +1,6 @@
 module.exports = function (config) {
   config.set({
+    frameworks: ['jasmine', '@angular-devkit/build-angular'],
     browsers: ['Chrome'],
     customLaunchers: {
       ChromeHeadlessNoSandbox: {
@@ -11,7 +12,8 @@ module.exports = function (config) {
     plugins: [
       require('karma-chrome-launcher'),
       require('karma-coverage'),
-      require('karma-jasmine')
+      require('karma-jasmine'),
+      require('@angular-devkit/build-angular/plugins/karma')
     ],
     restartOnFileChange: true
   });
