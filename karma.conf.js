@@ -7,12 +7,11 @@ module.exports = function (config) {
         flags: ['--no-sandbox', '--disable-setuid-sandbox']
       }
     },
-    reporters: ['progress', 'kjhtml'],
+    reporters: ['progress'],
     plugins: [
       require('karma-chrome-launcher'),
       require('karma-coverage'),
-      require('karma-jasmine'),
-      require('karma-jasmine-html-reporter')
+      require('karma-jasmine')
     ],
     restartOnFileChange: true
   });
