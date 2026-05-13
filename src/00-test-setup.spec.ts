@@ -10,6 +10,8 @@ const defaultActivatedRoute = {
     paramMap: convertToParamMap({ id: '1' }),
     queryParamMap: convertToParamMap({})
   },
+  params: of({ id: '1' }),
+  queryParams: of({}),
   paramMap: of(convertToParamMap({ id: '1' })),
   queryParamMap: of(convertToParamMap({}))
 };
