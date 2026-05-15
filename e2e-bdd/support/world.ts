@@ -1,6 +1,12 @@
 import { After, Before, setDefaultTimeout, setWorldConstructor, World } from '@cucumber/cucumber';
 import { APIRequestContext, Browser, BrowserContext, Page, chromium, request } from '@playwright/test';
-import { ProviderAccount } from '../../e2e/support/api';
+import {
+  ClientAccount,
+  ProviderAccount,
+  ProviderProfileFixture,
+  ServiceFixture,
+  WorkerFixture
+} from '../../e2e/support/api';
 
 setDefaultTimeout(60_000);
 
@@ -21,6 +27,27 @@ export class UTimeWorld extends World {
   expectedProviderLocation?: string;
   providerProfileUpdateStatus?: number;
   providerProfileUpdateLocation?: string;
+  // Reservations (US18)
+  reservationClient?: ClientAccount;
+  reservationSalon?: ProviderProfileFixture;
+  reservationService?: ServiceFixture;
+  reservationWorker?: WorkerFixture;
+  reservationResponse?: {
+    id: number;
+    clientId: number;
+    providerId: number;
+    serviceId: number;
+    workerId: number;
+  };
+  paymentResponse?: {
+    id: number;
+    amount: number;
+    currency: string;
+    paymentStatus: string;
+    reservationId: number;
+    clientId: number;
+  };
+  reservationPaymentLinkRequest?: { paymentId: number; amount: number; currency: string };
   readonly baseUrl = process.env['E2E_WEB_BASE_URL'] ?? 'http://localhost:4200';
 }
 
