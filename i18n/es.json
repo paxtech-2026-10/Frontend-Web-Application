@@ -1,0 +1,128 @@
+{
+  "login": {
+    "title": "Accede a tu cuenta",
+    "subtitle": "No tienes una cuenta?",
+    "register": "Registrate ahora",
+    "logIn": "Iniciar sesión",
+    "password": "Contraseña",
+    "email": "Correo",
+    "back": "Regresar a la página principal"
+  },
+  "register": {
+    "title": "Crear una cuenta",
+    "subtitle": "Ya tienes una cuenta creada?",
+    "logIn": "Iniciar sesión",
+    "Client": "Cliente",
+    "Provider": "Provedor",
+    "name": "Nombre",
+    "last": "Apellido",
+    "email": "Correo",
+    "password": "Contraseña",
+    "create": "Crear cuenta",
+    "company": "Nombre De Compañia"
+  },
+  "dashboard": {
+    "home": "Inicio",
+    "schedule": "Agenda",
+    "hey": "Hola ",
+    "letsWork": "¡Manos a la obra!",
+    "upcoming": "Próximas citas",
+    "today": "Hoy",
+    "viewSchedule": "Ver agenda",
+    "ourStaff": "Nuestro Personal",
+    "overallScore": "Calificación general:",
+    "reviews": "Reseñas",
+    "services": "Servicios",
+    "subscription": "Subscripción",
+    "manicure": "Manicura",
+    "keratinTreatment": "Tratamiento de keratina",
+    "colorCut": "Color y corte",
+    "bridalHairStylist": "Estilista de novias",
+    "hairExtensionSpecialist": "Especialista en extensiones",
+    "haircutSpecialist": "Especialista en cortes",
+    "stylist": "Estilista"
+  },
+  "profile": {
+    "yourProfile": "Tu Perfil:",
+    "portfolio": "Portafolio",
+    "addPhoto": "+ Añadir Foto",
+    "recentReviews": "Reseñas recientes",
+    "socials": {
+      "instagram": "Instagram",
+      "tiktok": "TikTok"
+    },
+    "rating": "Calificación general:",
+    "reviewsCount": "{{count}} reseñas",
+    "profileImageAlt": "Foto de perfil",
+    "coverImageAlt": "Imagen de portada",
+    "addPhotoDescription": "Añade una nueva foto a tu portafolio",
+    "imageSelectedLog": "Imagen seleccionada:",
+    "imageAddedLog": "Imagen añadida al portafolio"
+  },
+  "favorites": {
+    "bookNow": "Reservar ahora"
+  },
+  "services": {
+    "service": "Servicio",
+    "duration": "Duración",
+    "price": "Precio",
+    "status": "Estado",
+    "actions": "Acciones",
+    "settings": "settings"
+  },
+  "subscription": {
+    "currentPlan": "Tu plan actual es: ",
+    "upgrade": "¿Quieres mejorar tu experiencia? Mira estos planes",
+    "actions": "Acciones",
+    "settings": "settings"
+  },
+  "client": {
+    "appointments": {
+      "salon": "Salón:",
+      "date": "Fecha:",
+      "hour": "Hora:",
+      "client": "Cliente:",
+      "payment": "Pagar",
+      "reschedule": "Reprogramar",
+      "cancel": "Cancelar",
+      "tomorrow": "Mañana",
+      "appointments": "Tus Citas",
+      "review": "Cuéntanos sobre tu experiencia",
+      "excelent": "Excelente",
+      "regular": "Regular",
+      "button": "Enviar reseña",
+      "bad": "Mala",
+      "comment": "Deja un comentario (opcional)",
+      "last": "Última Reseña",
+      "total": "en total",
+      "upcoming": "Próximas citas"
+    },
+    "profile": {
+      "profile": "Tu Perfil",
+      "personal": "Información Personal",
+      "name": "Nombre",
+      "email": "Correo Electrónico",
+      "phone": "Teléfono",
+      "identity": "Documento de Identidad",
+      "notifications": "Activar Notificaciones",
+      "location": "Compartir Ubicación",
+      "password": "Cambiar Contraseña",
+      "account": "Cuenta",
+      "change": "Cambiar",
+      "logOut": "Cerrar sesión",
+      "delete": "Eliminar cuenta"
+    },
+    "sidebar": {
+      "home": "Inicio",
+      "appointments": "Citas",
+      "favorites": "Mis Favoritos",
+      "profile": "Mi Perfil"
+    },
+    "toolbar": {
+      "search": "Buscar Salón..."
+    },
+    "favorites": {
+      "book": "Reservar Ahora"
+    }
+  }
+}

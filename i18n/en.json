@@ -1,0 +1,128 @@
+{
+  "login": {
+    "title": "Access Your Account",
+    "subtitle": "Don't have and account?",
+    "register": "Register now",
+    "logIn": "Log In",
+    "password": "Password",
+    "email": "Email",
+    "back": "Back to website"
+  },
+  "register": {
+    "title": "Create an account",
+    "subtitle": "Already have an account?",
+    "logIn": "Log in",
+    "Client": "Client",
+    "Provider": "Provider",
+    "name": "First Name",
+    "last": "Last Name",
+    "email": "Email",
+    "password": "Password",
+    "create": "Create account",
+    "company": "Full Name Company"
+  },
+  "dashboard": {
+    "home": "Home",
+    "schedule": "Schedule",
+    "hey": "Hey ",
+    "letsWork": "Lets Get to Work!",
+    "upcoming": "Upcoming appointments",
+    "today": "Today",
+    "viewSchedule": "View schedule",
+    "ourStaff": "Our Staff",
+    "overallScore": "Overall score:",
+    "reviews": "Reviews",
+    "services": "Services",
+    "subscription": "Subscription",
+    "manicure": "Manicure",
+    "keratinTreatment": "Keratin Treatment",
+    "colorCut": "Color & cut",
+    "bridalHairStylist": "Bridal hair stylist",
+    "hairExtensionSpecialist": "Hair extension specialist",
+    "haircutSpecialist": "Haircut specialist",
+    "stylist": "Stylist"
+  },
+  "profile": {
+    "yourProfile": "Your Profile:",
+    "portfolio": "Portfolio",
+    "addPhoto": "+ Add Photo",
+    "recentReviews": "Recent reviews",
+    "socials": {
+      "instagram": "Instagram",
+      "tiktok": "TikTok"
+    },
+    "rating": "Overall score:",
+    "reviewsCount": "{{count}} reviews",
+    "profileImageAlt": "Profile photo",
+    "coverImageAlt": "Cover image",
+    "addPhotoDescription": "Add a new photo to your portfolio",
+    "imageSelectedLog": "Image selected:",
+    "imageAddedLog": "Image added to portfolio"
+  },
+  "favorites": {
+    "bookNow": "Book now"
+  },
+  "services": {
+    "service": "Service",
+    "duration": "Duration",
+    "price": "Price",
+    "status": "Status",
+    "actions": "Actions",
+    "settings": "settings"
+  },
+  "subscription": {
+    "currentPlan": "Your current plan is: ",
+    "upgrade": "Wanna upgrade? Check out these plans",
+    "actions": "Actions",
+    "settings": "settings"
+  },
+  "client": {
+    "appointments": {
+      "salon": "Salon:",
+      "date": "Date:",
+      "hour": "Hour:",
+      "client": "Client:",
+      "payment": "Pay",
+      "reschedule": "Reschedule",
+      "cancel": "Cancel",
+      "tomorrow": "Tomorrow",
+      "appointments": "Your Appointments",
+      "review": "Tell us about your experience",
+      "excelent": "Excelent",
+      "regular": "Regular",
+      "button": "Send review",
+      "bad": "Bad",
+      "comment": "Leave a message(optional)",
+      "last": "Last Review",
+      "total": "in total",
+      "upcoming": "Upcoming Appointments"
+    },
+    "profile": {
+      "profile": "Your Profile",
+      "personal": "Personal Information",
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "identity": "Identity Document",
+      "notifications": "Enable Notifications",
+      "location": "Share Location",
+      "password": "Change Password",
+      "account": "Account",
+      "change" : "Change",
+      "logOut": "Logout",
+      "delete": "Delete Account"
+    },
+    "sidebar": {
+      "home": "Home",
+      "appointments": "Appointments",
+      "favorites": "My favorites",
+      "profile": "My profile"
+    },
+    "toolbar": {
+      "search": "Search Salon..."
+    },
+    "favorites": {
+      "book": "Book Now"
+    }
+  }
+}
