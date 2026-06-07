@@ -5,7 +5,6 @@ import {TranslatePipe} from '@ngx-translate/core';
 import { TranslateService } from '@ngx-translate/core';
 import {ClientAppointment} from '../../../appointments/model/appointment.entity';
 import {AppointmentApiService} from '../../../appointments/services/appointment-api-service.service';
-import {filter} from 'rxjs';
 
 
 @Component({
@@ -23,20 +22,17 @@ export class UpcomingAppointmentsComponent implements OnInit {
   ngOnInit(): void {
     this.appointmentService.getAppointments().subscribe(appointments => {
       const now = new Date();
+      const clientId = Number(localStorage.getItem('clientId'));
+      const providerId = Number(localStorage.getItem('providerId'));
+
       this.upcomingAppointments = appointments
+        // Keep only the current user's appointments BEFORE slicing, so their
+        // upcoming items aren't dropped by an unrelated global top-3.
+        .filter(a => this.isClient ? a.clientId === clientId : a.provider.id === providerId)
         .filter(a => new Date(a.timeSlot.startTime) > now)
-        .sort((a, b) => new Date(a.timeSlot.startTime).getTime() - new Date(b.timeSlot.endTime).getTime())
+        .sort((a, b) => new Date(a.timeSlot.startTime).getTime() - new Date(b.timeSlot.startTime).getTime())
         .slice(0, 3);
-
-      if (this.isClient) {
-        this.upcomingAppointments = this.upcomingAppointments.filter(a => a.provider.id == Number(localStorage.getItem('clientId')));
-      } else{
-        this.upcomingAppointments = this.upcomingAppointments.filter(a => a.provider.id == Number(localStorage.getItem('providerId')));
-      }
-
-      console.log('Upcoming Appointments:', this.upcomingAppointments)
     });
-    console.log(this.upcomingAppointments);
   }
 
   formatTime(dateStr: string): string {

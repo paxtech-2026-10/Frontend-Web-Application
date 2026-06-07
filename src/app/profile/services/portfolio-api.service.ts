@@ -4,7 +4,7 @@ import { environment } from '../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class PortfolioApiService {
-  private baseUrl = `${environment.serverBaseUrl}/providerProfiles`;
+  private baseUrl = `${environment.serverBaseUrl}/provider-profiles`;
 
   constructor(private http: HttpClient) {}
 

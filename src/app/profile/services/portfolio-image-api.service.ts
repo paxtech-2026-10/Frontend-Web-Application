@@ -7,7 +7,7 @@ import {catchError, Observable} from 'rxjs';
   providedIn: 'root'
 })
 export class PortfolioImageApiService extends BaseService<PortfolioImageResponse>{
-  override resourceEndpoint = '/providerProfiles';
+  override resourceEndpoint = '/provider-profiles';
   constructor() {
     super();
   }

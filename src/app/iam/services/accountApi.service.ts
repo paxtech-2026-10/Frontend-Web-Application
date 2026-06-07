@@ -75,8 +75,15 @@ export class AccountApiService extends BaseService<AccountResponse> {
     return localStorage.getItem('jwt_token');
   }
 
-  public logout(): void {
+  /** Removes all session data (token + role ids) so a previous login can't leak in. */
+  public clearSession(): void {
     localStorage.removeItem('jwt_token');
+    localStorage.removeItem('clientId');
+    localStorage.removeItem('providerId');
+  }
+
+  public logout(): void {
+    this.clearSession();
   }
 
   isProvider(userId: number) {                       // ← devuelve Provider | null

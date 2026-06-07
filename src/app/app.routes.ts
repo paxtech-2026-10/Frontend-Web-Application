@@ -21,6 +21,7 @@ import {AppointmentMakerComponent} from './appointments/pages/appointment-maker/
 import {PaymentProcessingComponent} from './appointments/pages/payment-processing/payment-processing.component';
 import {NotificationPageComponent} from './providerFeed/pages/notification-page/notification-page.component';
 import { authGuard } from './iam/guards/auth.guard';
+import { roleGuard } from './iam/guards/role.guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'iam/login', pathMatch: 'full' },
@@ -36,7 +37,8 @@ export const routes: Routes = [
   {
     path: 'provider',
     component: ProviderLayoutComponent,
-    canActivate: [authGuard],
+    canActivate: [authGuard, roleGuard],
+    data: { role: 'provider' },
     children: [
       { path: '', redirectTo: 'homeProvider', pathMatch: 'full' },
       { path: 'homeProvider', component: ProfessionalDashboardComponent },
@@ -53,7 +55,8 @@ export const routes: Routes = [
   {
     path: 'client',
     component: ClientLayoutComponent,
-    canActivate: [authGuard],
+    canActivate: [authGuard, roleGuard],
+    data: { role: 'client' },
     children: [
       { path: '', redirectTo: 'homeClient', pathMatch: 'full' },
       { path: 'homeClient', component: ClientDashboardComponent },
@@ -68,7 +71,8 @@ export const routes: Routes = [
   {
     path: 'client/homeClient',
     component: ClientLayoutComponent,
-    canActivate: [authGuard],
+    canActivate: [authGuard, roleGuard],
+    data: { role: 'client' },
     children: [
       { path: '', redirectTo: 'homeClient', pathMatch: 'full' },
       { path: 'salon/:id', component: SalonComponent }

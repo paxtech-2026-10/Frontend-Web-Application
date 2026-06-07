@@ -46,6 +46,10 @@ export class LoginFormComponent {
 
     const { email, password } = this.loginForm.value;
 
+    // Wipe any leftover session (token + role ids) so a previous user's identity
+    // can never bleed into this login. Role ids are re-set below per role.
+    this.accountApiService.clearSession();
+
     this.accountApiService.signIn({ email, password }).subscribe({
       next: user => {
         this.accountApiService.saveToken(user.token);

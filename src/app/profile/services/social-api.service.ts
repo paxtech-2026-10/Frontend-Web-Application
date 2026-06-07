@@ -9,21 +9,21 @@ import {CreateSocialDto, SocialSummary} from '../models/social.entity';
 @Injectable({ providedIn: 'root' })
 export class SocialsApiService {
 
-  private base = `${environment.serverBaseUrl}/providerProfiles`;
+  private base = `${environment.serverBaseUrl}/provider-profiles`;
 
   constructor(private http: HttpClient) {}
 
-  /** POST /providerProfiles/{profileId}/socials */
+  /** POST /provider-profiles/{profileId}/socials */
   create(profileId: number, body: CreateSocialDto): Observable<SocialSummary> {
     return this.http.post<SocialSummary>(`${this.base}/${profileId}/socials`, body);
   }
 
-  /** PUT  /providerProfiles/{profileId}/socials/{id} */
+  /** PUT  /provider-profiles/{profileId}/socials/{id} */
   update(profileId: number, id: number, body: CreateSocialDto): Observable<SocialSummary> {
     return this.http.put<SocialSummary>(`${this.base}/${profileId}/socials/${id}`, body);
   }
 
-  /** DELETE /providerProfiles/{profileId}/socials/{id} */
+  /** DELETE /provider-profiles/{profileId}/socials/{id} */
   delete(profileId: number, id: number): Observable<void> {
     return this.http.delete<void>(`${this.base}/${profileId}/socials/${id}`);
   }
