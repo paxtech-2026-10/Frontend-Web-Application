@@ -98,8 +98,14 @@ export class RegisterFormProviderComponent {
           }
         });
       },
-      error: () => {
-        this.snackBar.open('Something went wrong. Try again.', 'Close', { duration: 3000 });
+      error: (err) => {
+        // The backend rejects a duplicate email with 401 (empty body); 409/400 are
+        // also treated as "email taken" so the user gets an actionable message.
+        const emailTaken = err?.status === 401 || err?.status === 409 || err?.status === 400;
+        const message = emailTaken
+          ? 'This email is already registered. Try logging in instead.'
+          : 'Something went wrong. Please try again.';
+        this.snackBar.open(message, 'Close', { duration: 4000 });
       }
     });
   }

@@ -7,7 +7,10 @@ import {catchError, Observable} from 'rxjs';
   providedIn: 'root'
 })
 export class PortfolioImageApiService extends BaseService<PortfolioImageResponse>{
-  override resourceEndpoint = '/provider-profiles';
+  // Backend portfolio sub-resource is camelCase (PortfolioImagesController:
+  // /api/v1/providerProfiles/{id}/portfolio) — distinct from the kebab-case
+  // /provider-profiles profile resource. Requires auth (sent via interceptor).
+  override resourceEndpoint = '/providerProfiles';
   constructor() {
     super();
   }

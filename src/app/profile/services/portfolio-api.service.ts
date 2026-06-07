@@ -4,7 +4,8 @@ import { environment } from '../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class PortfolioApiService {
-  private baseUrl = `${environment.serverBaseUrl}/provider-profiles`;
+  // camelCase to match the backend PortfolioImagesController (/providerProfiles/{id}/portfolio).
+  private baseUrl = `${environment.serverBaseUrl}/providerProfiles`;
 
   constructor(private http: HttpClient) {}
 

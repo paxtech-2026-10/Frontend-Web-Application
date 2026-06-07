@@ -78,8 +78,13 @@ export class ProfilePortfolioComponent implements OnInit{
   }
 
   private async saveToBackend(imageUrl: string): Promise<void> {
+    // Attach the photo to the logged-in provider's own profile, not a hardcoded id.
+    const providerProfileId = this.profile?.id;
+    if (!providerProfileId) {
+      return Promise.reject(new Error('No active provider profile to attach the image to.'));
+    }
     return new Promise((resolve, reject) => {
-      this.portfolioService.createPortfolioImage(1, imageUrl)
+      this.portfolioService.createPortfolioImage(providerProfileId, imageUrl)
         .subscribe({
           next: () => resolve(),
           error: (err) => reject(err)
