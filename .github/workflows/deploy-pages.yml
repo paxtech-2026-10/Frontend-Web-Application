@@ -1,0 +1,53 @@
+name: Deploy to GitHub Pages
+
+# Builds the Angular app on a Linux runner and publishes it to the gh-pages
+# branch (which GitHub Pages already serves from). Runs on every push to main.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:   # allow manual runs from the Actions tab
+
+# Needed so the action can push the built site to the gh-pages branch.
+permissions:
+  contents: write
+
+concurrency:
+  group: deploy-pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Build & publish
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.1.1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # build:gh-pages already sets --base-href "/Frontend-Web-Application/"
+      - name: Build production bundle
+        run: pnpm run build:gh-pages
+
+      # SPA deep-link fallback so refreshing a route doesn't 404.
+      - name: Create 404.html fallback
+        run: cp dist/frontend-web-applications/browser/index.html dist/frontend-web-applications/browser/404.html
+
+      - name: Publish to gh-pages branch
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist/frontend-web-applications/browser
+          # peaceiris adds a .nojekyll file automatically
