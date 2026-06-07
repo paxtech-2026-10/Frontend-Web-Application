@@ -8,6 +8,7 @@ export class ClientAssembler {
       firstName: resource.firstName,
       lastName: resource.lastName,
       userId: resource.userId,
+      profileImageUrl: resource.profileImageUrl ?? '',
     }
   }
 

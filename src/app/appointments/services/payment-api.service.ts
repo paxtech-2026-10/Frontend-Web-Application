@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 import { BaseService } from '../../shared/services/base.service';
 import { PaymentResponse } from './payment.response';
 import { CreatePaymentRequest } from './create-payment.request';
@@ -22,11 +22,12 @@ export class PaymentApiService extends BaseService<PaymentResponse> {
    * Backend: POST /api/v1/payments
    */
   public createPayment(request: CreatePaymentRequest): Observable<PaymentResponse> {
+    // Sin retry: crear un pago no es idempotente; reintentar generaría pagos duplicados.
     return this.http.post<PaymentResponse>(
       this.resourcePath(),
       JSON.stringify(request),
       this.httpOptions
-    ).pipe(retry(2), catchError(this.handleError));
+    ).pipe(catchError(this.handleError));
   }
 
   /**
@@ -35,11 +36,12 @@ export class PaymentApiService extends BaseService<PaymentResponse> {
    * Devuelve la URL pública de Stripe a la que se redirige al usuario.
    */
   public createPaymentLink(request: CreatePaymentLinkRequest): Observable<PaymentLinkResponse> {
+    // Sin retry: evita generar múltiples Payment Links de Stripe para el mismo pago.
     return this.http.post<PaymentLinkResponse>(
       `${this.resourcePath()}/create-payment-link`,
       JSON.stringify(request),
       this.httpOptions
-    ).pipe(retry(2), catchError(this.handleError));
+    ).pipe(catchError(this.handleError));
   }
 
   /**

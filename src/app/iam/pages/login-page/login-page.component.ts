@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, AfterViewInit} from '@angular/core';
 import {LoginFormComponent} from '../../components/login-form/login-form.component';
 import { RouterModule } from '@angular/router';
-import {NgForOf, NgIf} from '@angular/common';
+import {NgForOf} from '@angular/common';
 import { tsParticles, type ISourceOptions} from '@tsparticles/engine';
 import { loadFull } from 'tsparticles';
 import {LanguageSwitcherComponent} from '../../../public/components/language-switcher/language-switcher.component';
@@ -15,7 +15,6 @@ import {TranslatePipe} from '@ngx-translate/core';
     NgForOf,
     LanguageSwitcherComponent,
     TranslatePipe,
-    NgIf,
   ],
   templateUrl: './login-page.component.html',
   styleUrl: './login-page.component.css'

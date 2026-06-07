@@ -1,6 +1,24 @@
-<h1>{{'profile.yourProfile'|translate}}</h1>
-<app-profile-header [profile]="profile"></app-profile-header>
+<section class="profile-page">
+  <header class="page-header">
+    <div>
+      <h1>{{ 'profile.yourProfile' | translate }}</h1>
+      <p>Manage the public profile clients see when they book your services.</p>
+    </div>
+  </header>
 
+  <div *ngIf="isLoading" class="state-panel">
+    <mat-spinner diameter="44"></mat-spinner>
+    <span>Loading profile...</span>
+  </div>
 
-<app-profile-portfolio [profile]="profile"></app-profile-portfolio>
-<app-review-list></app-review-list>
+  <div *ngIf="!isLoading && errorMessage" class="state-panel error" role="alert">
+    <mat-icon>error_outline</mat-icon>
+    <span>{{ errorMessage }}</span>
+  </div>
+
+  <ng-container *ngIf="!isLoading && !errorMessage">
+    <app-profile-header [profile]="profile"></app-profile-header>
+    <app-profile-portfolio [profile]="profile"></app-profile-portfolio>
+    <app-review-list></app-review-list>
+  </ng-container>
+</section>

@@ -1,35 +1,41 @@
-<div class="header">
-  <!-- portada -->
-  <img class="cover"
-       [src]="profile.coverImageUrl || 'assets/placeholder-cover.jpg'"
-       alt="Cover">
+<section class="header">
+  <ng-container *ngIf="profile.coverImageUrl; else coverFallback">
+    <img class="cover" [src]="profile.coverImageUrl" alt="Salon cover">
+  </ng-container>
+  <ng-template #coverFallback>
+    <div class="cover fallback-cover" aria-hidden="true"></div>
+  </ng-template>
 
   <div class="header-content">
-    <!-- avatar -->
-    <img class="avatar"
-         [src]="profile.profileImageUrl || 'assets/placeholder-avatar.png'"
-         alt="Avatar">
+    <ng-container *ngIf="profile.profileImageUrl; else avatarFallback">
+      <img class="avatar" [src]="profile.profileImageUrl" alt="Salon avatar">
+    </ng-container>
+    <ng-template #avatarFallback>
+      <div class="avatar avatar-fallback" aria-hidden="true">{{ initials }}</div>
+    </ng-template>
 
     <div class="text-info">
-      <h2>{{ profile.companyName }}</h2>
+      <div class="title-row">
+        <h2>{{ profile.companyName || 'Provider profile' }}</h2>
+        <button mat-icon-button color="primary" type="button" (click)="openEditImages()" aria-label="Edit profile images">
+          <mat-icon>image</mat-icon>
+        </button>
+        <button mat-icon-button color="primary" type="button" (click)="openEditSocials()" aria-label="Edit social links">
+          <mat-icon>alternate_email</mat-icon>
+        </button>
+      </div>
 
-      <button mat-icon-button color="primary" (click)="openEditSocials()">
-        <mat-icon>edit</mat-icon>
-      </button>
+      <p class="location" *ngIf="profile.location">{{ profile.location }}</p>
 
-      <div class="socials">
-        <!-- Instagram -->
-        <a *ngIf="profile.socials['instagram']"
-           [href]="profile.socials['instagram']" target="_blank">
-          <i class="fab fa-instagram"></i> Instagram
-        </a>
-
-        <!-- TikTok -->
-        <a *ngIf="profile.socials['tiktok']"
-           [href]="profile.socials['tiktok']" target="_blank">
-          <i class="fab fa-tiktok"></i> TikTok
+      <div class="socials" *ngIf="profile.socials && (profile.socials | keyvalue).length">
+        <a
+          *ngFor="let social of profile.socials | keyvalue"
+          [href]="social.value"
+          target="_blank"
+          rel="noopener">
+          {{ social.key }}
         </a>
       </div>
     </div>
   </div>
-</div>
+</section>

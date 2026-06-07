@@ -3,4 +3,5 @@ export interface ClientResponse {
   firstName: string;
   lastName: string;
   userId: number;
+  profileImageUrl?: string;
 }

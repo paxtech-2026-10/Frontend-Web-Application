@@ -6,8 +6,6 @@ import { CommonModule } from "@angular/common";
 import { MatFormField } from "@angular/material/form-field";
 import { MatInput, MatLabel } from "@angular/material/input";
 import { MatButton } from "@angular/material/button";
-import { MatOption } from '@angular/material/core';
-import { MatSelect } from '@angular/material/select';
 import { MatDialogContent, MatDialogActions, MatDialogTitle } from '@angular/material/dialog';
 
 @Component({
@@ -20,8 +18,6 @@ import { MatDialogContent, MatDialogActions, MatDialogTitle } from '@angular/mat
     MatFormField,
     MatInput,
     MatButton,
-    MatOption,
-    MatSelect,
     MatDialogContent,
     MatDialogActions,
     MatDialogTitle,

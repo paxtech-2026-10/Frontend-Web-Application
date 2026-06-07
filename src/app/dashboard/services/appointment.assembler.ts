@@ -1,3 +1,14 @@
+  // ───────────────────────────────────────────────────────────────────────────
+  // CÓDIGO MUERTO (2026-06-03)
+  // Assembler desfasado. Solo lo usa `dashboard/services/appointment-api.service.ts`
+  // (también muerto), consumido por un componente huérfano que no se renderiza.
+  // Mapea desde una forma de respuesta antigua que el backend ya NO devuelve:
+  // `resource.client.user.name`, `resource.timeSlot.start/end`, `resource.worker.name`
+  // y, sobre todo, `resource.salon.salonId` → `salon` viene `undefined` en el payload
+  // real de /reservationsDetails/details, por lo que esto lanzaría TypeError en runtime.
+  // El assembler vigente es `appointments/services/appointment.assembler.ts` (null-safe).
+  // Candidato a eliminación.
+  // ───────────────────────────────────────────────────────────────────────────
   import {Appointment} from '../models/appointment.entity';
   import {AppointmentResponse} from './appointment.response';
 

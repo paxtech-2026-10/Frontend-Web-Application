@@ -26,13 +26,15 @@ export abstract class BaseService<R> {
   }
 
   public create(id: any, resource: R): Observable<R> {
+    // Sin retry: POST no es idempotente; reintentar duplica recursos (reservas, pagos, etc.).
     return this.http.post<R>(`${this.resourcePath()}/${id}`, JSON.stringify(resource), this.httpOptions)
-      .pipe(retry(2), catchError(this.handleError));
+      .pipe(catchError(this.handleError));
   }
 
   public post(resource: R): Observable<R> {
+    // Sin retry: POST no es idempotente; reintentar duplica recursos (reservas, pagos, etc.).
     return this.http.post<R>(`${this.resourcePath()}`, JSON.stringify(resource), this.httpOptions)
-      .pipe(retry(2), catchError(this.handleError));
+      .pipe(catchError(this.handleError));
   }
 
   public getById(id: any): Observable<R> {
@@ -42,19 +44,21 @@ export abstract class BaseService<R> {
   }
 
   public delete(id: any): Observable<any> {
-
+    // Sin retry: reintentar un DELETE ya aplicado provoca 404 espurios.
     return this.http.delete(`${this.resourcePath()}/${id}`, this.httpOptions)
-      .pipe(retry(2), catchError(this.handleError));
+      .pipe(catchError(this.handleError));
   }
 
   public update(id: any, resource: R): Observable<R> {
+    // Sin retry para no reintentar mutaciones de forma no controlada.
     return this.http.put<R>(`${this.resourcePath()}/${id}`, JSON.stringify(resource), this.httpOptions)
-        .pipe(retry(2), catchError(this.handleError));
+        .pipe(catchError(this.handleError));
   }
 
   public partialUpdate(id: any, partialResource: Partial<R>): Observable<R> {
+    // Sin retry para no reintentar mutaciones de forma no controlada.
     return this.http.patch<R>(`${this.resourcePath()}/${id}`, JSON.stringify(partialResource), this.httpOptions)
-        .pipe(retry(2), catchError(this.handleError));
+        .pipe(catchError(this.handleError));
   }
 
 }

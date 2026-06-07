@@ -3,7 +3,7 @@ import {Review} from '../../../reviews/models/review.entity';
 import { ReviewItemComponent } from '../review-item/review-item.component';
 import { CommonModule } from '@angular/common';
 import {MatIcon} from '@angular/material/icon';
-import {MatButton, MatIconButton} from '@angular/material/button';
+import {MatButton} from '@angular/material/button';
 import {MatFormField, MatInput, MatLabel} from '@angular/material/input';
 import {FormsModule} from '@angular/forms';
 import {ReviewResponse} from '../../../reviews/services/review.response';
@@ -14,7 +14,7 @@ import {TranslatePipe} from '@ngx-translate/core';
 @Component({
   selector: 'app-review-list-client',
   standalone: true,
-  imports: [CommonModule, ReviewItemComponent, MatIcon, MatIconButton, MatFormField, MatLabel, MatFormField, MatInput, MatButton, MatFormField, FormsModule, TranslatePipe],
+  imports: [CommonModule, ReviewItemComponent, MatIcon, MatFormField, MatLabel, MatFormField, MatInput, MatButton, MatFormField, FormsModule, TranslatePipe],
   templateUrl: './review-list.component.html',
   styleUrls: ['./review-list.component.css']
 })

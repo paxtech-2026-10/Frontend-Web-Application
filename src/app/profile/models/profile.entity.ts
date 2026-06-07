@@ -7,6 +7,7 @@ export class Profile {
   identityDocument: string;
   notifications: boolean;
   location: boolean;
+  profileImageUrl: string;
 
   constructor() {
     this.accountId = '0'; // Debe ser string, no number
@@ -16,6 +17,7 @@ export class Profile {
     this.identityDocument = '';
     this.notifications = false;
     this.location = false;
+    this.profileImageUrl = '';
   }
 }
 

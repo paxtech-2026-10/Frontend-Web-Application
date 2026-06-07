@@ -1,0 +1,23 @@
+.settings-page {
+  display: grid;
+  gap: 1rem;
+  padding: 1.5rem;
+}
+
+.state-panel {
+  min-height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  border: 1px solid #d9e1ee;
+  border-radius: 8px;
+  background: #fff;
+  color: #334155;
+}
+
+.state-panel.error {
+  border-color: #f5c2c7;
+  background: #fff5f5;
+  color: #b42318;
+}

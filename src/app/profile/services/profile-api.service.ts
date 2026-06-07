@@ -1,83 +1,110 @@
-// profile.service.ts
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { delay } from 'rxjs/operators';
-import {Profile} from '../models/profile.entity';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, map, of, switchMap, throwError } from 'rxjs';
+import { environment } from '../../../environments/environment';
+import { Profile } from '../models/profile.entity';
+
+interface ClientResource {
+  id: number;
+  firstName: string;
+  lastName: string;
+  userId: number;
+  profileImageUrl?: string;
+}
+
+interface UserResource {
+  id: number;
+  email: string;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProfileClientService {
-  // For demo purposes, using a simulated mock API
-  private apiUrl = 'api/profile'; // Replace with your actual API endpoint
-
-  // Mock data to simulate API responses
-  private mockProfile: Profile = {
-    accountId: 'acc8',
-    name: 'Emilia Perez',
-    email: 'emiliaperez@gmail.com',
-    phoneNumber: '966584256',
-    identityDocument: '78994552',
-    notifications: false,
-    location: false
+  private readonly serverBaseUrl = environment.serverBaseUrl;
+  private readonly httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
   constructor(private http: HttpClient) { }
 
-  /**
-   * Get user profile information
-   */
   getProfile(): Observable<Profile> {
-    // For real API implementation:
-    // return this.http.get<Profile>(this.apiUrl);
-
-    // Mock implementation:
-    return of(this.mockProfile).pipe(delay(800)); // Simulating network delay
+    return this.getCurrentClient().pipe(
+      switchMap(client => this.getUser(client.userId).pipe(
+        map(user => this.toProfile(client, user))
+      ))
+    );
   }
 
-  /**
-   * Update user profile information
-   */
   updateProfile(profile: Profile): Observable<Profile> {
-    // For real API implementation:
-    // return this.http.put<Profile>(this.apiUrl, profile);
+    const nameParts = this.splitFullName(profile.name);
+    if (!nameParts) {
+      return throwError(() => new Error('Enter first and last name.'));
+    }
 
-    // Mock implementation:
-    this.mockProfile = { ...profile };
-    return of(this.mockProfile).pipe(delay(800));
+    return this.getCurrentClient().pipe(
+      switchMap(client => this.http.put<ClientResource>(
+        `${this.serverBaseUrl}/clients/${client.id}`,
+        {
+          firstName: nameParts.firstName,
+          lastName: nameParts.lastName,
+          profileImageUrl: client.profileImageUrl ?? ''
+        },
+        this.httpOptions
+      ).pipe(
+        switchMap(updatedClient => this.getUser(updatedClient.userId).pipe(
+          map(user => this.toProfile(updatedClient, user))
+        ))
+      ))
+    );
   }
 
-  /**
-   * Change user password
-   */
-  changePassword(currentPassword: string, newPassword: string): Observable<boolean> {
-    // For real API implementation:
-    // return this.http.post<boolean>(`${this.apiUrl}/change-password`, { currentPassword, newPassword });
-
-    // Mock implementation:
-    return of(true).pipe(delay(800));
+  changePassword(): Observable<boolean> {
+    return throwError(() => new Error('Password changes are not available in this version.'));
   }
 
-  /**
-   * Log out user
-   */
   logout(): Observable<boolean> {
-    // For real API implementation:
-    // return this.http.post<boolean>(`${this.apiUrl}/logout`, {});
-
-    // Mock implementation:
-    return of(true).pipe(delay(300));
+    localStorage.removeItem('jwt_token');
+    localStorage.removeItem('clientId');
+    localStorage.removeItem('providerId');
+    return of(true);
   }
 
-  /**
-   * Delete user account
-   */
   deleteAccount(): Observable<boolean> {
-    // For real API implementation:
-    // return this.http.delete<boolean>(this.apiUrl);
+    return throwError(() => new Error('Account deletion is not available in this version.'));
+  }
 
-    // Mock implementation:
-    return of(true).pipe(delay(800));
+  private getCurrentClient(): Observable<ClientResource> {
+    const clientId = Number(localStorage.getItem('clientId'));
+    if (!clientId) {
+      return throwError(() => new Error('No active client session found.'));
+    }
+    return this.http.get<ClientResource>(`${this.serverBaseUrl}/clients/${clientId}`, this.httpOptions);
+  }
+
+  private getUser(userId: number): Observable<UserResource> {
+    return this.http.get<UserResource>(`${this.serverBaseUrl}/users/${userId}`, this.httpOptions);
+  }
+
+  private toProfile(client: ClientResource, user: UserResource): Profile {
+    return {
+      accountId: String(client.id),
+      name: `${client.firstName} ${client.lastName}`.trim(),
+      email: user.email,
+      phoneNumber: '',
+      identityDocument: '',
+      notifications: false,
+      location: false,
+      profileImageUrl: client.profileImageUrl ?? ''
+    };
+  }
+
+  private splitFullName(fullName: string): { firstName: string; lastName: string } | null {
+    const normalized = fullName.trim().replace(/\s+/g, ' ');
+    const [firstName, ...lastNameParts] = normalized.split(' ');
+    const lastName = lastNameParts.join(' ');
+
+    if (!firstName || !lastName) return null;
+    return { firstName, lastName };
   }
 }

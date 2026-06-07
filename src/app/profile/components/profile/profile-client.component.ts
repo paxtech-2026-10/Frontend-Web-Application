@@ -1,52 +1,59 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { NgIf } from '@angular/common';
+import { Router, RouterLink } from '@angular/router';
+import { MatButton, MatIconButton } from '@angular/material/button';
+import { MatError, MatFormField, MatInput, MatLabel } from '@angular/material/input';
+import { MatIcon } from '@angular/material/icon';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslatePipe } from '@ngx-translate/core';
 import { ProfileClientService } from '../../services/profile-api.service';
 import { Profile } from '../../models/profile.entity';
-import {MatIcon} from '@angular/material/icon';
-import {MatSlideToggle} from '@angular/material/slide-toggle';
-import {RouterLink} from '@angular/router';
-import {MatButton, MatIconButton} from '@angular/material/button';
-import {NgIf} from '@angular/common';
-import {MatError, MatFormField, MatInput, MatLabel} from '@angular/material/input';
-import {MatProgressSpinner} from '@angular/material/progress-spinner';
-import {MatCard} from '@angular/material/card';
-import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-profile',
-  imports: [MatIcon, ReactiveFormsModule, MatSlideToggle, MatFormField, RouterLink, MatButton, MatIconButton, NgIf, MatInput, MatError, MatProgressSpinner, MatProgressSpinner, MatLabel, MatCard, TranslatePipe],
+  imports: [
+    MatButton,
+    MatError,
+    MatFormField,
+    MatIcon,
+    MatIconButton,
+    MatInput,
+    MatLabel,
+    MatProgressSpinner,
+    NgIf,
+    ReactiveFormsModule,
+    RouterLink,
+    TranslatePipe
+  ],
   templateUrl: './profile-client.component.html',
   styleUrls: ['./profile-client.component.css']
 })
 export class ProfileClientComponent implements OnInit {
   profileForm: FormGroup;
-  passwordForm: FormGroup;
-  profile: Profile;
+  profile: Profile = new Profile();
   isLoading = true;
-  passwordsMatch = true;
-  showCurrentPasswordField = false;
+  isSaving = false;
+  errorMessage: string | null = null;
 
   constructor(
     private fb: FormBuilder,
-    private profileService: ProfileClientService
+    private profileService: ProfileClientService,
+    private router: Router,
+    private snackBar: MatSnackBar
   ) {
-    // Inicialización de formularios en el constructor
     this.profileForm = this.fb.group({
-      name: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      phoneNumber: [''],
-      identityDocument: [''],
-      notifications: [false],
-      location: [false]
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      email: [{ value: '', disabled: true }, [Validators.required, Validators.email]]
     });
+  }
 
-    this.passwordForm = this.fb.group({
-      currentPassword: ['', Validators.required],
-      newPassword: ['', [Validators.required, Validators.minLength(8)]],
-      confirmPassword: ['', Validators.required]
-    });
-
-    this.profile = new Profile();
+  get initials(): string {
+    const firstName = this.profileForm.get('firstName')?.value?.trim()?.[0] ?? '';
+    const lastName = this.profileForm.get('lastName')?.value?.trim()?.[0] ?? '';
+    return `${firstName}${lastName}`.toUpperCase() || 'U';
   }
 
   ngOnInit(): void {
@@ -55,96 +62,61 @@ export class ProfileClientComponent implements OnInit {
 
   loadProfile(): void {
     this.isLoading = true;
+    this.errorMessage = null;
+
     this.profileService.getProfile().subscribe({
-      next: (profile) => {
+      next: profile => {
         this.profile = profile;
         this.updateForm(profile);
         this.isLoading = false;
       },
-      error: (err) => {
-        console.error('Error loading profile:', err);
+      error: err => {
+        this.errorMessage = err?.message ?? 'No pudimos cargar tu perfil.';
         this.isLoading = false;
       }
     });
   }
 
-  updateForm(profile: Profile): void {
-    this.profileForm.patchValue({
-      name: profile.name,
-      email: profile.email,
-      phoneNumber: profile.phoneNumber,
-      identityDocument: profile.identityDocument,
-      notifications: profile.notifications,
-      location: profile.location
-    });
-  }
-
   saveProfile(): void {
-    if (this.profileForm.valid) {
-      const updatedProfile: Profile = {
-        ...this.profile,
-        ...this.profileForm.value
-      };
+    if (this.profileForm.invalid || this.isSaving) return;
 
-      this.profileService.updateProfile(updatedProfile).subscribe({
-        next: (result) => {
-          console.log('Profile updated successfully');
-          // Mostrar mensaje de éxito
-        },
-        error: (err) => {
-          console.error('Error updating profile:', err);
-          // Mostrar mensaje de error
-        }
-      });
-    }
-  }
+    const formValue = this.profileForm.getRawValue();
+    const updatedProfile: Profile = {
+      ...this.profile,
+      name: `${formValue.firstName.trim()} ${formValue.lastName.trim()}`,
+      email: formValue.email
+    };
 
-  changePassword(): void {
-    if (this.passwordForm.valid) {
-      const { currentPassword, newPassword, confirmPassword } = this.passwordForm.value;
-
-      if (newPassword !== confirmPassword) {
-        this.passwordsMatch = false;
-        return;
+    this.isSaving = true;
+    this.profileService.updateProfile(updatedProfile).subscribe({
+      next: profile => {
+        this.profile = profile;
+        this.updateForm(profile);
+        this.isSaving = false;
+        this.snackBar.open('Profile updated.', 'Close', { duration: 2500 });
+      },
+      error: err => {
+        this.isSaving = false;
+        this.snackBar.open(err?.message ?? 'Could not update profile.', 'Close', { duration: 3000 });
       }
-
-      this.passwordsMatch = true;
-      this.profileService.changePassword(currentPassword, newPassword).subscribe({
-        next: () => {
-          console.log('Password changed successfully');
-          this.passwordForm.reset();
-          this.showCurrentPasswordField = false;
-          // Mostrar mensaje de éxito
-        },
-        error: (err) => {
-          console.error('Error changing password:', err);
-          // Mostrar mensaje de error
-        }
-      });
-    }
+    });
   }
 
   logout(): void {
-    this.profileService.logout().subscribe({
-      next: () => {
-        // Navegar a la página de login o manejar el logout
-      },
-      error: (err) => {
-        console.error('Error during logout:', err);
-      }
+    this.profileService.logout().subscribe(() => {
+      this.router.navigate(['/iam/login']);
     });
   }
 
-  deleteAccount(): void {
-    if (confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
-      this.profileService.deleteAccount().subscribe({
-        next: () => {
-          // Navegar a la página de login o manejar la eliminación de cuenta
-        },
-        error: (err) => {
-          console.error('Error deleting account:', err);
-        }
-      });
-    }
+  private updateForm(profile: Profile): void {
+    const nameParts = profile.name.trim().split(/\s+/);
+    const firstName = nameParts.shift() ?? '';
+    const lastName = nameParts.join(' ');
+
+    this.profileForm.patchValue({
+      firstName,
+      lastName,
+      email: profile.email
+    });
   }
 }

@@ -1,3 +1,15 @@
+// ─────────────────────────────────────────────────────────────────────────────
+// CÓDIGO MUERTO (2026-06-03)
+// Componente huérfano: su selector `app-upcoming-appointments-client` NO se usa
+// en ningún template del proyecto. Las vistas reales (client-dashboard,
+// professional-dashboard, client-appointment-pages, client-favorite) usan el
+// componente `app-upcoming-appointments` de `dashboard/components/...`, que
+// consume el servicio correcto (`appointments/services/appointment-api-service.service.ts`)
+// y el modelo null-safe `ClientAppointment`.
+// Este componente, en cambio, depende del servicio/modelo desfasados del dashboard
+// (ver dichos archivos) que ya no coinciden con la respuesta real del backend.
+// Mantener solo como referencia; candidato a eliminación.
+// ─────────────────────────────────────────────────────────────────────────────
 import { Component, OnInit } from '@angular/core';
 import {AppointmentApiService} from '../../../dashboard/services/appointment-api.service';
 import {ClientAppointment} from '../../model/appointment.entity';
