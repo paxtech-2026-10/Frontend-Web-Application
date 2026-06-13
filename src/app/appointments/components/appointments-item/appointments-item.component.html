@@ -2,7 +2,7 @@
   <div class="appointment-header">
     <div class="appointment-type">
       <mat-icon>event_note</mat-icon>
-      <span>{{ appointment.provider.name }}</span>
+      <span>{{ appointment.service.name }}</span>
     </div>
     <div class="appointment-date" aria-label="appointment-date">
       <mat-icon>calendar_today</mat-icon>
@@ -15,7 +15,7 @@
       <mat-icon>location_on</mat-icon>
       <div class="info-content">
         <div class="label">{{'client.appointments.salon' | translate}}</div>
-        <div class="value">{{ appointment.provider.name  }}</div>
+        <div class="value">{{ appointment.provider.companyName }}</div>
       </div>
     </div>
 
@@ -31,7 +31,7 @@
       <mat-icon>person</mat-icon>
       <div class="info-content">
         <div class="label">{{'client.appointments.client' | translate}}</div>
-        <div class="value">{{ appointment.clientId }}</div>
+        <div class="value">{{ appointment.client.fullName }}</div>
       </div>
     </div>
   </div>

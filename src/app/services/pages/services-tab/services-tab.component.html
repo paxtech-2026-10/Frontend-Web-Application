@@ -5,26 +5,26 @@
   <!-- Loading state -->
   <div *ngIf="status === 'loading'" class="state-container" role="status" aria-live="polite">
     <mat-progress-spinner mode="indeterminate" diameter="48"></mat-progress-spinner>
-    <p class="state-text">Cargando servicios…</p>
+    <p class="state-text">{{ 'services.loading' | translate }}</p>
   </div>
 
   <!-- Empty state -->
   <div *ngIf="status === 'empty'" class="state-container" aria-label="No services yet">
     <mat-icon class="state-icon">inbox</mat-icon>
-    <h2 class="state-title">Aún no tienes servicios</h2>
-    <p class="state-text">Crea tu primer servicio para que tus clientes puedan reservarlo.</p>
+    <h2 class="state-title">{{ 'services.emptyTitle' | translate }}</h2>
+    <p class="state-text">{{ 'services.emptySubtitle' | translate }}</p>
     <button mat-raised-button color="primary" (click)="openCreateServiceDialog()" aria-label="Create first service">
-      Crear mi primer servicio
+      {{ 'services.firstService' | translate }}
     </button>
   </div>
 
   <!-- Failure state -->
   <div *ngIf="status === 'failure'" class="state-container" role="alert">
     <mat-icon class="state-icon error-icon">error_outline</mat-icon>
-    <h2 class="state-title">No pudimos cargar tus servicios</h2>
+    <h2 class="state-title">{{ 'services.failureTitle' | translate }}</h2>
     <p class="state-text" *ngIf="errorMessage">{{ errorMessage }}</p>
     <button mat-stroked-button (click)="retry()" aria-label="Retry loading services">
-      Reintentar
+      {{ 'services.retry' | translate }}
     </button>
   </div>
 
@@ -35,7 +35,7 @@
       [newService]="newService"
       (servicesChanged)="loadServices()"></app-service-table>
     <button mat-raised-button color="primary" class="new-service-btn" (click)="openCreateServiceDialog()" aria-label="Add new service">
-      Nuevo servicio
+      {{ 'services.newService' | translate }}
     </button>
   </ng-container>
 

@@ -68,13 +68,23 @@
     "price": "Price",
     "status": "Status",
     "actions": "Actions",
-    "settings": "settings"
+    "settings": "settings",
+    "newService": "New service",
+    "firstService": "Create my first service",
+    "loading": "Loading services…",
+    "emptyTitle": "You don't have services yet",
+    "emptySubtitle": "Create your first service so your clients can book it.",
+    "failureTitle": "We couldn't load your services",
+    "retry": "Retry",
+    "minutes": "min"
   },
   "subscription": {
     "currentPlan": "Your current plan is: ",
     "upgrade": "Wanna upgrade? Check out these plans",
     "actions": "Actions",
-    "settings": "settings"
+    "settings": "settings",
+    "choose": "Choose",
+    "currentPlanLabel": "Current Plan"
   },
   "client": {
     "appointments": {

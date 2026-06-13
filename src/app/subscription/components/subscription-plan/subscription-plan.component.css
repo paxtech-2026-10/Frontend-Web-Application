@@ -88,6 +88,16 @@ li{
 .choose-btn:hover {
   background-color: #927EA8;
 }
+/* Plan actualmente activo: deshabilitado y diferenciado visualmente */
+.choose-btn.current-plan-btn,
+.choose-btn:disabled {
+  background-color: #61A679;
+  cursor: default;
+  opacity: 1;
+}
+.choose-btn:disabled:hover {
+  background-color: #61A679;
+}
 .features {
   text-align: left;
 }

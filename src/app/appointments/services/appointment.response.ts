@@ -1,10 +1,21 @@
 export interface AppointmentResponse {
   id: number;
   clientId: number,
+  client: {
+    id: number;
+    fullName: string;
+  };
   provider: {
     id: number;
     name: string;
     companyName: string;
+  };
+  serviceId: {
+    id: number;
+    name: string;
+    duration: number;
+    price: number;
+    providerId: number;
   };
   paymentId: {
     id: number;

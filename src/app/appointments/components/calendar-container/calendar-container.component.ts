@@ -8,6 +8,8 @@ import {ClientAppointment} from '../../model/appointment.entity';
 
 import {ActivatedRoute, Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {MatDialog} from '@angular/material/dialog';
+import {ConfirmDialogComponent} from '../../../shared/components/confirm-dialog/confirm-dialog.component';
 import {Service} from '../../../services/model/service.entity';
 import {Worker} from '../../../dashboard/models/worker.entity';
 import {AppointmentApiService} from '../../services/appointment-api-service.service';
@@ -62,6 +64,7 @@ export class WeekCalendarComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private snackBar = inject(MatSnackBar);
+  private dialog = inject(MatDialog);
 
   private timeSlotApi = inject(TimeSlotApiService);
   private paymentApi = inject(PaymentApiService);
@@ -109,14 +112,32 @@ export class WeekCalendarComponent implements OnInit {
       const e = new Date(ap.timeSlot.endTime).getTime() + 10 * 60000;
       return start.getTime() < e && end.getTime() > s;
     });
-    if (overlaps) { alert('⚠ Hay otra cita muy cerca.'); return; }
+    if (overlaps) {
+      this.snackBar.open('⚠ Hay otra cita muy cerca.', 'Cerrar', { duration: 3000 });
+      return;
+    }
 
-    if (!confirm(`Reservar de ${start.toLocaleTimeString()} a ${end.toLocaleTimeString()}?`)) return;
+    // Modal de confirmación a medida (reemplaza el window.confirm nativo)
+    this.dialog.open(ConfirmDialogComponent, {
+      width: '380px',
+      data: {
+        title: 'Confirmar reserva',
+        message: `¿Deseas reservar de ${start.toLocaleTimeString()} a ${end.toLocaleTimeString()}?`,
+        confirmText: 'Confirmar',
+        cancelText: 'Cancelar'
+      }
+    }).afterClosed().subscribe(confirmed => {
+      if (confirmed) {
+        this.confirmReservation(start, end);
+      }
+    });
+  }
 
+  private confirmReservation(start: Date, end: Date): void {
     const providerId = this.getProviderId();
     const clientId = Number(localStorage.getItem('clientId'));
     if (!clientId) {
-      alert('No se encontró clientId en sesión. Vuelve a iniciar sesión.');
+      this.snackBar.open('No se encontró clientId en sesión. Vuelve a iniciar sesión.', 'Cerrar', { duration: 4000 });
       return;
     }
     const workerId = this.worker.id;
