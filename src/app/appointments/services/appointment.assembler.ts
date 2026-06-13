@@ -2,8 +2,14 @@ import {ClientAppointment} from '../model/appointment.entity';
 import {AppointmentResponse} from './appointment.response';
 
 export class AppointmentAssembler {
+  private static emptyClient() {
+    return { id: 0, fullName: '' };
+  }
   private static emptyProvider() {
     return { id: 0, name: '', companyName: '' };
+  }
+  private static emptyService() {
+    return { id: 0, name: '', duration: 0, price: 0, providerId: 0 };
   }
   private static emptyPayment() {
     return { id: 0, amount: 0, currency: '', status: false };
@@ -18,7 +24,9 @@ export class AppointmentAssembler {
     return {
       id: resource.id ?? 0,
       clientId: resource.clientId ?? 0,
+      client:     resource.client     ?? this.emptyClient(),
       provider:   resource.provider   ?? this.emptyProvider(),
+      service:    resource.serviceId  ?? this.emptyService(),
       paymentId:  resource.paymentId  ?? this.emptyPayment(),
       timeSlot:   resource.timeSlot   ?? this.emptyTimeSlot(),
       workerId:   resource.workerId   ?? this.emptyWorker()

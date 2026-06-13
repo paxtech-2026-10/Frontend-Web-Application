@@ -68,13 +68,23 @@
     "price": "Precio",
     "status": "Estado",
     "actions": "Acciones",
-    "settings": "settings"
+    "settings": "settings",
+    "newService": "Nuevo servicio",
+    "firstService": "Crear mi primer servicio",
+    "loading": "Cargando servicios…",
+    "emptyTitle": "Aún no tienes servicios",
+    "emptySubtitle": "Crea tu primer servicio para que tus clientes puedan reservarlo.",
+    "failureTitle": "No pudimos cargar tus servicios",
+    "retry": "Reintentar",
+    "minutes": "min"
   },
   "subscription": {
     "currentPlan": "Tu plan actual es: ",
     "upgrade": "¿Quieres mejorar tu experiencia? Mira estos planes",
     "actions": "Acciones",
-    "settings": "settings"
+    "settings": "settings",
+    "choose": "Elegir",
+    "currentPlanLabel": "Plan Actual"
   },
   "client": {
     "appointments": {

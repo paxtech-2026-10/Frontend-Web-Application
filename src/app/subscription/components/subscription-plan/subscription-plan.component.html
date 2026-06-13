@@ -1,5 +1,5 @@
 <h2 aria-label="Current plan">{{'subscription.currentPlan' | translate}}
-  <div class="plan-container" aria-label="Selected plan">{{selectedPlan || "ProStyle"}}</div>
+  <div class="plan-container" aria-label="Selected plan">{{ activePlan }}</div>
 </h2>
 
 <h3 aria-label="Upgrade subscription plan">{{'subscription.upgrade' | translate }}</h3>
@@ -16,7 +16,10 @@
       <li><mat-icon class="ex" aria-hidden="true">clear</mat-icon> Advanced analytics</li>
     </div>
     <div class="boton">
-      <button class="choose-btn" aria-label="Choose Essential plan">Choose</button>
+      <button class="choose-btn" [class.current-plan-btn]="isCurrentPlan('Essential')"
+              [disabled]="isCurrentPlan('Essential')" aria-label="Choose Essential plan">
+        {{ (isCurrentPlan('Essential') ? 'subscription.currentPlanLabel' : 'subscription.choose') | translate }}
+      </button>
     </div>
   </mat-card>
 
@@ -32,7 +35,10 @@
       <li><mat-icon class="ex" aria-hidden="true">clear</mat-icon> Advanced analytics</li>
     </div>
     <div class="boton">
-      <button class="choose-btn" aria-label="Choose ProStyle plan">Choose</button>
+      <button class="choose-btn" [class.current-plan-btn]="isCurrentPlan('ProStyle')"
+              [disabled]="isCurrentPlan('ProStyle')" aria-label="Choose ProStyle plan">
+        {{ (isCurrentPlan('ProStyle') ? 'subscription.currentPlanLabel' : 'subscription.choose') | translate }}
+      </button>
     </div>
   </mat-card>
 
@@ -48,7 +54,10 @@
       <li><mat-icon class="check" aria-hidden="true">check</mat-icon> Advanced analytics</li>
     </div>
     <div class="boton">
-      <button class="choose-btn" aria-label="Choose Deluxe Studio plan">Choose</button>
+      <button class="choose-btn" [class.current-plan-btn]="isCurrentPlan('Deluxe Studio')"
+              [disabled]="isCurrentPlan('Deluxe Studio')" aria-label="Choose Deluxe Studio plan">
+        {{ (isCurrentPlan('Deluxe Studio') ? 'subscription.currentPlanLabel' : 'subscription.choose') | translate }}
+      </button>
     </div>
   </mat-card>
 </div>

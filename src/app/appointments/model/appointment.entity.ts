@@ -1,10 +1,21 @@
 export class ClientAppointment {
   id: number;
   clientId: number;
+  client: {
+    id: number;
+    fullName: string;
+  };
   provider: {
     id: number;
     name: string;
     companyName: string;
+  };
+  service: {
+    id: number;
+    name: string;
+    duration: number;
+    price: number;
+    providerId: number;
   };
   paymentId: {
     id: number;
@@ -28,10 +39,21 @@ export class ClientAppointment {
   constructor() {
     this.id = 0;
     this.clientId = 0;
+    this.client = {
+      id: 0,
+      fullName: ''
+    }
     this.provider = {
       id: 0,
       name: '',
       companyName: ''
+    }
+    this.service = {
+      id: 0,
+      name: '',
+      duration: 0,
+      price: 0,
+      providerId: 0
     }
     this.paymentId = {
       id: 0,

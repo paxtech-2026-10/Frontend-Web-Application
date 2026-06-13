@@ -26,9 +26,13 @@ export class ReviewsTabComponent implements OnInit{
     const providerId = Number(localStorage.getItem('providerId'));
     this.reviewService.getBySalonId(providerId).subscribe(resource => {
       this.reviews = ReviewAssembler.toEntitiesFromResponse(resource).filter(review => review.salonId == providerId);
-      console.log(this.reviews);
-      this.reviews.forEach(review => this.average += review.rating);
-      this.average /= this.reviews.length;
+      // Evitar división por cero (0/0 = NaN) cuando aún no hay reseñas
+      if (this.reviews.length > 0) {
+        const sum = this.reviews.reduce((total, review) => total + review.rating, 0);
+        this.average = Math.round((sum / this.reviews.length) * 10) / 10;
+      } else {
+        this.average = 0;
+      }
     })
 
   }
