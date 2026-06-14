@@ -54,6 +54,9 @@ export class WeekCalendarComponent implements OnInit {
     initialView: 'timeGridWeek',
     selectable: true,
     slotDuration: '00:30:00',
+    // Impide navegar y seleccionar fechas/horas pasadas
+    validRange: { start: new Date() },
+    selectAllow: (selectInfo) => selectInfo.start.getTime() >= Date.now(),
     headerToolbar: { left: 'prev,next today', center: 'title', right: 'timeGridWeek,timeGridDay' },
     events: [],
     select: this.handleDateSelect.bind(this)
@@ -106,6 +109,11 @@ export class WeekCalendarComponent implements OnInit {
     const duration = this.service?.duration ?? 30;
     const start = new Date(sel.start);
     const end = new Date(start.getTime() + duration * 60000);
+
+    if (start.getTime() < Date.now()) {
+      this.snackBar.open('No puedes reservar en una fecha u hora pasada.', 'Cerrar', { duration: 3000 });
+      return;
+    }
 
     const overlaps = this.appointments.some(ap => {
       const s = new Date(ap.timeSlot.startTime).getTime() - 10 * 60000;

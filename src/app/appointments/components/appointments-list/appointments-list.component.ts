@@ -35,10 +35,14 @@ export class AppointmentsListComponent implements OnInit {
   }
 
   loadAppointments(): void {
+    const clientId = Number(localStorage.getItem('clientId'));
     this.appointmentService.getAppointments().subscribe({
       next: (data) => {
         console.log('Received appointments data:', data);
-        this.appointments = data;
+        // Mostrar solo las citas del cliente autenticado, no las de todos los usuarios
+        this.appointments = clientId
+          ? data.filter(appointment => appointment.clientId === clientId)
+          : data;
       },
       error: (error) => {
         console.error('Error loading appointments:', error);
