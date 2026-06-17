@@ -18,9 +18,9 @@
 
   <div *ngIf="status === 'polling'" class="state-card">
     <mat-progress-spinner mode="indeterminate" diameter="56"></mat-progress-spinner>
-    <h2>Esperando confirmacion del pago...</h2>
-    <p>Completa el pago en la pestana de Stripe y luego vuelve a uTime.</p>
-    <p class="hint">Confirmaremos automaticamente cuando el backend reciba la actualizacion.</p>
+    <h2>Procesando tu pago...</h2>
+    <p>Completa el pago en la pestana de Stripe.</p>
+    <p class="hint">Te llevaremos de vuelta al inicio en unos segundos.</p>
     <mat-progress-bar
       mode="determinate"
       [value]="(attempt / maxAttempts) * 100"

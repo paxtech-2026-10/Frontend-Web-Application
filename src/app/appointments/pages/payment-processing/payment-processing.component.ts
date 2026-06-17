@@ -5,7 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { Subject, Subscription, interval } from 'rxjs';
+import { Subject, Subscription, interval, timer } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { PaymentApiService } from '../../services/payment-api.service';
 import { PaymentResponse } from '../../services/payment.response';
@@ -20,6 +20,9 @@ type PaymentUiState =
 
 const POLL_INTERVAL_MS = 5_000;
 const MAX_POLL_ATTEMPTS = 60;
+// Workaround: como el webhook de Stripe no confirma el pago, tras abrir Stripe
+// regresamos automáticamente al dashboard luego de este tiempo.
+const REDIRECT_AFTER_MS = 10_000;
 
 @Component({
   selector: 'app-payment-processing',
@@ -83,6 +86,12 @@ export class PaymentProcessingComponent implements OnInit, OnDestroy {
     this.hasOpenedBrowser = true;
     this.status = 'polling';
     this.startPolling();
+
+    // El webhook de Stripe no llega a confirmar el pago, así que tras abrir Stripe
+    // devolvemos al usuario al dashboard automáticamente luego de 10 segundos.
+    timer(REDIRECT_AFTER_MS)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => this.goHome());
   }
 
   retry(): void {
