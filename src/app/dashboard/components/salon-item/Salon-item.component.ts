@@ -34,6 +34,9 @@ import {TranslatePipe} from '@ngx-translate/core';
 })
 export class SalonItemComponent implements OnInit{
   @Input() salon: ProviderProfile = new ProviderProfile();
+  // Imagen de respaldo curada que el padre puede pasar (p. ej. una foto real
+  // de salón). Si no se pasa, se usa la aleatoria de picsum.
+  @Input() fallbackOverride?: string;
   @Output() salonSelected = new EventEmitter<ProviderProfile>();
   private reviewService = inject(ReviewApiService)
   reviews: Review[] = [];
@@ -41,8 +44,9 @@ export class SalonItemComponent implements OnInit{
   constructor() { }
 
   get fallbackImage(): string {
-    // Imagen de respaldo aleatoria pero fija por salón (seed = id).
-    return `https://picsum.photos/seed/${this.salon.id}/320/180`;
+    // Si el padre asignó una imagen curada, se prioriza; si no, imagen
+    // aleatoria pero fija por salón (seed = id).
+    return this.fallbackOverride ?? `https://picsum.photos/seed/${this.salon.id}/320/180`;
   }
 
   onImageError(event: Event): void {

@@ -16,13 +16,48 @@ import {ProviderProfileAssembler} from '../../services/ProviderProfileAssembler'
 export class SalonListComponent implements OnInit {
   salons: ProviderProfile[] = [];
 
+  // Fotos reales de salón (licencia libre, Pexels) que se aplican a los
+  // primeros salones sin imagen. El resto usa la imagen aleatoria de picsum.
+  private readonly curatedImages = [
+    'salons/salon-1.jpg',
+    'salons/salon-2.jpg',
+    'salons/salon-3.jpg',
+    'salons/salon-4.jpg',
+    'salons/salon-5.jpg'
+  ];
+  private curatedBySalonId = new Map<number, string>();
+
   constructor(private salonApiService: SalonApiService) {}
 
   ngOnInit(): void {
     this.salonApiService.getAll().subscribe(salons => {
       this.salons = ProviderProfileAssembler.toEntitiesfromResponse(salons);
+      this.assignCuratedImages();
       this.sortByDistanceFromUser();
     });
+  }
+
+  /**
+   * Devuelve la foto de salón curada asignada a este salón, o undefined si le
+   * toca la imagen aleatoria de respaldo.
+   */
+  curatedImageFor(salon: ProviderProfile): string | undefined {
+    return this.curatedBySalonId.get(salon.id);
+  }
+
+  /**
+   * Asigna las fotos curadas a los primeros salones sin imagen, de forma
+   * estable por id (no depende del orden por distancia, que es asíncrono).
+   */
+  private assignCuratedImages(): void {
+    const salonsWithoutImage = this.salons
+      .filter(salon => !salon.profileImageURL)
+      .sort((a, b) => a.id - b.id)
+      .slice(0, this.curatedImages.length);
+
+    this.curatedBySalonId = new Map(
+      salonsWithoutImage.map((salon, index) => [salon.id, this.curatedImages[index]])
+    );
   }
 
   private sortByDistanceFromUser(): void {
