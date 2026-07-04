@@ -40,6 +40,19 @@ export class SalonItemComponent implements OnInit{
   reviewAverage = 0;
   constructor() { }
 
+  get fallbackImage(): string {
+    // Imagen de respaldo aleatoria pero fija por salón (seed = id).
+    return `https://picsum.photos/seed/${this.salon.id}/320/180`;
+  }
+
+  onImageError(event: Event): void {
+    const img = event.target as HTMLImageElement;
+    // Evita bucle si el propio fallback llegara a fallar.
+    if (img.src !== this.fallbackImage) {
+      img.src = this.fallbackImage;
+    }
+  }
+
   get displayAddress(): string {
     return (this.salon.location ?? '')
       .replace(/(-?\d+(?:\.\d+)?)\s*,\s*(-?\d+(?:\.\d+)?)/, '')

@@ -1,5 +1,5 @@
 <mat-card class="salon-card" aria-label="salon-card">
-  <img mat-card-image class="card-image" [src]="salon.profileImageURL" alt="Photo of a salon" />
+  <img mat-card-image class="card-image" [src]="salon.profileImageURL || fallbackImage" alt="Photo of a salon" (error)="onImageError($event)" />
 
   <mat-card-content class = layout-title>
     <mat-card-title class="salon-title">{{ salon.companyName }}</mat-card-title>
