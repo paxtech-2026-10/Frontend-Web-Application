@@ -52,4 +52,18 @@ export class PaymentApiService extends BaseService<PaymentResponse> {
   public getPaymentStatus(paymentId: number): Observable<PaymentResponse> {
     return this.getById(paymentId);
   }
+
+  /**
+   * Simula un pago exitoso sin esperar el webhook de Stripe.
+   * Solo surte efecto si el backend tiene PAYMENTS_SIMULATION_ENABLED=true;
+   * de lo contrario responde 403 y no altera el estado del pago.
+   * Backend: POST /api/v1/payments/{paymentId}/confirm
+   */
+  public confirmPayment(paymentId: number): Observable<PaymentResponse> {
+    return this.http.post<PaymentResponse>(
+      `${this.resourcePath()}/${paymentId}/confirm`,
+      JSON.stringify({}),
+      this.httpOptions
+    ).pipe(catchError(this.handleError));
+  }
 }
