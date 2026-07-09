@@ -20,9 +20,10 @@ type PaymentUiState =
 
 const POLL_INTERVAL_MS = 5_000;
 const MAX_POLL_ATTEMPTS = 60;
-// Workaround: como el webhook de Stripe no confirma el pago, tras abrir Stripe
-// regresamos automáticamente al dashboard luego de este tiempo.
-const REDIRECT_AFTER_MS = 10_000;
+// Como el webhook de Stripe no confirma el pago, tras abrir Stripe simulamos la
+// aprobación automática del pago luego de este tiempo (solo si el backend tiene
+// PAYMENTS_SIMULATION_ENABLED=true).
+const SIMULATE_APPROVAL_AFTER_MS = 10_000;
 
 @Component({
   selector: 'app-payment-processing',
@@ -88,10 +89,22 @@ export class PaymentProcessingComponent implements OnInit, OnDestroy {
     this.startPolling();
 
     // El webhook de Stripe no llega a confirmar el pago, así que tras abrir Stripe
-    // devolvemos al usuario al dashboard automáticamente luego de 10 segundos.
-    timer(REDIRECT_AFTER_MS)
+    // simulamos la aprobación automática del pago luego de 10 segundos.
+    timer(SIMULATE_APPROVAL_AFTER_MS)
       .pipe(takeUntil(this.destroy$))
-      .subscribe(() => this.goHome());
+      .subscribe(() => this.simulatePaymentApproval());
+  }
+
+  /**
+   * Marca el pago como exitoso vía el endpoint de simulación del backend.
+   * Si la simulación está deshabilitada (403) o falla, se mantiene el flujo
+   * normal de polling en vez de forzar un cambio de estado.
+   */
+  private simulatePaymentApproval(): void {
+    this.paymentApi.confirmPayment(this.paymentId).subscribe({
+      next: payment => this.handlePaymentUpdate(payment),
+      error: () => { /* simulación deshabilitada o error: seguir con el polling */ }
+    });
   }
 
   retry(): void {
