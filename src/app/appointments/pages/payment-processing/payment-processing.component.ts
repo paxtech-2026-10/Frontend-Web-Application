@@ -48,6 +48,7 @@ export class PaymentProcessingComponent implements OnInit, OnDestroy {
   private reservationId!: number;
   private paymentId!: number;
   private hasOpenedBrowser = false;
+  private simulationScheduled = false;
   private destroy$ = new Subject<void>();
   private pollSubscription?: Subscription;
 
@@ -60,10 +61,26 @@ export class PaymentProcessingComponent implements OnInit, OnDestroy {
     this.paymentId = Number(this.route.snapshot.paramMap.get('paymentId'));
     this.paymentLinkUrl = this.route.snapshot.queryParamMap.get('paymentLinkUrl') ?? '';
 
-    if (!this.reservationId || !this.paymentId || !this.paymentLinkUrl) {
+    // paymentLinkUrl es opcional: la auto-aprobación no depende de Stripe.
+    if (!this.reservationId || !this.paymentId) {
       this.status = 'error';
       this.errorMessage = 'Falta informacion del pago. Vuelve a intentarlo.';
+      return;
     }
+
+    // Auto-aprobación del pago: a los 10s de entrar a la pantalla se confirma
+    // automáticamente vía el endpoint de simulación del backend, sin depender de
+    // la respuesta de Stripe ni de que el usuario haga clic en nada.
+    this.startSimulationTimer();
+  }
+
+  /** Programa la auto-aprobación del pago (una sola vez). */
+  private startSimulationTimer(): void {
+    if (this.simulationScheduled) return;
+    this.simulationScheduled = true;
+    timer(SIMULATE_APPROVAL_AFTER_MS)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => this.simulatePaymentApproval());
   }
 
   ngOnDestroy(): void {
@@ -74,8 +91,14 @@ export class PaymentProcessingComponent implements OnInit, OnDestroy {
 
   @HostListener('document:visibilitychange')
   onVisibilityChange(): void {
-    if (document.visibilityState === 'visible' && this.hasOpenedBrowser && this.status === 'polling') {
-      this.checkStatusImmediately();
+    // Al volver a la pestaña (p.ej. tras cerrar Stripe) confirmamos el pago, por
+    // si el timer de 10s quedó estrangulado mientras la pestaña estaba en segundo
+    // plano. No hacemos nada si el pago ya terminó.
+    if (document.visibilityState === 'visible'
+        && this.status !== 'succeeded'
+        && this.status !== 'failed'
+        && this.status !== 'error') {
+      this.simulatePaymentApproval();
     }
   }
 
@@ -88,11 +111,9 @@ export class PaymentProcessingComponent implements OnInit, OnDestroy {
     this.status = 'polling';
     this.startPolling();
 
-    // El webhook de Stripe no llega a confirmar el pago, así que tras abrir Stripe
-    // simulamos la aprobación automática del pago luego de 10 segundos.
-    timer(SIMULATE_APPROVAL_AFTER_MS)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(() => this.simulatePaymentApproval());
+    // La auto-aprobación ya está programada desde ngOnInit; además, aseguramos
+    // que el timer corra por si el usuario llega directo a esta acción.
+    this.startSimulationTimer();
   }
 
   /**
