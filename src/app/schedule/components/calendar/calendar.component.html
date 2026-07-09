@@ -33,7 +33,7 @@
     isWithinHour(appointment.timeSlot.startTime, hour) &&
     (currentWorker === 'Todos' || appointment.workerId.name === currentWorker)
   "
-              [service]="appointment.workerId.specialization"
+              [service]="appointment.service.name"
               [startTime]="formatTime(appointment.timeSlot.startTime)"
               [endTime]="formatTime(appointment.timeSlot.endTime)"
               [clientName]="getClientName(appointment.clientId)"
