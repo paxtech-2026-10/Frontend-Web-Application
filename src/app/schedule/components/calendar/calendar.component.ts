@@ -2,7 +2,6 @@ import { Component, OnInit} from '@angular/core';
 import {NgForOf} from '@angular/common';
 import {ReservationComponent} from '../reservation/reservation.component';
 import { CommonModule } from '@angular/common';
-import { Appointment} from '../../../dashboard/models/appointment.entity';
 import {ClientAppointment} from '../../../appointments/model/appointment.entity';
 import {AppointmentApiService} from '../../../appointments/services/appointment-api-service.service';
 import {ClientApiService} from '../../../iam/services/client-api.service';
@@ -31,12 +30,6 @@ export class CalendarComponent implements OnInit {
   workers: string[] = ['Todos']; // Inicializar para evitar error
   currentWorkerIndex: number = 0;
 
-
-  /*
-  workers = ['Todos', 'Gael Rivera', 'Kevin Chi'];
-  currentWorkerIndex = 0;
-  */
-
   get currentWorker(): string {
     return this.workers[this.currentWorkerIndex];
   }
@@ -44,29 +37,7 @@ export class CalendarComponent implements OnInit {
   swapWorker(): void {
     this.currentWorkerIndex = (this.currentWorkerIndex + 1) % this.workers.length;
   }
-  /*
-  calendars: Appointment[] = [];
 
-  constructor(private appointmentService: AppointmentApiService) {}
-
-  ngOnInit(): void {
-    this.appointmentService.getAppointments().subscribe(
-      appointments => {
-        this.calendars = appointments;
-        console.log(this.calendars);
-
-        const workerSet = new Set<string>();
-        for (const appointment of appointments) {
-          if (appointment.workerName) {
-            workerSet.add(appointment.workerName);
-          }
-        }
-
-        this.workers = ['Todos', ...Array.from(workerSet)];
-
-      });
-
-  }*/
   calendars: ClientAppointment[] = [];
   client!: Client;
   clientNames: Map<number, string> = new Map();

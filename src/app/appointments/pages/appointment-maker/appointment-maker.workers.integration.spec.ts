@@ -4,7 +4,6 @@ import { of } from 'rxjs';
 
 import { AppointmentMakerComponent } from './appointment-maker.component';
 import { WorkerApiService } from '../../../dashboard/services/worker-api.service';
-import { AppointmentApiService } from '../../../dashboard/services/appointment-api.service';
 import { StaffListComponent } from '../../../dashboard/components/staff-list/staff-list.component';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -31,7 +30,6 @@ describe('AppointmentMakerComponent workers integration', () => {
       imports: [AppointmentMakerComponent, TranslateModule.forRoot()],
       providers: [
         { provide: WorkerApiService, useValue: workerApiSpy },
-        { provide: AppointmentApiService, useValue: jasmine.createSpyObj('AppointmentApiService', ['create']) },
         {
           provide: Router,
           useValue: {
