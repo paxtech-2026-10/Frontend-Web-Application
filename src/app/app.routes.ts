@@ -4,6 +4,7 @@ import {ProfileSalonPageComponent } from './profile/pages/profile-page/profile-s
 import { SchedulePageComponent } from './schedule/pages/schedule-page/schedule-page.component';
 import { LoginPageComponent } from './iam/pages/login-page/login-page.component'
 import { RegisterPageComponent } from './iam/pages/register-page/register-page.component'
+import { IamLayoutComponent } from './iam/pages/iam-layout/iam-layout.component'
 import { ProviderLayoutComponent} from './public/components/provider-layout/provider-layout.component';
 import {ClientLayoutComponent} from './public/components/client-layout/client-layout.component';
 import {
@@ -15,6 +16,7 @@ import {ClientDashboardComponent} from './dashboard/pages/client-dashboard/clien
 import {SalonComponent} from './dashboard/pages/salon/salon.component';
 import {ReviewsTabComponent} from './reviews/pages/reviews-tab/reviews-tab.component';
 import {ServicesTabComponent} from './services/pages/services-tab/services-tab.component';
+import {WorkersTabComponent} from './dashboard/pages/workers-tab/workers-tab.component';
 import {SettingsPageComponent} from './providerSettings/pages/settings-page/settings-page.component';
 import {SubscriptionTabComponent} from './subscription/pages/subscription-tab/subscription-tab.component';
 import {AppointmentMakerComponent} from './appointments/pages/appointment-maker/appointment-maker.component';
@@ -28,9 +30,10 @@ export const routes: Routes = [
 
   {
     path: 'iam',
+    component: IamLayoutComponent,
     children: [
-      { path: 'login', component: LoginPageComponent },
-      { path: 'register', component: RegisterPageComponent },
+      { path: 'login', component: LoginPageComponent, data: { animation: 'login' } },
+      { path: 'register', component: RegisterPageComponent, data: { animation: 'register' } },
     ]
   },
 
@@ -44,6 +47,7 @@ export const routes: Routes = [
       { path: 'homeProvider', component: ProfessionalDashboardComponent },
       { path: 'profile', component: ProfileSalonPageComponent },
       { path: 'schedule', component: SchedulePageComponent },
+      { path: 'workers', component: WorkersTabComponent },
       { path: 'reviews', component: ReviewsTabComponent },
       { path: 'services', component: ServicesTabComponent },
       { path: 'subscription', component: SubscriptionTabComponent },

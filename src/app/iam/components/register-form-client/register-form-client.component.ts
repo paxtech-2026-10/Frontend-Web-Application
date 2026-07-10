@@ -6,7 +6,6 @@ import { AccountApiService, SignUpPayload, UserResource } from '../../services/a
 
 import { TranslatePipe } from '@ngx-translate/core';
 import { MatFormField, MatInput, MatLabel } from '@angular/material/input';
-import { MatButton } from '@angular/material/button';
 
 @Component({
   selector: 'app-register-form-client',
@@ -16,7 +15,6 @@ import { MatButton } from '@angular/material/button';
     ReactiveFormsModule,
     MatFormField,
     MatInput,
-    MatButton,
     MatLabel,
     RouterLink,
     TranslatePipe

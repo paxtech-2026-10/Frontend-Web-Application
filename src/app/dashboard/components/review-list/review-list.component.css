@@ -1,14 +1,31 @@
-.review-scroll-container {
-  max-height: 360px; /* Ajusta según diseño */
+.reviews h3 {
+  font-size: var(--u-fs-h3);
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  margin: 0 0 var(--u-space-1);
+  display: flex;
+  align-items: center;
+  gap: var(--u-space-2);
+}
+.reviews .score {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--u-amber);
+  font-weight: 700;
+}
+.reviews .score .material-icons { font-size: 20px; }
+.reviews > p {
+  margin: 0 0 var(--u-space-4);
+  color: var(--u-text-muted);
+  font-size: var(--u-fs-caption);
+}
+
+.review-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--u-space-3);
+  max-height: 520px;
   overflow-y: auto;
-  padding-right: 8px;
-}
-
-.review-scroll-container::-webkit-scrollbar {
-  width: 6px;
-}
-
-.review-scroll-container::-webkit-scrollbar-thumb {
-  background-color: #bdbdbd;
-  border-radius: 4px;
+  padding-right: var(--u-space-1);
 }

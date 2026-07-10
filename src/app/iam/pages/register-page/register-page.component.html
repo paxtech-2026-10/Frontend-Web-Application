@@ -1,58 +1,22 @@
-<div class="register-wrapper">
-  <!-- Sección izquierda con slideshow -->
-  <div class="register-left-section">
-    <div class="register-slideshow">
-      <img
-        *ngFor="let image of slideImages; let i = index"
-        [src]="image"
-        class="register-slide"
-        [class.active]="i === activeIndex"
-        alt=""
-      />
+<div class="iam-form-pane">
+  <div class="register-center-content">
+    <!-- Selector de tipo de registro -->
+    <mat-button-toggle-group
+      [(ngModel)]="isProvider"
+      (ngModelChange)="toggleForm($event)"
+      name="registerType"
+      aria-label="choose register type"
+      class="register-toggle-group"
+      [hideSingleSelectionIndicator]="true"
+    >
+      <mat-button-toggle [value]="false">{{ 'register.Client' | translate }}</mat-button-toggle>
+      <mat-button-toggle [value]="true">{{ 'register.Provider' | translate }}</mat-button-toggle>
+    </mat-button-toggle-group>
+
+    <!-- Render dinámico del formulario -->
+    <div class="register-container" aria-label="register form" [@formSwap]="isProvider">
+      <app-register-form-client *ngIf="!isProvider"></app-register-form-client>
+      <app-register-form-provider *ngIf="isProvider"></app-register-form-provider>
     </div>
-    <div class="register-overlay-content">
-      <button class="register-back-button" aria-label="landing page button" onclick="window.location.href='https://upc-paxtech.github.io/uTime-Landing-Page/'">
-        ← {{ 'login.back' | translate }}
-      </button>
-    </div>
-
-    <!-- Indicadores -->
-    <div class="register-indicators">
-      <span
-        *ngFor="let img of slideImages; let i = index"
-        class="register-indicator"
-        [class.active]="i === activeIndex"
-        (click)="setSlide(i)"
-      ></span>
-    </div>
-  </div>
-
-  <!-- Sección derecha con formulario -->
-  <div class="register-right-section">
-    <div class="register-center-content">
-      <div id="particles-js" style="position: fixed; top: 0; left: 0; width: 100%; height: 100vh; z-index: 0;"></div>
-
-      <!-- Selector de tipo de registro -->
-      <mat-button-toggle-group
-        [(ngModel)]="isProvider"
-        (ngModelChange)="toggleForm($event)"
-        name="registerType"
-        aria-label="choose register type"
-        class="register-toggle-group"
-      >
-        <mat-button-toggle [value]="false">{{ 'register.Client' | translate }}</mat-button-toggle>
-        <mat-button-toggle [value]="true">{{ 'register.Provider' | translate }}</mat-button-toggle>
-      </mat-button-toggle-group>
-
-      <!-- Render dinámico del formulario -->
-      <div class="register-container" aria-label="register form">
-        <app-register-form-client *ngIf="!isProvider"></app-register-form-client>
-        <app-register-form-provider *ngIf="isProvider"></app-register-form-provider>
-      </div>
-    </div>
-  </div>
-
-  <div class="language-content">
-    <app-language-switcher></app-language-switcher>
   </div>
 </div>

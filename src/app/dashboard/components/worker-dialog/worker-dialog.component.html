@@ -1,26 +1,41 @@
-<h2 mat-dialog-title aria-label="New Staff Member">New Staff Member</h2>
+<div class="worker-dialog">
+  <header class="worker-dialog-head">
+    <span class="u-icon-box"><span class="material-icons">badge</span></span>
+    <h2 mat-dialog-title aria-label="Worker dialog title">
+      {{ (isEdit ? 'workers.editWorker' : 'workers.newWorker') | translate }}
+    </h2>
+  </header>
 
-<mat-dialog-content aria-label="Staff form content">
-  <mat-form-field appearance="fill" class="worker-field">
-    <mat-label>Name</mat-label>
-    <input matInput [(ngModel)]="worker.name" required aria-label="Worker name" />
-  </mat-form-field>
-  <div class="dialog-error" role="alert" *ngIf="nameError">{{ nameError }}</div>
+  <mat-dialog-content aria-label="Staff form content">
+    <mat-form-field appearance="fill" class="worker-field">
+      <mat-label>{{ 'workers.name' | translate }}</mat-label>
+      <input matInput [(ngModel)]="worker.name" required aria-label="Worker name" />
+    </mat-form-field>
+    <div class="dialog-error" role="alert" *ngIf="nameError">{{ 'workers.nameRequired' | translate }}</div>
 
-  <mat-form-field appearance="fill" class="worker-field">
-    <mat-label>Specialization</mat-label>
-    <input matInput [(ngModel)]="worker.specialization" required aria-label="Worker specialization" />
-  </mat-form-field>
-  <div class="dialog-error" role="alert" *ngIf="specializationError">{{ specializationError }}</div>
+    <mat-form-field appearance="fill" class="worker-field">
+      <mat-label>{{ 'workers.specialization' | translate }}</mat-label>
+      <input matInput [(ngModel)]="worker.specialization" required aria-label="Worker specialization" />
+    </mat-form-field>
+    <div class="dialog-error" role="alert" *ngIf="specializationError">{{ 'workers.specializationRequired' | translate }}</div>
 
-  <mat-form-field appearance="fill" class="worker-field">
-    <mat-label>Photo URL</mat-label>
-    <input matInput [(ngModel)]="worker.photoUrl" required aria-label="Worker photo URL" />
-  </mat-form-field>
-  <div class="dialog-error" role="alert" *ngIf="photoUrlError">{{ photoUrlError }}</div>
-</mat-dialog-content>
+    <mat-form-field appearance="fill" class="worker-field">
+      <mat-label>{{ 'workers.photoUrl' | translate }}</mat-label>
+      <input matInput [(ngModel)]="worker.photoUrl" required aria-label="Worker photo URL" />
+    </mat-form-field>
+    <div class="dialog-error" role="alert" *ngIf="photoUrlError">{{ 'workers.photoUrlRequired' | translate }}</div>
 
-<mat-dialog-actions align="end" aria-label="Staff dialog actions">
-  <button mat-button type="button" (click)="cancel()" aria-label="Cancel staff creation">Cancel</button>
-  <button mat-flat-button color="primary" type="button" (click)="submit()" aria-label="Create staff member">Create</button>
-</mat-dialog-actions>
+    <div class="worker-preview" *ngIf="worker.photoUrl">
+      <img [src]="worker.photoUrl" alt="">
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end" aria-label="Staff dialog actions">
+    <button class="u-btn-outline" type="button" (click)="cancel()" aria-label="Cancel staff creation">
+      {{ 'workers.cancel' | translate }}
+    </button>
+    <button class="u-btn-gradient" type="button" (click)="submit()" aria-label="Save staff member">
+      {{ (isEdit ? 'workers.save' : 'workers.create') | translate }}
+    </button>
+  </mat-dialog-actions>
+</div>

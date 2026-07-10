@@ -1,14 +1,7 @@
-.main-column {
-  flex: 1;
-  min-width: 300px;
-  max-height: 100%;
-  position: sticky;
-  top: 24px;
-  margin: 3rem;
-}
+:host { display: block; }
 
-h1 {
-  text-align: left;
-  margin-top: 3rem;
-  margin-left: 3rem;
-}
+.page-header { margin-bottom: var(--u-space-6); }
+
+/* Ancho completo, como la página de Servicios */
+.reviews-wrap { width: 100%; }
+.reviews-wrap .u-card { padding: var(--u-space-6); }

@@ -8,92 +8,73 @@
 .register-container {
   width: 100%;
   max-width: 400px;
-  color: #333;                  /* Texto oscuro */
-  border-radius: 10px;
-  padding: 2rem;
+  color: var(--u-text);
+  border-radius: var(--u-radius-lg);
+  padding: var(--u-space-8);
+  text-align: center;
+}
+
+/* Marca */
+.brand-head {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--u-space-3);
+  margin-bottom: var(--u-space-8);
+}
+.brand-logo {
+  width: 52px;
+  height: 52px;
+  object-fit: contain;
+  border-radius: var(--u-radius-md);
+}
+.brand-name {
+  font-size: var(--u-fs-h1);
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  background: var(--u-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
 }
 
 .title {
-  font-size: 1.8rem;
-  margin-bottom: 0.5rem;
+  font-size: var(--u-fs-display);
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  margin-bottom: var(--u-space-2);
+  color: var(--u-text);
 }
 
 .subtitle {
-  margin-bottom: 1.5rem;
-  font-size: 0.9rem;
-  color: #666 !important;
+  margin-bottom: var(--u-space-6);
+  font-size: var(--u-fs-body);
+  color: var(--u-text-muted);
 }
 
 .login-link {
-  font-weight: bold !important;
-  color: #731c9f !important;
+  font-weight: 600;
+  color: var(--u-primary);
   text-decoration: none;
-
+  margin-left: 4px;
 }
+.login-link:hover { text-decoration: underline; }
 
-.form-row {
-  display: flex;
-  gap: 1rem;
-}
+.full-width { width: 100%; }
+/* Los inputs mantienen su texto a la izquierda aunque el bloque esté centrado */
+.register-container .mat-mdc-form-field { text-align: left; }
 
-.half-width {
-  flex: 1;
-}
-
-.full-width {
+.login-btn {
   width: 100%;
-}
-
-.checkbox {
-  margin-top: 1rem;
-  margin-bottom: 1.5rem;
-}
-
-.register-button {
-  width: 100%;
-  background-color: #731c9f !important;
-  color: white !important;
-  margin-top: 1.5rem;
-
-}
-
-.divider {
-  text-align: center;
-  margin: 1rem 0;
-  color: #aaa;
-}
-
-.social-buttons {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-}
-
-.social-buttons .icon {
-  height: 20px;
-  margin-right: 8px;
-}
-
-.toggle-group {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  margin-bottom: 1.5rem;
-}
-.button-toggle {
-  flex: 1;
+  margin-top: var(--u-space-4);
+  padding: 14px;
 }
 
 .error {
-  justify-content: center;
-  color: red;
-  margin-top: 10px;
-  font-weight: bold;
-}
-
-.logo{
-  display: block;
-  margin: 0 auto;
-  width: 11rem;
-  margin-bottom: 3rem;
+  text-align: center;
+  color: var(--u-danger);
+  margin-top: var(--u-space-3);
+  font-weight: 600;
+  font-size: var(--u-fs-body);
 }

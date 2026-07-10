@@ -1,0 +1,53 @@
+<header class="page-header">
+  <div>
+    <h1 class="u-page-title" aria-label="Workers">{{ 'workers.title' | translate }}</h1>
+    <p class="page-subtitle">{{ 'workers.subtitle' | translate }}</p>
+  </div>
+  <button *ngIf="status === 'success'" class="u-btn-gradient" (click)="openCreateDialog()" aria-label="Add new staff member">
+    <span class="material-icons">add</span>
+    {{ 'workers.newWorker' | translate }}
+  </button>
+</header>
+
+<div class="workers" aria-label="Workers section">
+
+  <!-- Loading state -->
+  <div *ngIf="status === 'loading'" class="state-container" role="status" aria-live="polite">
+    <mat-progress-spinner mode="indeterminate" diameter="48"></mat-progress-spinner>
+    <p class="state-text">{{ 'workers.loading' | translate }}</p>
+  </div>
+
+  <!-- Empty state -->
+  <div *ngIf="status === 'empty'" class="state-container u-card" aria-label="No staff yet">
+    <span class="u-icon-box state-emblem"><mat-icon>groups</mat-icon></span>
+    <h2 class="state-title">{{ 'workers.emptyTitle' | translate }}</h2>
+    <p class="state-text">{{ 'workers.emptySubtitle' | translate }}</p>
+    <button class="u-btn-gradient" (click)="openCreateDialog()" aria-label="Create first staff member">
+      {{ 'workers.firstWorker' | translate }}
+    </button>
+  </div>
+
+  <!-- Failure state -->
+  <div *ngIf="status === 'failure'" class="state-container u-card" role="alert">
+    <mat-icon class="state-icon error-icon">error_outline</mat-icon>
+    <h2 class="state-title">{{ 'workers.failureTitle' | translate }}</h2>
+    <p class="state-text" *ngIf="errorMessage">{{ errorMessage }}</p>
+    <button class="u-btn-outline" (click)="retry()" aria-label="Retry loading staff">
+      {{ 'workers.retry' | translate }}
+    </button>
+  </div>
+
+  <!-- Success state -->
+  <ng-container *ngIf="status === 'success'">
+    <div class="u-card list-card">
+      <app-staff-list
+        [WorkerList]="workers"
+        [manageable]="true"
+        [showAddButton]="false"
+        [showHeader]="false"
+        (editWorkerRequested)="openEditDialog($event)"
+        (deleteWorkerRequested)="deleteWorker($event)"></app-staff-list>
+    </div>
+  </ng-container>
+
+</div>

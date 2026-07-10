@@ -1,23 +1,32 @@
-<section class="settings-card" aria-label="Settings container">
+<section class="settings-card u-card" aria-label="Settings container">
   <header>
-    <h1>Settings</h1>
-    <p>Review the public details attached to your provider profile.</p>
+    <h1>{{ 'settings.title' | translate }}</h1>
+    <p>{{ 'settings.subtitle' | translate }}</p>
   </header>
 
   <div class="value-grid">
     <div class="value" aria-label="Salon name setting">
-      <span class="label">Name</span>
-      <span class="camp" aria-label="Salon name">{{ profile.companyName || 'Not configured' }}</span>
+      <span class="value-icon material-icons">store</span>
+      <div class="value-text">
+        <span class="label">{{ 'settings.name' | translate }}</span>
+        <span class="camp" aria-label="Salon name">{{ profile.companyName || ('settings.notConfigured' | translate) }}</span>
+      </div>
     </div>
 
     <div class="value" aria-label="Salon address setting">
-      <span class="label">Address</span>
-      <span class="camp" aria-label="Salon address">{{ profile.location || 'Not configured' }}</span>
+      <span class="value-icon material-icons">location_on</span>
+      <div class="value-text">
+        <span class="label">{{ 'settings.address' | translate }}</span>
+        <span class="camp" aria-label="Salon address">{{ displayLocation || ('settings.notConfigured' | translate) }}</span>
+      </div>
     </div>
 
     <div class="value" aria-label="Provider email setting">
-      <span class="label">Email</span>
-      <span class="camp" aria-label="Provider email">{{ profile.email || 'Not configured' }}</span>
+      <span class="value-icon material-icons">mail</span>
+      <div class="value-text">
+        <span class="label">{{ 'settings.email' | translate }}</span>
+        <span class="camp" aria-label="Provider email">{{ profile.email || ('settings.notConfigured' | translate) }}</span>
+      </div>
     </div>
   </div>
 </section>

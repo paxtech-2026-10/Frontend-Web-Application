@@ -1,7 +1,6 @@
 .settings-page {
   display: grid;
-  gap: 1rem;
-  padding: 1.5rem;
+  gap: var(--u-space-5);
 }
 
 .state-panel {
@@ -9,15 +8,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.75rem;
-  border: 1px solid #d9e1ee;
-  border-radius: 8px;
-  background: #fff;
-  color: #334155;
+  gap: var(--u-space-3);
+  border-radius: var(--u-radius-lg);
+  background: var(--u-surface);
+  box-shadow: var(--u-shadow-card);
+  color: var(--u-text-secondary);
 }
 
 .state-panel.error {
-  border-color: #f5c2c7;
-  background: #fff5f5;
-  color: #b42318;
+  background: var(--u-danger-soft);
+  color: var(--u-danger);
 }

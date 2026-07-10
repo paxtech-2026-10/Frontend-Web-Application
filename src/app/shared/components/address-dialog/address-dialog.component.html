@@ -1,0 +1,63 @@
+<div class="addr-dialog">
+  <header class="addr-head">
+    <span class="u-icon-box"><span class="material-icons">location_on</span></span>
+    <div>
+      <h2 class="addr-title">{{ 'address.title' | translate }}</h2>
+      <p class="addr-subtitle">{{ 'address.subtitle' | translate }}</p>
+    </div>
+    <button type="button" class="addr-close" aria-label="Close" (click)="close()">
+      <span class="material-icons">close</span>
+    </button>
+  </header>
+
+  <!-- Usar ubicación actual -->
+  <button type="button" class="u-btn-outline addr-locate" (click)="useCurrentLocation()" [disabled]="locating">
+    <span class="material-icons">my_location</span>
+    {{ (locating ? 'address.locating' : 'address.useCurrent') | translate }}
+  </button>
+
+  <div class="addr-or"><span>{{ 'address.or' | translate }}</span></div>
+
+  <!-- Buscador con autocompletado -->
+  <div class="addr-search">
+    <span class="material-icons addr-search-icon">search</span>
+    <input
+      type="text"
+      class="addr-input"
+      [formControl]="searchControl"
+      [placeholder]="'address.placeholder' | translate"
+      autocomplete="off"
+      aria-label="Search address" />
+    <span class="material-icons addr-spinner" *ngIf="loadingSuggestions">progress_activity</span>
+
+    <!-- Sugerencias -->
+    <ul class="addr-suggestions" *ngIf="suggestions.length">
+      @for (s of suggestions; track s.displayName) {
+        <li (click)="selectSuggestion(s)">
+          <span class="material-icons">place</span>
+          <span class="addr-suggestion-text">{{ s.displayName }}</span>
+        </li>
+      }
+    </ul>
+  </div>
+
+  <!-- Mapa -->
+  <div class="addr-map-wrap">
+    <div #mapEl class="addr-map" aria-label="Map"></div>
+    <p class="addr-map-hint">{{ 'address.mapHint' | translate }}</p>
+  </div>
+
+  <!-- Dirección seleccionada -->
+  <div class="addr-selected" *ngIf="selected">
+    <span class="material-icons">check_circle</span>
+    <span class="addr-selected-text">{{ selected.displayName }}</span>
+  </div>
+
+  <!-- Acciones -->
+  <footer class="addr-actions">
+    <button type="button" class="u-btn-outline" (click)="close()">{{ 'address.cancel' | translate }}</button>
+    <button type="button" class="u-btn-gradient" (click)="save()" [disabled]="!selected">
+      {{ 'address.save' | translate }}
+    </button>
+  </footer>
+</div>

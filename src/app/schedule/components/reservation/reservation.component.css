@@ -1,13 +1,58 @@
 .reservation {
-  background-color: #90caf9;
-  border-radius: 6px;
-  padding: 6px;
-  font-size: 0.85rem;
-  color: #1e1e1e;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-  margin: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
   position: absolute;
-  top: 4px;
-  left: 4px;
-  right: 4px;
+  top: 3px;
+  left: 3px;
+  right: 3px;
+  bottom: 3px;
+  padding: 6px 8px;
+  border: none;
+  border-left: 3px solid var(--u-primary);
+  border-radius: var(--u-radius-sm);
+  background: var(--u-lavender-tint);
+  color: var(--u-text);
+  font-family: var(--u-font);
+  text-align: left;
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform var(--u-transition), box-shadow var(--u-transition), background var(--u-transition);
+}
+.reservation:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--u-shadow-card);
+  background: var(--u-lavender);
+}
+
+.reservation.unpaid {
+  border-left-color: var(--u-danger);
+  background: var(--u-danger-soft);
+}
+.reservation.unpaid:hover { background: #fbdcda; }
+
+.reservation-service {
+  font-size: var(--u-fs-caption);
+  font-weight: 700;
+  color: var(--u-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.reservation.unpaid .reservation-service { color: var(--u-danger); }
+
+.reservation-client {
+  font-size: var(--u-fs-caption);
+  color: var(--u-text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.reservation-time {
+  font-size: 11px;
+  color: var(--u-text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

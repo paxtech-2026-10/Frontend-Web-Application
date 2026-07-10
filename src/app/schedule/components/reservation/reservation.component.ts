@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -13,6 +13,6 @@ export class ReservationComponent {
   @Input() startTime!: string;
   @Input() endTime!: string;
   @Input() clientName!: string;
-
-
+  @Input() isPaid = true;
+  @Output() cardClick = new EventEmitter<void>();
 }

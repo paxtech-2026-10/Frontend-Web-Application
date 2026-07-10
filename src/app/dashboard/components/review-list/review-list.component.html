@@ -1,10 +1,19 @@
 <section class="reviews">
-  <h3>{{ 'dashboard.overallScore' | translate }} <span class="score">⭐ {{average}}</span></h3>
+  <h3>
+    {{ 'dashboard.overallScore' | translate }}
+    <span class="score"><span class="material-icons">star</span>{{ average }}</span>
+  </h3>
   <p>{{ reviews.length }} {{ 'dashboard.reviews' | translate }}</p>
 
   <div class="review-container" aria-label="review-list">
     @for (review of reviews; track review.id) {
       <app-review-item [review]="review" />
+    } @empty {
+      <div class="u-empty">
+        <span class="u-empty__icon"><span class="material-icons">rate_review</span></span>
+        <p class="u-empty__title">{{ 'dashboard.noReviewsTitle' | translate }}</p>
+        <p class="u-empty__text">{{ 'dashboard.noReviewsText' | translate }}</p>
+      </div>
     }
   </div>
 </section>

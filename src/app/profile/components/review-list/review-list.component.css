@@ -1,11 +1,19 @@
-.reviews-container {
-  padding: 1rem;
+.reviews-container h3 {
+  margin: 0 0 var(--u-space-4);
+  font-size: var(--u-fs-h3);
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  color: var(--u-text);
 }
 
 .reviews-list {
-  display: flex; /* Distribuye horizontalmente */
-  gap: 1rem; /* Espacio entre las tarjetas */
-  overflow-x: auto; /* Scroll horizontal si no caben */
-  padding-bottom: 1rem;
+  display: flex;
+  gap: var(--u-space-4);
+  overflow-x: auto;
+  padding-bottom: var(--u-space-2);
 }
 
+.reviews-list app-review-item {
+  flex: 0 0 auto;
+  width: 280px;
+}

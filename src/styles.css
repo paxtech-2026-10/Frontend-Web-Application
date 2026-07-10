@@ -1,10 +1,438 @@
-/* You can add global styles to this file, and also import other style files */
+/* ============================================================================
+   uTime — Global styles & design tokens
+   Look derivado de la app iOS (ver docs/DESIGN-SYSTEM.md). Solo modo claro.
+   NO hardcodees hex en componentes: usa siempre las variables --u-*.
+   ========================================================================== */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+:root {
+  /* ---- Marca ---- */
+  --u-primary: #7209B7;
+  --u-primary-light: #9D4EDD;
+  --u-primary-dark: #5A0791;
+  --u-lavender: #E8D5F2;
+  --u-lavender-tint: #F2E6FC;
+  --u-amber: #FFB800;
+  --u-gradient: linear-gradient(135deg, #7209B7 0%, #9D4EDD 100%);
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+  /* ---- Superficie / fondo ---- */
+  --u-bg: #FAFAFA;
+  --u-surface: #FFFFFF;
+  --u-surface-alt: #F7F5FA;
+  --u-border: #E0E0E0;
+  --u-border-subtle: #EEEEEE;
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+  /* ---- Texto ---- */
+  --u-text: #1A1A1A;
+  --u-text-secondary: #616161;
+  --u-text-muted: #757575;
+  --u-text-hint: #9E9E9E;
+  --u-on-primary: #FFFFFF;
+
+  /* ---- Estado ---- */
+  --u-success: #2E7D32;
+  --u-success-soft: #E6F4EA;
+  --u-danger: #D32F2F;
+  --u-danger-soft: #FDECEA;
+  --u-warning: #ED6C02;
+
+  /* ---- Tipografía ---- */
+  --u-font: Roboto, "Helvetica Neue", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --u-fs-display: 28px;
+  --u-fs-h1: 22px;
+  --u-fs-h2: 20px;
+  --u-fs-h3: 18px;
+  --u-fs-title: 16px;
+  --u-fs-body: 14px;
+  --u-fs-label: 13px;
+  --u-fs-caption: 12px;
+  --u-fs-badge: 11px;
+
+  /* ---- Spacing (base 4px) ---- */
+  --u-space-1: 4px;
+  --u-space-2: 8px;
+  --u-space-3: 12px;
+  --u-space-4: 16px;
+  --u-space-5: 20px;
+  --u-space-6: 24px;
+  --u-space-8: 32px;
+  --u-space-10: 40px;
+
+  /* ---- Radios ---- */
+  --u-radius-sm: 8px;
+  --u-radius-md: 12px;
+  --u-radius-lg: 16px;
+  --u-radius-xl: 20px;
+  --u-radius-2xl: 24px;
+  --u-radius-pill: 999px;
+
+  /* ---- Sombras ---- */
+  --u-shadow-sm: 0 2px 6px rgba(0, 0, 0, .05);
+  --u-shadow-card: 0 3px 10px rgba(0, 0, 0, .05);
+  --u-shadow-card-hover: 0 8px 20px rgba(0, 0, 0, .08);
+  --u-shadow-float: 0 8px 24px rgba(0, 0, 0, .10);
+  --u-shadow-glow: 0 6px 16px rgba(114, 9, 183, .35);
+
+  /* ---- Layout ---- */
+  --u-toolbar-h: 72px;
+  --u-sidebar-w: 244px;
+  --u-transition: .2s ease;
+}
+
+/* ============================================================================
+   Retinte de Angular Material (M3 system tokens) hacia la marca uTime.
+   El tema prebuilt (azure-blue.css) se carga antes; esto lo sobrescribe.
+   ========================================================================== */
+html {
+  --mat-sys-primary: #7209B7;
+  --mat-sys-on-primary: #FFFFFF;
+  --mat-sys-primary-container: #F2E6FC;
+  --mat-sys-on-primary-container: #2A0244;
+  --mat-sys-secondary: #9D4EDD;
+  --mat-sys-on-secondary: #FFFFFF;
+  --mat-sys-tertiary: #7209B7;
+  --mat-sys-surface: #FFFFFF;
+  --mat-sys-surface-container: #FFFFFF;
+  --mat-sys-surface-container-low: #FAFAFA;
+  --mat-sys-surface-container-high: #F7F5FA;
+  --mat-sys-background: #FAFAFA;
+  --mat-sys-on-surface: #1A1A1A;
+  --mat-sys-on-surface-variant: #616161;
+  --mat-sys-outline: #E0E0E0;
+  --mat-sys-outline-variant: #EEEEEE;
+  --mat-sys-error: #D32F2F;
+  /* Formas M3 -> esquinas redondeadas uTime */
+  --mat-sys-corner-small: 12px;
+  --mat-sys-corner-medium: 16px;
+  --mat-sys-corner-large: 20px;
+}
+
+/* ============================================================================
+   Reset / base
+   ========================================================================== */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--u-font);
+  font-size: var(--u-fs-body);
+  color: var(--u-text);
+  background: var(--u-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* { box-sizing: border-box; }
+
+h1, h2, h3, h4 {
+  margin: 0;
+  color: var(--u-text);
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  line-height: 1.25;
+}
+
+a { color: inherit; }
+
+::selection { background: var(--u-lavender); }
+
+/* Scrollbar sutil */
+* { scrollbar-width: thin; scrollbar-color: #D6C8E4 transparent; }
+*::-webkit-scrollbar { width: 8px; height: 8px; }
+*::-webkit-scrollbar-thumb { background: #D6C8E4; border-radius: var(--u-radius-pill); }
+*::-webkit-scrollbar-track { background: transparent; }
+
+/* Iconos: soporta Material Icons y Material Symbols */
+.material-icons, .material-symbols-outlined, .material-symbols-rounded {
+  vertical-align: middle;
+  user-select: none;
+}
+
+/* ============================================================================
+   Utilidades del design system (reutilizables por cualquier componente)
+   ========================================================================== */
+
+/* Superficie base: tarjeta blanca flotante */
+.u-card {
+  background: var(--u-surface);
+  border-radius: var(--u-radius-lg);
+  box-shadow: var(--u-shadow-card);
+  padding: var(--u-space-4);
+  transition: box-shadow var(--u-transition), transform var(--u-transition);
+}
+.u-card--interactive:hover {
+  box-shadow: var(--u-shadow-card-hover);
+  transform: translateY(-2px);
+}
+
+/* Fondo con gradiente de marca */
+.u-gradient { background: var(--u-gradient); }
+
+/* Texto con gradiente de marca */
+.u-gradient-text {
+  background: var(--u-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* Cuadro de icono con gradiente (firma visual de uTime) */
+.u-icon-box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--u-radius-md);
+  background: var(--u-gradient);
+  color: #fff;
+  box-shadow: var(--u-shadow-glow);
+  flex: 0 0 auto;
+}
+.u-icon-box--sm { width: 40px; height: 40px; border-radius: var(--u-radius-sm); }
+
+/* Botón con gradiente (primario destacado) */
+.u-btn-gradient {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--u-space-2);
+  padding: 12px 24px;
+  border: none;
+  border-radius: var(--u-radius-md);
+  background: var(--u-gradient);
+  color: #fff;
+  font-family: var(--u-font);
+  font-size: var(--u-fs-title);
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  cursor: pointer;
+  box-shadow: var(--u-shadow-glow);
+  transition: transform var(--u-transition), box-shadow var(--u-transition), filter var(--u-transition);
+}
+.u-btn-gradient:hover { transform: translateY(-1px); filter: brightness(1.04); box-shadow: 0 8px 22px rgba(114, 9, 183, .45); }
+.u-btn-gradient:active { transform: translateY(0); }
+.u-btn-gradient:disabled { opacity: .55; cursor: not-allowed; box-shadow: none; transform: none; }
+
+/* Botón secundario (outline morado) */
+.u-btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--u-space-2);
+  padding: 11px 22px;
+  border: 1.5px solid var(--u-primary);
+  border-radius: var(--u-radius-md);
+  background: transparent;
+  color: var(--u-primary);
+  font-family: var(--u-font);
+  font-size: var(--u-fs-title);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--u-transition);
+}
+.u-btn-outline:hover { background: var(--u-lavender-tint); }
+
+/* Chips / badges */
+.u-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: var(--u-radius-sm);
+  font-size: var(--u-fs-badge);
+  font-weight: 600;
+  line-height: 1;
+}
+.u-badge--primary { background: rgba(114, 9, 183, .1); border: 1px solid rgba(114, 9, 183, .2); color: var(--u-primary); }
+.u-badge--secondary { background: rgba(157, 78, 221, .1); border: 1px solid rgba(157, 78, 221, .2); color: var(--u-primary-light); }
+.u-badge--success { background: var(--u-success-soft); color: var(--u-success); }
+.u-badge--danger { background: var(--u-danger-soft); color: var(--u-danger); }
+
+/* Punto de estado */
+.u-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.u-dot--on { background: var(--u-success); }
+.u-dot--off { background: var(--u-danger); }
+
+/* Estado vacío (sin datos): icono en cápsula + mensaje centrado + acción opcional */
+.u-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: var(--u-space-2);
+  padding: var(--u-space-8) var(--u-space-4);
+  min-height: 160px;
+}
+.u-empty__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: var(--u-radius-lg);
+  background: var(--u-lavender-tint);
+  color: var(--u-primary);
+  margin-bottom: var(--u-space-1);
+}
+.u-empty__icon .material-icons { font-size: 28px; }
+.u-empty__title {
+  margin: 0;
+  font-size: var(--u-fs-body);
+  font-weight: 600;
+  color: var(--u-text-secondary);
+}
+.u-empty__text {
+  margin: 0;
+  font-size: var(--u-fs-caption);
+  color: var(--u-text-muted);
+  max-width: 280px;
+  line-height: 1.5;
+}
+.u-empty__action { margin-top: var(--u-space-2); }
+
+/* Encabezado de página */
+.u-page-title { font-size: var(--u-fs-display); font-weight: 700; letter-spacing: -0.5px; }
+.u-section-title { font-size: var(--u-fs-h3); font-weight: 700; }
+.u-muted { color: var(--u-text-muted); }
+.u-star { color: var(--u-amber); }
+
+/* Helpers de layout */
+.u-stack { display: flex; flex-direction: column; }
+.u-row { display: flex; align-items: center; }
+.u-gap-2 { gap: var(--u-space-2); }
+.u-gap-3 { gap: var(--u-space-3); }
+.u-gap-4 { gap: var(--u-space-4); }
+
+/* ============================================================================
+   Overrides puntuales de Material para pulir el look uTime
+   ========================================================================== */
+
+/* Cards Material -> mismas esquinas/sombra que .u-card */
+.mat-mdc-card {
+  border-radius: var(--u-radius-lg) !important;
+  box-shadow: var(--u-shadow-card) !important;
+  border: none !important;
+}
+
+/* Botones Material redondeados */
+.mat-mdc-raised-button, .mat-mdc-unelevated-button,
+.mat-mdc-outlined-button, .mat-mdc-button {
+  border-radius: var(--u-radius-md) !important;
+}
+
+/* Form fields (appearance="fill") -> look "input custom uTime":
+   caja blanca redondeada, borde sutil, foco morado, sin línea inferior MDC */
+.mat-mdc-form-field { width: 100%; }
+.mat-mdc-text-field-wrapper { border-radius: var(--u-radius-md) !important; }
+
+.mat-mdc-form-field .mdc-text-field--filled {
+  background: var(--u-surface) !important;
+  border: 1.5px solid var(--u-border);
+  border-radius: var(--u-radius-md) !important;
+  transition: border-color var(--u-transition), box-shadow var(--u-transition);
+}
+.mat-mdc-form-field .mdc-text-field--filled:hover { border-color: #CDBBDE; }
+.mat-mdc-form-field .mdc-text-field--filled.mdc-text-field--focused {
+  border-color: var(--u-primary);
+  box-shadow: 0 0 0 3px rgba(114, 9, 183, .12);
+}
+/* Quitar la línea/ripple inferior y el overlay gris de hover del MDC */
+.mat-mdc-form-field .mdc-line-ripple { display: none !important; }
+.mat-mdc-form-field .mat-mdc-form-field-focus-overlay { background: transparent !important; }
+/* Label y texto */
+.mat-mdc-form-field .mdc-floating-label,
+.mat-mdc-form-field .mat-mdc-input-element::placeholder { color: var(--u-text-hint); }
+.mat-mdc-form-field.mat-focused .mdc-floating-label { color: var(--u-primary); }
+
+/* ============================================================================
+   Snackbars (notificaciones emergentes) — look uTime: tarjeta clara, redondeada,
+   sombra flotante y barra de acento a la izquierda según el tipo.
+   Usa panelClass: 'u-snack-success' | 'u-snack-error' | 'u-snack-info'.
+   ========================================================================== */
+.mat-mdc-snack-bar-container {
+  --mdc-snackbar-container-color: var(--u-surface);
+  --mdc-snackbar-supporting-text-color: var(--u-text);
+  --mdc-snackbar-supporting-text-size: var(--u-fs-body);
+  --mdc-snackbar-supporting-text-weight: 500;
+  --mdc-snackbar-container-shape: var(--u-radius-lg);
+  --mat-snack-bar-button-color: var(--u-primary);
+}
+.mat-mdc-snack-bar-container .mdc-snackbar__surface {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--u-border-subtle);
+  box-shadow: var(--u-shadow-float) !important;
+  min-width: unset;
+}
+/* Botón de acción (Close) con forma de pill y hover suave de la marca */
+.mat-mdc-snack-bar-container .mat-mdc-button.mat-mdc-snack-bar-action {
+  font-weight: 600;
+  border-radius: var(--u-radius-pill);
+}
+.mat-mdc-snack-bar-container .mat-mdc-button.mat-mdc-snack-bar-action:hover {
+  background: var(--u-lavender-tint);
+}
+/* Barra de acento a la izquierda (según panelClass) */
+.mat-mdc-snack-bar-container.u-snack-success .mdc-snackbar__surface::before,
+.mat-mdc-snack-bar-container.u-snack-error .mdc-snackbar__surface::before,
+.mat-mdc-snack-bar-container.u-snack-info .mdc-snackbar__surface::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+}
+.mat-mdc-snack-bar-container.u-snack-success .mdc-snackbar__surface::before { background: var(--u-success); }
+.mat-mdc-snack-bar-container.u-snack-error   .mdc-snackbar__surface::before { background: var(--u-danger); }
+.mat-mdc-snack-bar-container.u-snack-info     .mdc-snackbar__surface::before { background: var(--u-primary); }
+
+/* ============================================================================
+   Menús desplegables (mat-menu) — look uTime: tarjeta redondeada, sombra flotante,
+   ítems tipo pill con hover lavanda. (El panel se renderiza en un overlay global.)
+   ========================================================================== */
+.mat-mdc-menu-panel {
+  border-radius: var(--u-radius-lg) !important;
+  box-shadow: var(--u-shadow-float) !important;
+  border: 1px solid var(--u-border-subtle);
+  min-width: 200px !important;
+}
+.mat-mdc-menu-panel .mat-mdc-menu-content { padding: var(--u-space-2) !important; }
+.mat-mdc-menu-item {
+  border-radius: var(--u-radius-md) !important;
+  min-height: 44px !important;
+  font-family: var(--u-font) !important;
+  transition: background var(--u-transition), color var(--u-transition);
+}
+.mat-mdc-menu-item:hover:not([disabled]),
+.mat-mdc-menu-item.cdk-program-focused:not([disabled]),
+.mat-mdc-menu-item.cdk-keyboard-focused:not([disabled]) {
+  background: var(--u-lavender-tint) !important;
+}
+.mat-mdc-menu-item .mat-mdc-menu-item-text { font-size: var(--u-fs-body); font-weight: 500; }
+/* Ítem seleccionado (p. ej. idioma activo) */
+.mat-mdc-menu-item.selected { background: var(--u-lavender-tint); }
+.mat-mdc-menu-item.selected .mat-mdc-menu-item-text { color: var(--u-primary); font-weight: 600; }
+
+/* Diálogos */
+.mat-mdc-dialog-container .mdc-dialog__surface { border-radius: var(--u-radius-lg) !important; }
+
+/* Marcador personalizado del mapa (Leaflet divIcon, se renderiza fuera del componente) */
+.u-map-pin {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  color: var(--u-primary);
+  background: transparent;
+  border: none;
+}
+.u-map-pin .material-icons {
+  font-size: 40px;
+  line-height: 1;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, .35));
+}

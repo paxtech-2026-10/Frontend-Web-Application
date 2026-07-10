@@ -1,24 +1,26 @@
-import { Component, OnInit} from '@angular/core';
-import {NgForOf} from '@angular/common';
-import {ReservationComponent} from '../reservation/reservation.component';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Appointment} from '../../../dashboard/models/appointment.entity';
-import {ClientAppointment} from '../../../appointments/model/appointment.entity';
-import {AppointmentApiService} from '../../../appointments/services/appointment-api-service.service';
-import {ClientApiService} from '../../../iam/services/client-api.service';
-import {Client} from '../../../iam/model/client.entity';
-import {ClientAssembler} from '../../../iam/services/client.assembler';
+import { MatDialog } from '@angular/material/dialog';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { ReservationComponent } from '../reservation/reservation.component';
+import { ClientAppointment } from '../../../appointments/model/appointment.entity';
+import { AppointmentApiService } from '../../../appointments/services/appointment-api-service.service';
+import { ClientApiService } from '../../../iam/services/client-api.service';
+import { Client } from '../../../iam/model/client.entity';
+import { ClientAssembler } from '../../../iam/services/client.assembler';
+import {
+  AppointmentDetailDialogComponent
+} from '../appointment-detail-dialog/appointment-detail-dialog.component';
+
+const ALL_WORKERS = 'Todos';
 
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.css'],
   standalone: true,
-  imports: [
-    NgForOf,
-    ReservationComponent,
-    CommonModule
-  ], // Aquí luego agregaremos CommonModule y el ReservationComponent
+  imports: [CommonModule, ReservationComponent, TranslatePipe, MatProgressSpinnerModule],
 })
 export class CalendarComponent implements OnInit {
   days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
@@ -28,80 +30,62 @@ export class CalendarComponent implements OnInit {
     '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00'
   ];
 
-  workers: string[] = ['Todos']; // Inicializar para evitar error
-  currentWorkerIndex: number = 0;
-
-
-  /*
-  workers = ['Todos', 'Gael Rivera', 'Kevin Chi'];
+  workers: string[] = [ALL_WORKERS];
   currentWorkerIndex = 0;
-  */
+
+  calendars: ClientAppointment[] = [];
+  clientNames: Map<number, string> = new Map();
+  isLoading = true;
 
   get currentWorker(): string {
     return this.workers[this.currentWorkerIndex];
   }
 
-  swapWorker(): void {
+  /** Nombre a mostrar del trabajador seleccionado (traduce el "Todos" interno). */
+  get currentWorkerDisplay(): string {
+    return this.currentWorker === ALL_WORKERS
+      ? this.translate.instant('schedule.allWorkers')
+      : this.currentWorker;
+  }
+
+  get hasAppointments(): boolean {
+    return this.calendars.length > 0;
+  }
+
+  previousWorker(): void {
+    this.currentWorkerIndex = (this.currentWorkerIndex - 1 + this.workers.length) % this.workers.length;
+  }
+
+  nextWorker(): void {
     this.currentWorkerIndex = (this.currentWorkerIndex + 1) % this.workers.length;
   }
-  /*
-  calendars: Appointment[] = [];
 
-  constructor(private appointmentService: AppointmentApiService) {}
-
-  ngOnInit(): void {
-    this.appointmentService.getAppointments().subscribe(
-      appointments => {
-        this.calendars = appointments;
-        console.log(this.calendars);
-
-        const workerSet = new Set<string>();
-        for (const appointment of appointments) {
-          if (appointment.workerName) {
-            workerSet.add(appointment.workerName);
-          }
-        }
-
-        this.workers = ['Todos', ...Array.from(workerSet)];
-
-      });
-
-  }*/
-  calendars: ClientAppointment[] = [];
-  client!: Client;
-  clientNames: Map<number, string> = new Map();
-
-  constructor(private appointmentService: AppointmentApiService, private clientService: ClientApiService) {}
+  constructor(
+    private appointmentService: AppointmentApiService,
+    private clientService: ClientApiService,
+    private dialog: MatDialog,
+    private translate: TranslateService
+  ) {}
 
   ngOnInit(): void {
-    this.appointmentService.getAppointments().subscribe(
-      appointments => {
-        this.calendars = appointments;
-        console.log(this.calendars);
+    this.appointmentService.getAppointments().subscribe(appointments => {
+      this.calendars = appointments;
+      this.isLoading = false;
 
-        const workerSet = new Set<string>();
-        for (const appointment of appointments) {
+      const workerSet = new Set<string>();
+      for (const appointment of appointments) {
+        this.clientService.getById(appointment.clientId).subscribe(c => {
+          const client: Client = ClientAssembler.toEntityFromResource(c);
+          this.clientNames.set(appointment.clientId, `${client.firstName} ${client.lastName}`);
+        });
 
-          this.clientService.getById(appointment.clientId).subscribe(c => {
-            this.client = ClientAssembler.toEntityFromResource(c);
-            let clientName = this.client.firstName + " " + this.client.lastName;
-            this.clientNames.set(appointment.clientId, clientName);
-            }
-          )
-
-          if (appointment.workerId.name) {
-            workerSet.add(appointment.workerId.name);
-          }
+        if (appointment.workerId.name) {
+          workerSet.add(appointment.workerId.name);
         }
+      }
 
-        this.workers = ['Todos', ...Array.from(workerSet)];
-
-      });
-    console.log("Prueba formatTime:", this.formatTime("2025-07-05T06:40:00"));
-    console.log("Prueba formatDay:", this.formatDay("2025-07-05T06:40:00"));
-
-
-
+      this.workers = [ALL_WORKERS, ...Array.from(workerSet)];
+    });
   }
 
   formatTime(dateStr: string): string {
@@ -109,13 +93,6 @@ export class CalendarComponent implements OnInit {
     const hours = String(date.getHours()).padStart(2, '0');
     const minutes = String(date.getMinutes()).padStart(2, '0');
     return `${hours}:${minutes}`;
-  }
-
-
-  formatDay(dateStr: string): string {
-    const date = new Date(dateStr);
-    const day = date.toLocaleDateString('en-US', { weekday: 'long' });
-    return day.charAt(0).toUpperCase() + day.slice(1);
   }
 
   isSameDay(dateStr: string, day: string): boolean {
@@ -130,18 +107,31 @@ export class CalendarComponent implements OnInit {
     return date.getHours() === hour;
   }
 
+  /** Compara un nombre de día de columna ('Monday', ...) contra la fecha actual. */
+  isTodayColumn(day: string): boolean {
+    const todayName = new Date().toLocaleDateString('en-US', { weekday: 'long' });
+    return todayName.toLowerCase() === day.toLowerCase();
+  }
 
-
-  isToday(dateStr: string): boolean {
-    const today = new Date();
-    const date = new Date(dateStr);
-    return today.toDateString() == date.toDateString();
+  /** Nombre del día traducido al idioma activo (los datos internos siempre están en inglés). */
+  translatedDayLabel(index: number): string {
+    const lang = this.translate.currentLang || 'en';
+    // 1 de enero de 2024 fue lunes: sirve de referencia fija Lunes..Domingo.
+    const reference = new Date(2024, 0, 1 + index);
+    const label = reference.toLocaleDateString(lang, { weekday: 'long' });
+    return label.charAt(0).toUpperCase() + label.slice(1);
   }
 
   getClientName(clientId: number): string {
-    return this.clientNames.get(clientId) ?? 'Loading...'
+    return this.clientNames.get(clientId) ?? '…';
   }
 
-
-
+  openDetail(appointment: ClientAppointment): void {
+    this.dialog.open(AppointmentDetailDialogComponent, {
+      width: '480px',
+      maxWidth: '95vw',
+      autoFocus: false,
+      data: { appointment, clientName: this.getClientName(appointment.clientId) }
+    });
+  }
 }

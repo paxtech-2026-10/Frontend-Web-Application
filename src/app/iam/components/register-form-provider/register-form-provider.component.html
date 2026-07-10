@@ -1,21 +1,19 @@
 <form class="register-form" [formGroup]="registerForm" (ngSubmit)="onRegister()">
   <div class="register-container">
-    <img src="https://github.com/UPC-PaxTech/uTime/blob/main/img/logoutime.png?raw=true" alt="" class="logo">
+    <div class="brand-head">
+      <img src="/uTimee.png" alt="uTime" class="brand-logo">
+      <span class="brand-name">uTime</span>
+    </div>
 
     <h1 class="title">{{ 'register.title' | translate }}</h1>
     <p class="subtitle">
       {{ 'register.subtitle' | translate }}
-      <a routerLink="/iam/login" class="login-link">Log in</a>
+      <a routerLink="/iam/login" class="login-link">{{ 'register.logIn' | translate }}</a>
     </p>
 
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>{{ 'register.company' | translate }}</mat-label>
       <input matInput formControlName="companyName" type="text" aria-label="register provider company input" />
-    </mat-form-field>
-
-    <mat-form-field appearance="fill" class="full-width">
-      <mat-label>Address</mat-label>
-      <input matInput formControlName="location" type="text" aria-label="register provider address input" />
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="full-width">
@@ -28,8 +26,8 @@
       <input matInput formControlName="password" type="password" aria-label="register provider password input" />
     </mat-form-field>
 
-    <button mat-raised-button color="primary" class="register-button" type="submit" aria-label="register provider create button">
-      Create account
+    <button class="u-btn-gradient register-button" type="submit" aria-label="register provider create button">
+      {{ 'register.create' | translate }}
     </button>
   </div>
 </form>

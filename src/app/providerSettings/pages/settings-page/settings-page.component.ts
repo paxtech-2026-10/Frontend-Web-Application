@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgIf } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { TranslatePipe } from '@ngx-translate/core';
 import { SalonProfile } from '../../../profile/models/salon-profile.entity';
 import { SalonProfileApiService } from '../../../profile/services/salon-profile-api.service';
 import { SettingsComponent } from '../../components/settings/settings.component';
@@ -13,6 +14,7 @@ import { SettingsPasswordComponent } from '../../components/settings-password/se
     NgIf,
     MatIcon,
     MatProgressSpinner,
+    TranslatePipe,
     SettingsComponent,
     SettingsPasswordComponent
   ],

@@ -1,29 +1,135 @@
-.dashboard-grid {
+:host { display: block; }
+
+/* Hero */
+.dash-hero {
   display: flex;
-  flex-direction: row;
-  gap: 24px;
-  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--u-space-6);
+}
+.dash-hello {
+  margin: 0 0 4px;
+  color: var(--u-text-muted);
+  font-size: var(--u-fs-body);
+  font-weight: 500;
+}
+.dash-title {
+  font-size: var(--u-fs-display);
+  font-weight: 700;
+  letter-spacing: -0.5px;
 }
 
+/* Dirección ya vinculada */
+.dash-address {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: var(--u-space-2) 0 0;
+  font-size: var(--u-fs-caption);
+  color: var(--u-text-muted);
+}
+.dash-address > .material-icons { font-size: 16px; color: var(--u-primary); }
+.dash-address-edit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--u-text-hint);
+  cursor: pointer;
+  transition: background var(--u-transition), color var(--u-transition);
+}
+.dash-address-edit:hover { background: var(--u-lavender-tint); color: var(--u-primary); }
+.dash-address-edit .material-icons { font-size: 15px; }
+
+/* CTA morado pulsante: vincular dirección del negocio */
+.address-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--u-space-3);
+  margin-top: var(--u-space-2);
+  padding: 16px 22px;
+  border: none;
+  border-radius: var(--u-radius-lg);
+  background: var(--u-gradient);
+  color: #fff;
+  font-family: var(--u-font);
+  font-size: var(--u-fs-title);
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  animation: cta-pulse 1.8s ease-in-out infinite;
+  transition: transform var(--u-transition);
+}
+.address-cta:hover { transform: translateY(-1px); animation-play-state: paused; }
+.address-cta-icon { font-size: 24px; }
+.address-cta-arrow { font-size: 20px; margin-left: var(--u-space-1); }
+
+@keyframes cta-pulse {
+  0%, 100% { box-shadow: 0 6px 16px rgba(114, 9, 183, .35); transform: scale(1); }
+  50%      { box-shadow: 0 12px 30px rgba(114, 9, 183, .60); transform: scale(1.02); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .address-cta { animation: none; }
+}
+
+/* Stat cards */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--u-space-4);
+  margin-bottom: var(--u-space-6);
+}
+.stat-card {
+  display: flex;
+  align-items: center;
+  gap: var(--u-space-4);
+}
+.stat-card .material-icons { font-size: 24px; }
+.stat-meta { display: flex; flex-direction: column; }
+.stat-value {
+  font-size: var(--u-fs-h1);
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--u-text);
+}
+.stat-label {
+  font-size: var(--u-fs-caption);
+  font-weight: 500;
+  color: var(--u-text-muted);
+}
+
+/* Grid principal */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--u-space-6);
+  align-items: start;
+}
 .main-column {
-  flex: 2;
-  min-width: 400px;
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  margin: 2rem;
+  gap: var(--u-space-6);
+  min-width: 0;
 }
-
 .sidebar-column {
-  flex: 1;
-  min-width: 300px;
-  max-height: 100%;
   position: sticky;
-  top: 24px;
-  margin: 3rem;
+  top: var(--u-space-6);
+  min-width: 0;
 }
 
-h1 {
-  text-align: center;
-  margin-top: 3rem;
+/* Reseñas al final */
+.reviews-section { margin-top: var(--u-space-6); }
+
+@media (max-width: 1024px) {
+  .stat-grid { grid-template-columns: repeat(2, 1fr); }
+  .dashboard-grid { grid-template-columns: 1fr; }
+  .sidebar-column { position: static; }
+}
+@media (max-width: 560px) {
+  .stat-grid { grid-template-columns: 1fr; }
 }

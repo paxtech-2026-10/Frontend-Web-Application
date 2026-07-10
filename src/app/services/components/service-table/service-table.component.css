@@ -1,30 +1,38 @@
 table {
   width: 100%;
-  padding-left: 3rem;
-  padding-right: 3rem;
+  background: transparent;
+}
+
+/* Encabezado */
+.mat-mdc-header-row {
+  background: var(--u-surface-alt);
+}
+.mat-mdc-header-cell {
+  font-size: var(--u-fs-caption);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: var(--u-text-muted);
+}
+
+/* Celdas */
+.mat-mdc-cell {
+  font-size: var(--u-fs-body);
+  color: var(--u-text-secondary);
+  border-bottom: 1px solid var(--u-border-subtle);
+}
+.mat-mdc-row:hover { background: var(--u-lavender-tint); }
+.mat-mdc-row:last-child .mat-mdc-cell { border-bottom: none; }
+
+.service-name {
+  font-weight: 600;
+  color: var(--u-text);
 }
 .service-desc {
-  font-size: 13px;
+  font-size: var(--u-fs-caption);
+  color: var(--u-text-muted);
 }
-.mat-mdc-row .mat-mdc-cell {
-  border-bottom: 1px solid transparent;
-  border-top: 1px solid transparent;
-}
-.new-service{
-  text-align: right;
-}
-.new-service-btn {
-  margin-top: 3rem;
-  margin-right: 5rem;
-  background-color: #927EA8;
-  color: white;
-  padding: 0.75rem 1.5rem;
-  border: none;
-  border-radius: 10px;
-  font-size: 14px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-.new-service-btn:hover {
-  background-color: #aa8ec6;
-}
+
+/* Botones de acción */
+.mat-mdc-icon-button { color: var(--u-text-muted); }
+.mat-mdc-icon-button:hover { color: var(--u-primary); }

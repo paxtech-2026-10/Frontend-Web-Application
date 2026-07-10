@@ -1,0 +1,9 @@
+:host { display: block; }
+
+.page-header { margin-bottom: var(--u-space-6); }
+
+.page-subtitle {
+  margin: var(--u-space-1) 0 0;
+  color: var(--u-text-muted);
+  font-size: var(--u-fs-body);
+}

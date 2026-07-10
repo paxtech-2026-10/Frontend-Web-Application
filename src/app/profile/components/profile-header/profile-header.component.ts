@@ -31,6 +31,11 @@ export class ProfileHeaderComponent {
       .toUpperCase();
   }
 
+  /** La ubicación puede venir como "direccion|lat,lon"; muestra solo la parte legible. */
+  get displayLocation(): string {
+    return (this.profile.location || '').split('|')[0].trim();
+  }
+
   openEditImages(): void {
     this.dialog.open(EditImagesDialogComponent, {
       width: '440px',

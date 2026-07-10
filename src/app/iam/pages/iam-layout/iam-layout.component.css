@@ -1,0 +1,110 @@
+.iam-wrapper {
+  background: var(--u-bg);
+  display: flex;
+  height: 100vh;
+  font-family: var(--u-font);
+  position: relative;
+}
+
+/* ---- Izquierda: slideshow ---- */
+.iam-left {
+  margin: var(--u-space-5);
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--u-radius-xl);
+  box-shadow: var(--u-shadow-float);
+}
+.iam-slideshow { width: 100%; height: 100%; position: absolute; }
+.iam-slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+  border-radius: var(--u-radius-xl);
+}
+.iam-slide.active { opacity: 1; }
+
+.iam-overlay {
+  position: relative;
+  z-index: 2;
+  padding: var(--u-space-8);
+  color: #fff;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: linear-gradient(to top, rgba(42, 2, 68, 0.75), rgba(114, 9, 183, 0.15));
+  border-radius: var(--u-radius-xl);
+}
+.iam-back {
+  position: absolute;
+  top: var(--u-space-6);
+  left: var(--u-space-6);
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(6px);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  padding: 8px 16px;
+  border-radius: var(--u-radius-pill);
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.3s ease;
+}
+.iam-back:hover { background: rgba(255, 255, 255, 0.32); }
+
+.iam-indicators {
+  position: absolute;
+  bottom: var(--u-space-5);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: var(--u-space-2);
+  z-index: 3;
+}
+.iam-indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.45);
+  cursor: pointer;
+  transition: background-color 0.3s ease, width 0.3s ease;
+}
+.iam-indicator.active {
+  background-color: #fff;
+  width: 24px;
+  border-radius: var(--u-radius-pill);
+}
+
+/* ---- Derecha: panel del formulario ---- */
+.iam-right {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  background: var(--u-surface);
+}
+#particles-js {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+.iam-lang {
+  position: absolute;
+  top: var(--u-space-6);
+  right: var(--u-space-5);
+  z-index: 5;
+}
+/* Contenedor del router-outlet: llena el panel; los hijos (páginas) se
+   centran y se superponen durante la transición */
+.iam-outlet {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+@media (max-width: 860px) {
+  .iam-left { display: none; }
+}
