@@ -1,7 +1,9 @@
 <form class="register-form" [formGroup]="registerForm" aria-label="register form">
   <div class="register-container">
-
-    <img src="https://github.com/UPC-PaxTech/uTime/blob/main/img/logoutime.png?raw=true" alt="" class="logo">
+    <div class="brand-head">
+      <img src="/uTimee.png" alt="uTime" class="brand-logo">
+      <span class="brand-name">uTime</span>
+    </div>
 
     <h1 class="title" aria-label="register">{{'register.title' | translate}}</h1>
     <p class="subtitle">
@@ -31,9 +33,8 @@
       <input matInput type="password" formControlName="password" aria-label="register password input">
     </mat-form-field>
 
-    <button mat-raised-button color="primary" class="register-button" (click)="onRegister()" aria-label="register create button">
+    <button class="u-btn-gradient register-button" (click)="onRegister()" aria-label="register create button">
       {{'register.create' | translate}}
     </button>
-
   </div>
 </form>

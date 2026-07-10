@@ -1,8 +1,17 @@
-<div class="reviews-container" aria-label="review list">
+<section class="reviews-container u-card" aria-label="review list">
   <h3>{{ 'profile.recentReviews' | translate }}</h3>
-  <div class="reviews-list">
-    @for (review of profileReviews; track review.id) {
-      <app-review-item [review]="review"></app-review-item>
-    }
-  </div>
-</div>
+
+  @if (profileReviews.length) {
+    <div class="reviews-list">
+      @for (review of profileReviews; track review.id) {
+        <app-review-item [review]="review"></app-review-item>
+      }
+    </div>
+  } @else {
+    <div class="u-empty">
+      <span class="u-empty__icon"><span class="material-icons">rate_review</span></span>
+      <p class="u-empty__title">{{ 'dashboard.noReviewsTitle' | translate }}</p>
+      <p class="u-empty__text">{{ 'dashboard.noReviewsText' | translate }}</p>
+    </div>
+  }
+</section>

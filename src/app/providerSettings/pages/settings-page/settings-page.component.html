@@ -1,7 +1,7 @@
 <section class="settings-page">
   <div *ngIf="isLoading" class="state-panel">
     <mat-spinner diameter="44"></mat-spinner>
-    <span>Loading settings...</span>
+    <span>{{ 'dashboard.loadingSettings' | translate }}</span>
   </div>
 
   <div *ngIf="!isLoading && errorMessage" class="state-panel error" role="alert">

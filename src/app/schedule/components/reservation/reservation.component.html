@@ -1,5 +1,10 @@
-<div class="reservation" aria-label="reservation details">
-  <strong>{{ service }}</strong><br />
-  {{ clientName }}<br />
-  {{ startTime }} - {{ endTime }}
-</div>
+<button
+  type="button"
+  class="reservation"
+  [class.unpaid]="!isPaid"
+  (click)="cardClick.emit()"
+  aria-label="reservation details">
+  <span class="reservation-service">{{ service }}</span>
+  <span class="reservation-client">{{ clientName }}</span>
+  <span class="reservation-time">{{ startTime }} - {{ endTime }}</span>
+</button>

@@ -1,120 +1,134 @@
 .header {
-  position: relative;
   width: 100%;
-  min-height: 280px;
   overflow: hidden;
-  border-radius: 8px;
-  background: #101828;
+  border-radius: var(--u-radius-lg);
+  background: var(--u-surface);
+  box-shadow: var(--u-shadow-card);
+  font-family: var(--u-font);
 }
+
+/* ---- Cover ---- */
+.cover-wrap { position: relative; }
 
 .cover {
   width: 100%;
-  height: 280px;
+  height: 200px;
   display: block;
   object-fit: cover;
 }
 
+/* Fallback con gradiente de marca */
 .fallback-cover {
   background:
-    radial-gradient(circle at 82% 18%, rgba(14, 165, 233, 0.34), transparent 28%),
-    linear-gradient(120deg, #0f172a, #1d4ed8 68%, #0f766e);
+    radial-gradient(circle at 82% 18%, rgba(255, 255, 255, 0.22), transparent 32%),
+    var(--u-gradient);
 }
 
-.header::after {
-  content: '';
+/* Acciones sobre el cover (editar imágenes / redes) */
+.cover-actions {
   position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, rgba(15, 23, 42, 0.72), rgba(15, 23, 42, 0.14));
-}
-
-.header-content {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
+  top: var(--u-space-3);
+  right: var(--u-space-3);
   display: flex;
+  gap: var(--u-space-2);
+}
+.cover-action {
+  display: inline-flex;
   align-items: center;
-  gap: 1rem;
-  padding: 2rem;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--u-primary);
+  cursor: pointer;
+  box-shadow: var(--u-shadow-sm);
+  transition: background var(--u-transition), transform var(--u-transition);
+}
+.cover-action:hover { background: #fff; transform: scale(1.06); }
+.cover-action mat-icon { font-size: 20px; width: 20px; height: 20px; }
+
+/* ---- Cuerpo ---- */
+.header-body {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--u-space-5);
+  padding: 0 var(--u-space-6) var(--u-space-6);
 }
 
 .avatar {
-  width: 112px;
-  height: 112px;
+  width: 104px;
+  height: 104px;
   flex: 0 0 auto;
+  margin-top: -52px; /* solapa el cover */
   border-radius: 50%;
-  border: 4px solid white;
+  border: 4px solid var(--u-surface);
   object-fit: cover;
-  background: #fff;
+  background: var(--u-surface);
+  box-shadow: var(--u-shadow-card);
 }
 
 .avatar-fallback {
   display: grid;
   place-items: center;
-  color: #1d4ed8;
-  font-size: 2rem;
+  background: var(--u-lavender-tint);
+  color: var(--u-primary);
+  font-size: var(--u-fs-display);
   font-weight: 700;
 }
 
 .text-info {
   min-width: 0;
-  color: #fff;
+  padding-top: var(--u-space-4);
 }
 
-.title-row {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  flex-wrap: wrap;
-}
-
-.title-row h2 {
+.text-info h2 {
   margin: 0;
-  font-size: 1.7rem;
-  line-height: 1.2;
-}
-
-.title-row button {
-  background: rgba(255, 255, 255, 0.92);
+  font-size: var(--u-fs-h1);
+  font-weight: 700;
+  letter-spacing: -0.4px;
+  color: var(--u-text);
 }
 
 .location {
-  margin: 0.4rem 0 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  margin: var(--u-space-2) 0 0;
   max-width: 680px;
-  color: #e5e7eb;
+  color: var(--u-text-muted);
+  font-size: var(--u-fs-body);
+  line-height: 1.5;
 }
+.location .material-icons { font-size: 18px; color: var(--u-primary); flex: 0 0 auto; margin-top: 1px; }
 
 .socials {
-  margin-top: 1rem;
+  margin-top: var(--u-space-3);
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: var(--u-space-2);
 }
 
 .socials a {
-  color: #0f172a;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--u-primary);
   text-decoration: none;
-  background-color: #fff;
-  padding: 0.45rem 0.7rem;
-  border-radius: 999px;
-  font-size: 0.9rem;
+  background: var(--u-lavender-tint);
+  padding: 6px 14px;
+  border-radius: var(--u-radius-pill);
+  font-size: var(--u-fs-label);
+  font-weight: 600;
+  transition: background var(--u-transition);
 }
-
-.socials a:hover {
-  text-decoration: underline;
-}
+.socials a .material-icons { font-size: 15px; }
+.socials a:hover { background: var(--u-lavender); }
 
 @media (max-width: 680px) {
-  .header-content {
-    align-items: flex-end;
-    padding: 1rem;
-  }
-
-  .avatar {
-    width: 80px;
-    height: 80px;
-  }
-
-  .title-row h2 {
-    font-size: 1.25rem;
-  }
+  .cover { height: 140px; }
+  .header-body { flex-direction: column; gap: var(--u-space-2); padding: 0 var(--u-space-4) var(--u-space-4); }
+  .avatar { width: 84px; height: 84px; margin-top: -42px; }
+  .text-info { padding-top: 0; }
 }

@@ -1,29 +1,80 @@
-<h1>{{ 'dashboard.hey' | translate }} Vibrance Salon, {{ 'dashboard.letsWork' | translate }}</h1>
+<!-- Hero -->
+<header class="dash-hero">
+  <div class="dash-hero-text">
+    <p class="dash-hello">{{ 'dashboard.hey' | translate }}</p>
 
-<div class="dashboard-grid">
-  <!-- COLUMNA IZQUIERDA: Appointments + Staff -->
-  <div class="main-column" aria-label="salon-grid">
-    <mat-card class="mat-elevation-z2" >
-      <mat-card-content>
-        <app-upcoming-appointments></app-upcoming-appointments>
-      </mat-card-content>
-    </mat-card>
+    @if (hasAddress) {
+      <h1 class="dash-title">{{ 'dashboard.letsWork' | translate }}</h1>
+      <p class="dash-address">
+        <span class="material-icons">location_on</span>
+        <span>{{ businessAddress }}</span>
+        <button type="button" class="dash-address-edit" (click)="openAddressDialog()" aria-label="Edit address">
+          <span class="material-icons">edit</span>
+        </button>
+      </p>
+    } @else {
+      <button type="button" class="address-cta" (click)="openAddressDialog()" aria-label="Link business address">
+        <span class="material-icons address-cta-icon">location_on</span>
+        <span class="address-cta-text">{{ 'dashboard.linkAddressCta' | translate }}</span>
+        <span class="material-icons address-cta-arrow">arrow_forward</span>
+      </button>
+    }
+  </div>
+</header>
 
-    <mat-card class="mat-elevation-z2 staff-section">
-      <mat-card-content>
-        <app-staff-list
-          [WorkerList]="worker"
-          (addStaffRequested)="openCreateWorkerDialog()"></app-staff-list>
-      </mat-card-content>
-    </mat-card>
+<!-- Stat cards -->
+<section class="stat-grid" aria-label="Resumen">
+  <div class="stat-card u-card u-card--interactive">
+    <span class="u-icon-box"><span class="material-icons">people</span></span>
+    <div class="stat-meta">
+      <span class="stat-value">{{ workersCount }}</span>
+      <span class="stat-label">{{ 'dashboard.ourStaff' | translate }}</span>
+    </div>
   </div>
 
-  <!-- COLUMNA DERECHA: Reviews -->
-  <div class="sidebar-column" aria-label="review-list">
-    <mat-card class="mat-elevation-z2">
-      <mat-card-content>
-        <app-review-list [reviews]="reviews"></app-review-list>
-      </mat-card-content>
-    </mat-card>
+  <div class="stat-card u-card u-card--interactive">
+    <span class="u-icon-box"><span class="material-icons">content_cut</span></span>
+    <div class="stat-meta">
+      <span class="stat-value">{{ servicesCount }}</span>
+      <span class="stat-label">{{ 'dashboard.services' | translate }}</span>
+    </div>
+  </div>
+
+  <div class="stat-card u-card u-card--interactive">
+    <span class="u-icon-box"><span class="material-icons">payments</span></span>
+    <div class="stat-meta">
+      <span class="stat-value">{{ dailyEarnings }}</span>
+      <span class="stat-label">{{ 'dashboard.dailyEarnings' | translate }}</span>
+    </div>
+  </div>
+
+  <div class="stat-card u-card u-card--interactive">
+    <span class="u-icon-box"><span class="material-icons">event</span></span>
+    <div class="stat-meta">
+      <span class="stat-value">{{ todayCount }}</span>
+      <span class="stat-label">{{ 'dashboard.todayAppointments' | translate }}</span>
+    </div>
+  </div>
+</section>
+
+<!-- Contenido principal: citas a la izquierda, trabajadores a la derecha -->
+<div class="dashboard-grid">
+  <div class="main-column" aria-label="upcoming appointments">
+    <section class="u-card">
+      <app-upcoming-appointments></app-upcoming-appointments>
+    </section>
+  </div>
+
+  <div class="sidebar-column" aria-label="staff list">
+    <section class="u-card">
+      <app-staff-list
+        [WorkerList]="worker"
+        (addStaffRequested)="openCreateWorkerDialog()"></app-staff-list>
+    </section>
   </div>
 </div>
+
+<!-- Reseñas al final, ancho completo -->
+<section class="u-card reviews-section" aria-label="review-list">
+  <app-review-list [reviews]="reviews"></app-review-list>
+</section>

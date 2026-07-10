@@ -1,0 +1,38 @@
+<div class="iam-wrapper">
+  <!-- Izquierda: slideshow (fijo y compartido entre login/register) -->
+  <div class="iam-left">
+    <div class="iam-slideshow">
+      <img
+        *ngFor="let image of slideImages; let i = index"
+        [src]="image"
+        class="iam-slide"
+        [class.active]="i === activeIndex"
+        alt=""
+      />
+    </div>
+    <div class="iam-overlay">
+      <button class="iam-back" aria-label="landing page button"
+              onclick="window.location.href='https://upc-paxtech.github.io/uTime-Landing-Page/'">
+        ← {{ 'login.back' | translate }}
+      </button>
+    </div>
+    <div class="iam-indicators">
+      <span
+        *ngFor="let img of slideImages; let i = index"
+        class="iam-indicator"
+        [class.active]="i === activeIndex"
+        (click)="setSlide(i)"
+      ></span>
+    </div>
+  </div>
+
+  <!-- Derecha: formulario dinámico con transición de aparición -->
+  <div class="iam-right">
+    <div id="particles-js"></div>
+    <div class="iam-lang"><app-language-switcher></app-language-switcher></div>
+
+    <div class="iam-outlet" [@routeFade]="prepareRoute(outlet)">
+      <router-outlet #outlet="outlet"></router-outlet>
+    </div>
+  </div>
+</div>

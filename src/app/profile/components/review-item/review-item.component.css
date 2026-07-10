@@ -1,21 +1,33 @@
 .review-card {
-  background: #e0e0e0;
-  border-radius: 10px;
-  padding: 1rem;
+  background: var(--u-surface-alt);
+  border-radius: var(--u-radius-md);
+  padding: var(--u-space-4);
   min-width: 200px;
   text-align: left;
+  font-family: var(--u-font);
 }
 
-.stars span {
-  color: #ccc;
+.review-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--u-space-2);
 }
 
-.stars span.filled {
-  color: #f5b301; /* Star filled color */
+.review-card h4 {
+  margin: 0;
+  font-size: var(--u-fs-body);
+  font-weight: 700;
+  color: var(--u-text);
 }
+
+.stars { display: flex; gap: 1px; margin: 0; }
+.stars .material-icons { font-size: 15px; color: var(--u-border); }
+.stars .material-icons.filled { color: var(--u-amber); }
 
 .comment {
-  font-style: italic;
-  color: #333;
-  margin-top: 0.5rem;
+  font-size: var(--u-fs-body);
+  color: var(--u-text-muted);
+  margin: var(--u-space-2) 0 0;
+  line-height: 1.4;
 }

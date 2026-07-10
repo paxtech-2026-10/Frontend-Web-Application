@@ -8,7 +8,6 @@ import { ServiceApiService } from '../../services/services-api.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateServiceDialogComponent } from '../../components/service-dialog/service-dialog.component';
 import { ServiceResponse } from '../../services/service.response';
-import { MatButton } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
 
@@ -20,7 +19,6 @@ type LoadStatus = 'loading' | 'success' | 'empty' | 'failure';
     CommonModule,
     TranslatePipe,
     ServiceTableComponent,
-    MatButton,
     MatProgressSpinnerModule,
     MatIconModule,
   ],

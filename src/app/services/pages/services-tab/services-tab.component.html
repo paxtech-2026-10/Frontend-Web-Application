@@ -1,4 +1,12 @@
-<h1 aria-label="Services">{{ 'dashboard.services' | translate }}</h1>
+<header class="page-header">
+  <div>
+    <h1 class="u-page-title" aria-label="Services">{{ 'dashboard.services' | translate }}</h1>
+  </div>
+  <button *ngIf="status === 'success'" class="u-btn-gradient" (click)="openCreateServiceDialog()" aria-label="Add new service">
+    <span class="material-icons">add</span>
+    {{ 'services.newService' | translate }}
+  </button>
+</header>
 
 <div class="services" aria-label="Services section">
 
@@ -9,34 +17,33 @@
   </div>
 
   <!-- Empty state -->
-  <div *ngIf="status === 'empty'" class="state-container" aria-label="No services yet">
-    <mat-icon class="state-icon">inbox</mat-icon>
+  <div *ngIf="status === 'empty'" class="state-container u-card" aria-label="No services yet">
+    <span class="u-icon-box state-emblem"><mat-icon>content_cut</mat-icon></span>
     <h2 class="state-title">{{ 'services.emptyTitle' | translate }}</h2>
     <p class="state-text">{{ 'services.emptySubtitle' | translate }}</p>
-    <button mat-raised-button color="primary" (click)="openCreateServiceDialog()" aria-label="Create first service">
+    <button class="u-btn-gradient" (click)="openCreateServiceDialog()" aria-label="Create first service">
       {{ 'services.firstService' | translate }}
     </button>
   </div>
 
   <!-- Failure state -->
-  <div *ngIf="status === 'failure'" class="state-container" role="alert">
+  <div *ngIf="status === 'failure'" class="state-container u-card" role="alert">
     <mat-icon class="state-icon error-icon">error_outline</mat-icon>
     <h2 class="state-title">{{ 'services.failureTitle' | translate }}</h2>
     <p class="state-text" *ngIf="errorMessage">{{ errorMessage }}</p>
-    <button mat-stroked-button (click)="retry()" aria-label="Retry loading services">
+    <button class="u-btn-outline" (click)="retry()" aria-label="Retry loading services">
       {{ 'services.retry' | translate }}
     </button>
   </div>
 
   <!-- Success state -->
   <ng-container *ngIf="status === 'success'">
-    <app-service-table
-      [services]="service"
-      [newService]="newService"
-      (servicesChanged)="loadServices()"></app-service-table>
-    <button mat-raised-button color="primary" class="new-service-btn" (click)="openCreateServiceDialog()" aria-label="Add new service">
-      {{ 'services.newService' | translate }}
-    </button>
+    <div class="u-card table-card">
+      <app-service-table
+        [services]="service"
+        [newService]="newService"
+        (servicesChanged)="loadServices()"></app-service-table>
+    </div>
   </ng-container>
 
 </div>

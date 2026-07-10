@@ -1,13 +1,11 @@
-import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { RegisterFormClientComponent } from '../../components/register-form-client/register-form-client.component';
 import { RegisterFormProviderComponent } from '../../components/register-form-provider/register-form-provider.component';
 import { FormsModule } from '@angular/forms';
-import { NgForOf, NgIf } from '@angular/common';
-import { tsParticles, type ISourceOptions } from '@tsparticles/engine';
-import { loadFull } from 'tsparticles';
-import { LanguageSwitcherComponent } from '../../../public/components/language-switcher/language-switcher.component';
+import { NgIf } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { trigger, transition, query, style, animate, group } from '@angular/animations';
 
 @Component({
   selector: 'app-register-page',
@@ -17,70 +15,37 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
     RegisterFormProviderComponent,
     FormsModule,
     NgIf,
-    NgForOf,
-    LanguageSwitcherComponent,
     TranslatePipe,
     MatButtonToggleModule
   ],
   templateUrl: './register-page.component.html',
-  styleUrl: './register-page.component.css'
+  styleUrl: './register-page.component.css',
+  animations: [
+    // Exactamente la misma animación que el cambio login<->register (routeFade en iam-layout).
+    // El escenario (.register-container) tiene altura fija, igual que .iam-outlet, así que
+    // Client y Provider ocupan el mismo espacio y solo hacen crossfade, sin saltos.
+    trigger('formSwap', [
+      transition('* <=> *', [
+        query(':enter, :leave', [
+          style({ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' })
+        ], { optional: true }),
+        query(':enter', [style({ opacity: 0, transform: 'translateY(12px)' })], { optional: true }),
+        group([
+          query(':leave', [
+            animate('130ms ease', style({ opacity: 0, transform: 'translateY(-8px)' }))
+          ], { optional: true }),
+          query(':enter', [
+            animate('260ms 90ms cubic-bezier(0.22, 1, 0.36, 1)', style({ opacity: 1, transform: 'translateY(0)' }))
+          ], { optional: true }),
+        ]),
+      ]),
+    ]),
+  ],
 })
-export class RegisterPageComponent implements OnInit, OnDestroy, AfterViewInit {
-  isProvider: boolean = false;
-  slideImages: string[] = [
-    'https://www.gammabross.com/Gallery/salonimg-frkqkj-181.webp',
-    'https://thehappening.com/wp-content/uploads/2024/02/captura-de-pantalla-2023-05-17-a-la-s-52813-pm-1.jpg',
-    'https://cdn1.treatwell.net/images/view/v2.i7379851.w720.h480.x5F15B4CB/'
-  ];
-
-  activeIndex: number = 0;
-  intervalId: any;
-
-  ngOnInit(): void {
-    this.intervalId = setInterval(() => {
-      this.activeIndex = (this.activeIndex + 1) % this.slideImages.length;
-    }, 5000);
-  }
-
-  async ngAfterViewInit() {
-    await loadFull(tsParticles);
-    await tsParticles.load({
-      id: 'particles-js',
-      options: this.particlesOptions
-    });
-  }
-
-  ngOnDestroy(): void {
-    clearInterval(this.intervalId);
-  }
-
-  setSlide(index: number): void {
-    this.activeIndex = index;
-  }
+export class RegisterPageComponent {
+  isProvider = false;
 
   toggleForm(value: boolean) {
     this.isProvider = value;
   }
-
-  private particlesOptions: ISourceOptions = {
-    background: { color: { value: 'transparent' } },
-    fpsLimit: 60,
-    particles: {
-      number: { value: 80, density: { enable: true, width: 800 } },
-      color: { value: '#f3a3ff' },
-      shape: { type: 'circle' },
-      opacity: { value: 0.5 },
-      size: {
-        value: { min: 2, max: 4 },
-      },
-      move: {
-        enable: true,
-        speed: 2,
-        direction: 'none',
-        outModes: { default: 'out' }
-      },
-      links: { enable: false }
-    },
-    detectRetina: true
-  };
 }

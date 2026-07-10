@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {TranslatePipe} from '@ngx-translate/core';
-import {MatCard, MatCardContent, MatCardTitle} from '@angular/material/card';
 import { Review } from '../../models/review.entity';
 import {ReviewApiService} from '../../services/review-api.service';
 import {ReviewListComponent} from '../../../dashboard/components/review-list/review-list.component';
@@ -10,8 +9,6 @@ import {ReviewAssembler} from '../../services/review.assembler';
   selector: 'app-reviews-tab',
   imports: [
     TranslatePipe,
-    MatCard,
-    MatCardContent,
     ReviewListComponent
   ],
   templateUrl: './reviews-tab.component.html',

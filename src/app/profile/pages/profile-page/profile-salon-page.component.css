@@ -1,23 +1,26 @@
 .profile-page {
   display: grid;
-  gap: 1.25rem;
-  padding: 1.5rem;
+  gap: var(--u-space-5);
 }
 
 .page-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: var(--u-space-2);
 }
 
 .page-header h1 {
   margin: 0;
-  font-size: 1.8rem;
+  font-size: var(--u-fs-display);
+  font-weight: 700;
+  letter-spacing: -0.5px;
 }
 
 .page-header p {
-  margin: 0.35rem 0 0;
-  color: #5c667a;
+  margin: var(--u-space-2) 0 0;
+  color: var(--u-text-muted);
+  font-size: var(--u-fs-body);
 }
 
 .state-panel {
@@ -25,15 +28,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.75rem;
-  border: 1px solid #d9e1ee;
-  border-radius: 8px;
-  background: #fff;
-  color: #334155;
+  gap: var(--u-space-3);
+  border-radius: var(--u-radius-lg);
+  background: var(--u-surface);
+  box-shadow: var(--u-shadow-card);
+  color: var(--u-text-secondary);
 }
 
 .state-panel.error {
-  border-color: #f5c2c7;
-  background: #fff5f5;
-  color: #b42318;
+  background: var(--u-danger-soft);
+  color: var(--u-danger);
 }

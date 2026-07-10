@@ -1,11 +1,55 @@
+.worker-dialog {
+  padding: var(--u-space-6);
+  font-family: var(--u-font);
+  min-width: 340px;
+}
+
+.worker-dialog-head {
+  display: flex;
+  align-items: center;
+  gap: var(--u-space-3);
+  margin-bottom: var(--u-space-2);
+}
+.worker-dialog-head h2 {
+  margin: 0;
+  font-size: var(--u-fs-h2);
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  color: var(--u-text);
+}
+
 .worker-field {
   display: block;
   width: 100%;
-  min-width: 320px;
 }
 
 .dialog-error {
-  color: #b00020;
-  font-size: 13px;
-  margin: -8px 0 12px;
+  color: var(--u-danger);
+  font-size: var(--u-fs-caption);
+  margin: -8px 0 var(--u-space-3);
+}
+
+.worker-preview {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--u-space-2);
+}
+.worker-preview img {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--u-border-subtle);
+  background: var(--u-surface-alt);
+}
+
+mat-dialog-actions {
+  padding: 0 !important;
+  margin-top: var(--u-space-4) !important;
+  gap: var(--u-space-3);
+}
+mat-dialog-actions .u-btn-outline,
+mat-dialog-actions .u-btn-gradient {
+  padding: 10px 22px;
+  font-size: var(--u-fs-body);
 }

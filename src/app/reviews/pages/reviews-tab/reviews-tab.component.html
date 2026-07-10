@@ -1,9 +1,9 @@
-<h1 aria-label="Reviews">{{ 'dashboard.reviews' | translate }}</h1>
+<header class="page-header">
+  <h1 class="u-page-title" aria-label="Reviews">{{ 'dashboard.reviews' | translate }}</h1>
+</header>
 
-<div class="main-column" aria-label="Main content column">
-  <mat-card class="mat-elevation-z2" aria-label="Reviews card">
-    <mat-card-content aria-label="Reviews content">
-      <app-review-list [reviews]="reviews" [average]="average"></app-review-list>
-    </mat-card-content>
-  </mat-card>
+<div class="reviews-wrap" aria-label="Main content column">
+  <section class="u-card" aria-label="Reviews card">
+    <app-review-list [reviews]="reviews" [average]="average"></app-review-list>
+  </section>
 </div>

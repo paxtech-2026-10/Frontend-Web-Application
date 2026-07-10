@@ -1,52 +1,56 @@
-/* 1. Elimina scroll del body */
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  overflow: hidden;
+:host {
+  display: block;
+  min-height: 100vh;
+  background: var(--u-bg);
 }
 
+/* Toolbar fijo, ancho completo */
 app-toolbar-provider {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  height: 100px; /* o lo que mida tu toolbar exacto */
+  height: var(--u-toolbar-h);
   z-index: 1000;
-  background-color: white;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
-/* 3. Sidebar fijo */
-app-sidebar {
-  position: fixed;
-  top: 64px; /* Debajo del toolbar */
-  left: 0;
-  width: 250px;
-  height: calc(100vh - 64px);
-  background-color: #f9f9f9;
-  z-index: 900;
-  overflow-y: auto;
-}
-
-/* 4. Layout general */
+/* Layout general bajo el toolbar */
 .main-layout {
   display: flex;
-  height: 100vh;
-  margin-top: 64px; /* espacio para el toolbar */
-}
-/* 5. Contenido a la derecha del sidebar */
-.content {
-  margin-left: 250px; /* Empuja hacia la derecha del sidebar */
-  height: calc(100vh - 64px); /* Espacio restante bajo el toolbar */
-  padding: 2rem;
-  background-color: #f9f9f9;
-  width: calc(100vw - 250px); /* Evita que se meta debajo del sidebar */
-}
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  overflow: hidden; /* 👈 ESTO es clave */
+  align-items: flex-start;
+  padding-top: var(--u-toolbar-h);
+  min-height: 100vh;
 }
 
+/* Sidebar flotante fijo a la izquierda, ocupando todo el lateral */
+app-sidebar {
+  position: fixed;
+  top: calc(var(--u-toolbar-h) + var(--u-space-4));
+  left: var(--u-space-4);
+  bottom: var(--u-space-4);
+  width: var(--u-sidebar-w);
+  z-index: 900;
+}
+
+/* Contenido a la derecha del sidebar */
+.content {
+  flex: 1;
+  min-width: 0;
+  margin-left: calc(var(--u-sidebar-w) + var(--u-space-6));
+  padding: var(--u-space-6) var(--u-space-8) var(--u-space-10) var(--u-space-2);
+}
+
+/* Responsive: el sidebar se colapsa (lo maneja el propio sidebar en <= 900px) */
+@media (max-width: 900px) {
+  app-sidebar {
+    top: auto;
+    bottom: var(--u-space-4);
+    left: 50%;
+    transform: translateX(-50%);
+    width: auto;
+  }
+  .content {
+    margin-left: 0;
+    padding: var(--u-space-4) var(--u-space-4) 96px;
+  }
+}

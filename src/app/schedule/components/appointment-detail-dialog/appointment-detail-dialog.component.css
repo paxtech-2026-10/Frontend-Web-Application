@@ -1,0 +1,85 @@
+.detail-dialog {
+  display: flex;
+  flex-direction: column;
+  gap: var(--u-space-5);
+  padding: var(--u-space-6);
+  font-family: var(--u-font);
+  color: var(--u-text);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.detail-head {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--u-space-3);
+}
+.detail-title {
+  margin: 0;
+  font-size: var(--u-fs-h2);
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+.detail-subtitle {
+  margin: 2px 0 0;
+  font-size: var(--u-fs-caption);
+  color: var(--u-text-muted);
+}
+.detail-close {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  background: var(--u-surface-alt);
+  color: var(--u-text-secondary);
+  cursor: pointer;
+  transition: background var(--u-transition), color var(--u-transition);
+}
+.detail-close:hover { background: var(--u-danger-soft); color: var(--u-danger); }
+
+.detail-rows {
+  display: flex;
+  flex-direction: column;
+  gap: var(--u-space-1);
+}
+
+.detail-row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--u-space-3);
+  padding: var(--u-space-3);
+  border-radius: var(--u-radius-md);
+  transition: background var(--u-transition);
+}
+.detail-row:hover { background: var(--u-surface-alt); }
+.detail-row > .material-icons {
+  font-size: 20px;
+  color: var(--u-primary);
+  margin-top: 2px;
+  flex: 0 0 auto;
+}
+.detail-row > div { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+
+.detail-label {
+  font-size: var(--u-fs-caption);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: var(--u-text-muted);
+}
+.detail-value {
+  font-size: var(--u-fs-body);
+  font-weight: 600;
+  color: var(--u-text);
+}
+.payment-row { display: flex; align-items: center; gap: var(--u-space-2); }
+
+.detail-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+.detail-actions .u-btn-outline { padding: 10px 22px; font-size: var(--u-fs-body); }

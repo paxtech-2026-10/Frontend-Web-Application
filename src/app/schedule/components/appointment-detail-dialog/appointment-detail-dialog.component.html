@@ -1,0 +1,71 @@
+<div class="detail-dialog">
+  <header class="detail-head">
+    <span class="u-icon-box"><span class="material-icons">event_note</span></span>
+    <div>
+      <h2 class="detail-title">{{ 'schedule.detailTitle' | translate }}</h2>
+      <p class="detail-subtitle">{{ appointment.service.name }}</p>
+    </div>
+    <button type="button" class="detail-close" aria-label="Close" (click)="close()">
+      <span class="material-icons">close</span>
+    </button>
+  </header>
+
+  <div class="detail-rows">
+    <div class="detail-row">
+      <span class="material-icons">person</span>
+      <div>
+        <span class="detail-label">{{ 'schedule.client' | translate }}</span>
+        <span class="detail-value">{{ clientName }}</span>
+      </div>
+    </div>
+
+    <div class="detail-row">
+      <span class="material-icons">content_cut</span>
+      <div>
+        <span class="detail-label">{{ 'schedule.service' | translate }}</span>
+        <span class="detail-value">{{ appointment.service.name }}</span>
+      </div>
+    </div>
+
+    <div class="detail-row">
+      <span class="material-icons">badge</span>
+      <div>
+        <span class="detail-label">{{ 'schedule.staff' | translate }}</span>
+        <span class="detail-value">{{ appointment.workerId.name }} · {{ appointment.workerId.specialization }}</span>
+      </div>
+    </div>
+
+    <div class="detail-row">
+      <span class="material-icons">calendar_month</span>
+      <div>
+        <span class="detail-label">{{ 'schedule.date' | translate }}</span>
+        <span class="detail-value">{{ formattedDate }}</span>
+      </div>
+    </div>
+
+    <div class="detail-row">
+      <span class="material-icons">schedule</span>
+      <div>
+        <span class="detail-label">{{ 'schedule.time' | translate }}</span>
+        <span class="detail-value">{{ formattedTimeRange }}</span>
+      </div>
+    </div>
+
+    <div class="detail-row">
+      <span class="material-icons">payments</span>
+      <div>
+        <span class="detail-label">{{ 'schedule.payment' | translate }}</span>
+        <span class="detail-value payment-row">
+          {{ amount }}
+          <span class="u-badge" [class.u-badge--success]="isPaid" [class.u-badge--danger]="!isPaid">
+            {{ (isPaid ? 'schedule.paid' : 'schedule.unpaid') | translate }}
+          </span>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <footer class="detail-actions">
+    <button type="button" class="u-btn-outline" (click)="close()">{{ 'schedule.close' | translate }}</button>
+  </footer>
+</div>

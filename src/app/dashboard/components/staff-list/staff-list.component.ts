@@ -13,10 +13,15 @@ import {MatButton} from '@angular/material/button';
 export class StaffListComponent {
   @Input() WorkerList: Worker[]= [];
   @Input() showAddButton = true;
+  @Input() showHeader = true;
   @Input() selectable = false;
   @Input() selectedWorkerId: number | null = null;
+  /** Cuando es true, cada trabajador muestra acciones de editar/eliminar en vez de selección. */
+  @Input() manageable = false;
   @Output() addStaffRequested = new EventEmitter<void>();
   @Output() workerSelected = new EventEmitter<Worker>();
+  @Output() editWorkerRequested = new EventEmitter<Worker>();
+  @Output() deleteWorkerRequested = new EventEmitter<Worker>();
 
   selectWorker(worker: Worker): void {
     if (!this.selectable) return;

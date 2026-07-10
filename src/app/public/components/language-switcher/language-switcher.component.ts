@@ -1,22 +1,16 @@
 import {Component} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
-import {MatButtonToggleModule} from '@angular/material/button-toggle';
-import {NgForOf, NgSwitch, NgSwitchCase} from '@angular/common';
+import {NgForOf, NgIf, UpperCasePipe} from '@angular/common';
 import {MatMenu, MatMenuItem, MatMenuTrigger} from '@angular/material/menu';
-import{MatIcon} from '@angular/material/icon';
-import {MatButton} from '@angular/material/button';
 
 @Component({
   selector: 'app-language-switcher',
   imports: [
-    MatButtonToggleModule,
     NgForOf,
-    NgSwitch,
-    NgSwitchCase,
+    NgIf,
+    UpperCasePipe,
     MatMenu,
-    MatIcon,
     MatMenuItem,
-    MatButton,
     MatMenuTrigger
   ],
   templateUrl: './language-switcher.component.html',

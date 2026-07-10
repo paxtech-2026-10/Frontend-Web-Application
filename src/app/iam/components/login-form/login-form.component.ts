@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { MatButton } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatInput } from '@angular/material/input';
@@ -13,7 +12,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-login-form',
   imports: [
-    MatButton,
     MatFormFieldModule,
     MatInput,
     FormsModule,

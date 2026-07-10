@@ -1,3 +1,39 @@
-.color-language{
-  color: #000000;
+:host { display: inline-flex; }
+
+.lang-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 42px;
+  padding: 0 12px;
+  background: var(--u-surface-alt);
+  border: none;
+  border-radius: var(--u-radius-pill);
+  cursor: pointer;
+  color: var(--u-text-secondary);
+  font-family: var(--u-font);
+  font-size: var(--u-fs-body);
+  font-weight: 600;
+  transition: background var(--u-transition), color var(--u-transition);
 }
+.lang-trigger:hover { background: var(--u-lavender-tint); color: var(--u-primary); }
+
+.lang-globe { font-size: 20px; }
+.lang-code { letter-spacing: 0.5px; }
+.lang-caret { font-size: 18px; opacity: 0.7; }
+
+/* Ítems del menú */
+.lang-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+.lang-item-code {
+  font-weight: 700;
+  font-size: var(--u-fs-caption);
+  color: var(--u-primary);
+  min-width: 26px;
+}
+.lang-item-name { color: var(--u-text); font-size: var(--u-fs-body); }
+.lang-check { margin-left: auto; font-size: 18px; color: var(--u-primary); }

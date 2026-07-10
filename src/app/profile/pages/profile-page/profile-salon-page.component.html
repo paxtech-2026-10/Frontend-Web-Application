@@ -2,13 +2,13 @@
   <header class="page-header">
     <div>
       <h1>{{ 'profile.yourProfile' | translate }}</h1>
-      <p>Manage the public profile clients see when they book your services.</p>
+      <p>{{ 'profile.subtitle' | translate }}</p>
     </div>
   </header>
 
   <div *ngIf="isLoading" class="state-panel">
     <mat-spinner diameter="44"></mat-spinner>
-    <span>Loading profile...</span>
+    <span>{{ 'dashboard.loadingProfile' | translate }}</span>
   </div>
 
   <div *ngIf="!isLoading && errorMessage" class="state-panel error" role="alert">

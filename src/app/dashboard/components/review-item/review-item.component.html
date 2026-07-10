@@ -3,7 +3,7 @@
     <h4 class="review-author">{{ review.author }}</h4>
     <div class="review-stars" aria-label="review-stars">
       @for (_ of getStars(); let i = $index; track review.id) {
-        <span class="star">⭐</span>
+        <span class="material-icons star">star</span>
       }
     </div>
   </div>

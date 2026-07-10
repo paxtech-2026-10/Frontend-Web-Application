@@ -7,11 +7,22 @@
       <div class="staff-role">{{ worker.specialization }}</div>
     </div>
 
-    <div class="staff-action" aria-label="staff-button">
-      <button mat-button color="primary" type="button">
-        {{ actionLabel || ('dashboard.viewSchedule' | translate) }}
-        <mat-icon>{{ selected ? 'check' : 'chevron_right' }}</mat-icon>
-      </button>
-    </div>
+    @if (manageable) {
+      <div class="staff-action staff-manage-actions" aria-label="staff-manage-actions">
+        <button mat-icon-button color="primary" type="button" aria-label="Edit staff member" (click)="editRequested.emit(worker)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button type="button" aria-label="Remove staff member" (click)="deleteRequested.emit(worker)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    } @else {
+      <div class="staff-action" aria-label="staff-button">
+        <button mat-button color="primary" type="button">
+          {{ actionLabel || ('dashboard.viewSchedule' | translate) }}
+          <mat-icon>{{ selected ? 'check' : 'chevron_right' }}</mat-icon>
+        </button>
+      </div>
+    }
   </div>
 </mat-card>

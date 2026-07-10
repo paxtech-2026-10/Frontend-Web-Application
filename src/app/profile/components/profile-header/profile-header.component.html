@@ -1,12 +1,25 @@
 <section class="header">
-  <ng-container *ngIf="profile.coverImageUrl; else coverFallback">
-    <img class="cover" [src]="profile.coverImageUrl" alt="Salon cover">
-  </ng-container>
-  <ng-template #coverFallback>
-    <div class="cover fallback-cover" aria-hidden="true"></div>
-  </ng-template>
+  <!-- Cover -->
+  <div class="cover-wrap">
+    <ng-container *ngIf="profile.coverImageUrl; else coverFallback">
+      <img class="cover" [src]="profile.coverImageUrl" alt="Salon cover">
+    </ng-container>
+    <ng-template #coverFallback>
+      <div class="cover fallback-cover" aria-hidden="true"></div>
+    </ng-template>
 
-  <div class="header-content">
+    <div class="cover-actions">
+      <button type="button" class="cover-action" (click)="openEditImages()" aria-label="Edit profile images">
+        <mat-icon>image</mat-icon>
+      </button>
+      <button type="button" class="cover-action" (click)="openEditSocials()" aria-label="Edit social links">
+        <mat-icon>alternate_email</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <!-- Contenido en superficie clara (legible) -->
+  <div class="header-body">
     <ng-container *ngIf="profile.profileImageUrl; else avatarFallback">
       <img class="avatar" [src]="profile.profileImageUrl" alt="Salon avatar">
     </ng-container>
@@ -15,17 +28,12 @@
     </ng-template>
 
     <div class="text-info">
-      <div class="title-row">
-        <h2>{{ profile.companyName || 'Provider profile' }}</h2>
-        <button mat-icon-button color="primary" type="button" (click)="openEditImages()" aria-label="Edit profile images">
-          <mat-icon>image</mat-icon>
-        </button>
-        <button mat-icon-button color="primary" type="button" (click)="openEditSocials()" aria-label="Edit social links">
-          <mat-icon>alternate_email</mat-icon>
-        </button>
-      </div>
+      <h2>{{ profile.companyName || 'Provider profile' }}</h2>
 
-      <p class="location" *ngIf="profile.location">{{ profile.location }}</p>
+      <p class="location" *ngIf="displayLocation">
+        <span class="material-icons">location_on</span>
+        {{ displayLocation }}
+      </p>
 
       <div class="socials" *ngIf="profile.socials && (profile.socials | keyvalue).length">
         <a
@@ -33,6 +41,7 @@
           [href]="social.value"
           target="_blank"
           rel="noopener">
+          <span class="material-icons">link</span>
           {{ social.key }}
         </a>
       </div>

@@ -1,6 +1,8 @@
 <section aria-label="staff section">
-  <div class="staff-list-header">
-    <h3>{{ 'dashboard.ourStaff' | translate }}</h3>
+  <div class="staff-list-header" *ngIf="showHeader || showAddButton">
+    @if (showHeader) {
+      <h3>{{ 'dashboard.ourStaff' | translate }}</h3>
+    }
     @if (showAddButton) {
       <button
         mat-raised-button
@@ -24,7 +26,26 @@
         [worker]="worker"
         [selected]="selectedWorkerId === worker.id"
         [actionLabel]="selectable ? (selectedWorkerId === worker.id ? 'Selected' : 'Select') : null"
+        [manageable]="manageable"
+        (editRequested)="editWorkerRequested.emit($event)"
+        (deleteRequested)="deleteWorkerRequested.emit($event)"
         aria-label="worker"></app-staff-item>
+    </div>
+  } @empty {
+    <div class="u-empty">
+      <span class="u-empty__icon"><span class="material-icons">group_add</span></span>
+      <p class="u-empty__title">{{ 'dashboard.noStaffTitle' | translate }}</p>
+      <p class="u-empty__text">{{ 'dashboard.noStaffText' | translate }}</p>
+      @if (showAddButton) {
+        <button
+          class="u-btn-outline u-empty__action"
+          type="button"
+          aria-label="Add staff member"
+          (click)="addStaffRequested.emit()">
+          <span class="material-icons">add</span>
+          Add staff
+        </button>
+      }
     </div>
   }
 </section>
