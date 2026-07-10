@@ -4,7 +4,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { AppointmentMakerComponent } from './appointment-maker.component';
 import { WorkerApiService } from '../../../dashboard/services/worker-api.service';
-import { AppointmentApiService as DashboardAppointmentApiService } from '../../../dashboard/services/appointment-api.service';
 import { AppointmentApiService as AppointmentsAppointmentApiService } from '../../services/appointment-api-service.service';
 import { TimeSlotApiService } from '../../services/time-slot-api.service';
 import { PaymentApiService } from '../../services/payment-api.service';
@@ -14,12 +13,10 @@ describe('AppointmentMakerComponent', () => {
   let component: AppointmentMakerComponent;
   let fixture: ComponentFixture<AppointmentMakerComponent>;
   let workerApiSpy: jasmine.SpyObj<WorkerApiService>;
-  let appointmentApiSpy: jasmine.SpyObj<DashboardAppointmentApiService>;
   let calendarAppointmentApiSpy: jasmine.SpyObj<AppointmentsAppointmentApiService>;
 
   beforeEach(async () => {
     workerApiSpy = jasmine.createSpyObj('WorkerApiService', ['getWorkers']);
-    appointmentApiSpy = jasmine.createSpyObj('DashboardAppointmentApiService', ['create']);
     calendarAppointmentApiSpy = jasmine.createSpyObj('AppointmentsAppointmentApiService', ['getAll']);
     workerApiSpy.getWorkers.and.returnValue(of([
       { id: 1, name: 'Mia', specialization: 'Stylist', photoUrl: 'mia.jpg', providerId: 4 }
@@ -37,7 +34,6 @@ describe('AppointmentMakerComponent', () => {
       imports: [AppointmentMakerComponent],
       providers: [
         { provide: WorkerApiService, useValue: workerApiSpy },
-        { provide: DashboardAppointmentApiService, useValue: appointmentApiSpy },
         { provide: AppointmentsAppointmentApiService, useValue: calendarAppointmentApiSpy },
         { provide: TimeSlotApiService, useValue: jasmine.createSpyObj('TimeSlotApiService', ['post']) },
         { provide: PaymentApiService, useValue: jasmine.createSpyObj('PaymentApiService', ['post']) },
